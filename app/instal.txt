@@ -9,13 +9,13 @@ npm i react-feather
 
 .................................................
 
-SUPABASE_URL = https://djfaztojwfbjslvxbdep.supabase.co
-SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRqZmF6dG9qd2ZianNsdnhiZGVwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyODY0ODQ1NCwiZXhwIjoyMDQ0MjI0NDU0fQ.kAp3G5sWkn9K6EgilFTiPAKCOVgvkkV-AxfjPdjJUlo
+SUPABASE_URL = https://jlfekazftgytoziyfzfn.supabase.co
+SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpsZmVrYXpmdGd5dG96aXlmemZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc5Nzk4NjAsImV4cCI6MjA1MzU1NTg2MH0.iYdyI0IJZs2dvY-Fh3I6l4G66GRJiWIo9ZzD6LK7N-w
 
 NEXTAUTH_URL= http://localhost:3000
-NEXTAUTH_SECRET= 914adf612c711ccae626616ee2e4f851
+NEXTAUTH_SECRET= 
 
-AUTH_GOOGLE_ID= 1068573188222-fmpqv9aaoeqt7okbcovobbsnoj7l4lng.apps.googleusercontent.com
-AUTH_GOOGLE_SECRET= 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
+AUTH_GOOGLE_ID= 
+AUTH_GOOGLE_SECRET= 
 
 .................................................
