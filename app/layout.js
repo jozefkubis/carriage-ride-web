@@ -1,4 +1,5 @@
 import "@/app/_styles/globals.css"
+import Header from "./_components/Header"
 
 // const notoSans = Noto_Sans({
 //   subsets: ["latin"],
@@ -17,7 +18,12 @@ import "@/app/_styles/globals.css"
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Header />
+        <div>
+          <main>{children}</main>
+        </div>
+      </body>
     </html>
   )
 }
