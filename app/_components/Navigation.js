@@ -20,7 +20,7 @@ export default function Navigation() {
         </div>
         <div>
           <li className="flex gap-2">
-            <Link href="/account">Prihlásiť sa</Link>
+            <Link href="/account/login">Prihlásiť sa</Link>
             {" / "}
             <Link href="/account/registration">Registrovať</Link>
           </li>
