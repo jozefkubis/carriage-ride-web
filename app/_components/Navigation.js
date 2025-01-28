@@ -3,7 +3,7 @@ import Link from "next/link"
 export default function Navigation() {
   return (
     <nav className="w-full">
-      <ul className="flex items-center justify-between">
+      <ul className="flex items-center justify-between text-lg font-semibold">
         <div className="flex gap-20">
           <li>
             <Link href="/">Úvodná stránka</Link>
@@ -12,7 +12,7 @@ export default function Navigation() {
             <Link href="/product">Naše jazdy</Link>
           </li>
           <li>
-            <Link href="/booking">Zajednať jazdu</Link>
+            <Link href="/booking">Rezervovať jazdu</Link>
           </li>
           <li>
             <Link href="/contact">Kontaktujte nás</Link>
