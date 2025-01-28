@@ -2,9 +2,13 @@ export default function Page() {
   return (
     <div className="flex flex-col">
       <header className="flex flex-col items-center mx-auto gap-5 my-20 w-1/2">
-        <h1 className="text-5xl font-bold text-center">Naše romantické jazdy pre každého</h1>
+        <h1 className="text-5xl font-bold text-center">
+          Naše romantické jazdy pre každého
+        </h1>
         <p className="text-center text-lg px-12">
-          Ponúkame rôzne typy jázd, ktoré sú ideálne pre páry, rodiny a špeciálne udalosti. Každá jazda je jedinečným zážitkom, ktorý si zamilujete.
+          Ponúkame rôzne typy jázd, ktoré sú ideálne pre páry, rodiny a
+          špeciálne udalosti. Každá jazda je jedinečným zážitkom, ktorý si
+          zamilujete.
         </p>
       </header>
 
@@ -19,7 +23,7 @@ export default function Page() {
         </div>
         <div className="flex flex-col gap-10 text-center font-bold">
           <div className="bg-primary-200 w-full aspect-[4/3]"></div>
-          <p className="text-xl">Rodinné jazdy pre všetkých členov rodiny</p>
+          <p className="text-xl">Špeciálne udalosti a oslavy v kočiari</p>
         </div>
       </div>
 
@@ -29,5 +33,5 @@ export default function Page() {
         </button>
       </div>
     </div>
-  );
+  )
 }
