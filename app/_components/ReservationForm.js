@@ -1,6 +1,6 @@
 export default function ReservationForm() {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50 py-20">
+    <div className="flex justify-center items-center min-h-screen bg-gray-50 py-10">
       <form className="flex flex-col gap-6 w-full max-w-md p-6 bg-white shadow-md rounded-md">
         <h2 className="text-2xl font-bold text-gray-800">
           Rezervačný formulár
@@ -20,6 +20,7 @@ export default function ReservationForm() {
             id="fullName"
             className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none"
             placeholder="Vaše meno"
+            required
           />
         </div>
 
@@ -33,6 +34,7 @@ export default function ReservationForm() {
             name="date"
             id="date"
             className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none"
+            required
           />
         </div>
 
@@ -46,6 +48,7 @@ export default function ReservationForm() {
             name="time"
             id="time"
             className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none"
+            required
           />
         </div>
 
@@ -58,6 +61,7 @@ export default function ReservationForm() {
             name="numGuests"
             id="numGuests"
             className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none"
+            required
           >
             <option value="1">1</option>
             <option value="2">2</option>
@@ -77,6 +81,7 @@ export default function ReservationForm() {
             id="email"
             className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none"
             placeholder="example@email.com"
+            required
           />
         </div>
 
@@ -91,6 +96,7 @@ export default function ReservationForm() {
             id="phone"
             className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none"
             placeholder="+421 123 456 789"
+            required
           />
         </div>
 
