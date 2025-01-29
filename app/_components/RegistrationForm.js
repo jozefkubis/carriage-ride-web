@@ -1,4 +1,5 @@
 import Link from "next/link"
+import FormInput from "./FormInput"
 
 export default function RegistrationForm() {
   return (
@@ -10,60 +11,49 @@ export default function RegistrationForm() {
 
         {/* Meno */}
         <div className="flex flex-col">
-          <label htmlFor="fullName" className="font-medium text-gray-700">
-            Meno
-          </label>
-          <input
-            type="text"
+          <FormInput
+            label="Meno"
             id="fullName"
-            name="fullName"
+            type="text"
             placeholder="Vaše meno"
-            className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none"
+            name="fullName"
+            required
           />
         </div>
 
         {/* Email */}
         <div className="flex flex-col">
-          <label htmlFor="email" className="font-medium text-gray-700">
-            Email
-          </label>
-          <input
-            type="email"
+          <FormInput
+            label="Email"
             id="email"
-            name="email"
+            type="email"
             placeholder="example@email.com"
-            className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none"
+            name="email"
+            required
           />
         </div>
 
         {/* Heslo */}
         <div className="flex flex-col">
-          <label htmlFor="password" className="font-medium text-gray-700">
-            Heslo
-          </label>
-          <input
-            type="password"
+          <FormInput
+            label="Heslo"
             id="password"
-            name="password"
+            type="password"
             placeholder="Vaše heslo"
-            className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none"
+            name="password"
+            required
           />
         </div>
 
         {/* Potvrdenie hesla */}
         <div className="flex flex-col">
-          <label
-            htmlFor="confirmPassword"
-            className="font-medium text-gray-700"
-          >
-            Potvrdenie hesla
-          </label>
-          <input
-            type="password"
+          <FormInput
+            label="Potvrdenie hesla"
             id="confirmPassword"
+            type="password"
+            placeholder="Potvrdenie hesla"
             name="confirmPassword"
-            placeholder="Znova zadajte heslo"
-            className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none"
+            required
           />
         </div>
 

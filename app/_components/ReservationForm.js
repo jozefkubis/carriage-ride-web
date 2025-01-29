@@ -1,3 +1,5 @@
+import FormInput from "./FormInput";
+
 export default function ReservationForm() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50 py-10">
@@ -17,6 +19,7 @@ export default function ReservationForm() {
             id="fullName"
             type="text"
             placeholder="Vaše meno"
+            name="fullName"
             required
           />
 
@@ -26,14 +29,15 @@ export default function ReservationForm() {
             id="email"
             type="email"
             placeholder="example@email.com"
+            name="email"
             required
           />
 
           {/* Dátum */}
-          <FormInput label="Dátum" id="date" type="date" required />
+          <FormInput label="Dátum" id="date" type="date" name="date" required />
 
           {/* Čas */}
-          <FormInput label="Čas" id="time" type="time" required />
+          <FormInput label="Čas" id="time" type="time" name="time" required />
 
           {/* Telefón */}
           <FormInput
@@ -41,6 +45,7 @@ export default function ReservationForm() {
             id="phone"
             type="tel"
             placeholder="+421 123 456 789"
+            name="phone"
             required
           />
 
@@ -89,20 +94,5 @@ export default function ReservationForm() {
   );
 }
 
-/* REUSABLE INPUT COMPONENT */
-function FormInput({ label, id, type, placeholder, required }) {
-  return (
-    <div className="flex flex-col">
-      <label htmlFor={id} className="font-medium text-gray-700">
-        {label}
-      </label>
-      <input
-        type={type}
-        id={id}
-        placeholder={placeholder}
-        className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none"
-        required={required}
-      />
-    </div>
-  );
-}
+
+
