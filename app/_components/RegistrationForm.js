@@ -69,7 +69,7 @@ export default function RegistrationForm() {
         <p className="text-sm text-center text-gray-600">
           Už máte účet?{" "}
           <Link
-            href="/account/login"
+            href="/login"
             className="text-primary-600 hover:underline"
           >
             Prihláste sa

@@ -59,7 +59,7 @@ export default function LoginForm() {
         <p className="text-sm text-center text-gray-600">
           Nemáte účet?{" "}
           <Link
-            href="/account/registration"
+            href="/registration"
             className="text-primary-600 hover:underline"
           >
             Zaregistrujte sa

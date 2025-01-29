@@ -20,10 +20,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${josefin.className}`}>
+      <body className={`${josefin.className} `}>
         <Header />
-        <div>
-          <main>{children}</main>
+        <div className="flex-1 pl-8 grid">
+          <main className="mx-auto w-full">{children}</main>
         </div>
       </body>
     </html >
