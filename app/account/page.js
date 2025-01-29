@@ -1,11 +1,17 @@
-export const metadata = {
+import Link from "next/link"
+
+const metadata = {
   title: "Môj účet",
 }
 
-export default function page() {
+function page() {
   return (
     <div>
-      <h1>Account</h1>
+      <div className="flex flex-col m-20 gap-5">
+        <h1 className="text-2xl">Vitaj, Jozef</h1>
+      </div>
     </div>
   )
 }
+
+export default page
