@@ -6,14 +6,14 @@ import Header from "./_components/Header"
 //   display: "swap",
 // })
 
-// export const metadata = {
-//   title: {
-//     template: "%s",
-//     default: "Welcome / Warehouse",
-//   },
-//   description:
-//     "The Warehouse is a place where you can find all the products you need.",
-// }
+export const metadata = {
+  title: {
+    template: "%s",
+    default: "Vitajte / Carriage Ride",
+  },
+  description:
+    "Carriage Ride sú nezabudnuteľné romantické jazdy krásnou prírodou, alebo mestom.",
+}
 
 export default function RootLayout({ children }) {
   return (

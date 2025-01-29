@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Galéria",
+}
+
 export default function page() {
   return (
     <div>

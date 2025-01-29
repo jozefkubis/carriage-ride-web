@@ -3,6 +3,10 @@ import { BsEnvelope } from "react-icons/bs"
 import { LuPhone } from "react-icons/lu"
 import { FiMapPin } from "react-icons/fi"
 
+export const metadata = {
+  title: "Kontakt",
+}
+
 export default function Page() {
   return (
     <div className="flex flex-col items-center bg-gray-50 min-h-screen">

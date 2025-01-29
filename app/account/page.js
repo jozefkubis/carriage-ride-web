@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Môj účet",
+}
+
 export default function page() {
   return (
     <div>
