@@ -33,14 +33,14 @@ export default function Navigation() {
           <li className="flex gap-2">
             <Link
               href="/login"
-              className={`hover:text-primary-600 transition-colors ${pathname === "/login" ? "text-primary-600" : ""}`}
+              className={`hover:text-primary-600 transition-colors ${pathname === "/login" ? "text-primary-600 text-xl" : ""}`}
             >
               Prihlásiť sa
             </Link>
             {" / "}
             <Link
               href="/registration"
-              className={`hover:text-primary-600 transition-colors ${pathname === "/registration" ? "text-primary-600" : ""}`}
+              className={`hover:text-primary-600 transition-colors ${pathname === "/registration" ? "text-primary-600 text-xl" : ""}`}
             >
               Registrovať
             </Link>
