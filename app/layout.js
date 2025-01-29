@@ -8,7 +8,7 @@ import Header from "./_components/Header"
 
 export const metadata = {
   title: {
-    template: "%s",
+    template: "%s Carriage Ride",
     default: "Vitajte / Carriage Ride",
   },
   description:
