@@ -21,7 +21,7 @@ export default function Navigation() {
             <li key={link.name}>
               <Link
                 href={link.href}
-                className={`hover:text-primary-600 transition-colors px-4 py-2 ${pathname === link.href ? "text-primary-600 text-xl" : ""
+                className={`hover:text-primary-600 transition-colors px-4 py-2 ${pathname === link.href ? "text-primary-600 text-xl underline" : ""
                   }`}
               >
                 {link.name}
@@ -33,14 +33,14 @@ export default function Navigation() {
           <li className="flex gap-2">
             <Link
               href="/login"
-              className={`hover:text-primary-600 transition-colors ${pathname === "/login" ? "text-primary-600 text-xl" : ""}`}
+              className={`hover:text-primary-600 transition-colors ${pathname === "/login" ? "text-primary-600 text-xl underline" : ""}`}
             >
               Prihlásiť sa
             </Link>
             {" / "}
             <Link
               href="/registration"
-              className={`hover:text-primary-600 transition-colors ${pathname === "/registration" ? "text-primary-600 text-xl" : ""}`}
+              className={`hover:text-primary-600 transition-colors ${pathname === "/registration" ? "text-primary-600 text-xl underline" : ""}`}
             >
               Registrovať
             </Link>
