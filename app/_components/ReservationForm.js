@@ -1,9 +1,16 @@
+"use client"
+
 import FormInput from "./FormInput";
 
 export default function ReservationForm() {
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+  }
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50 py-10">
-      <form className="w-full max-w-2xl bg-white shadow-md rounded-md p-8">
+      <form onSubmit={() => handleFormSubmit} className="w-full max-w-2xl bg-white shadow-md rounded-md p-8">
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Rezervačný formulár
         </h2>
