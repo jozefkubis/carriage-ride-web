@@ -1,15 +1,20 @@
-const metadata = {
+import { auth } from "../_lib/auth"
+
+export const metadata = {
   title: "Môj účet",
 }
 
-function page() {
+export default async function page() {
+
+  const session = await auth()
+  const name = session.user.name?.split(" ")[0] || "Používateľ"
+
   return (
     <div className="bg-gray-50">
       <div className="flex flex-col pt-20 pl-20 gap-5 h-screen w-full">
-        <h1 className="text-2xl">Vitaj, Jozef</h1>
+        <h1 className="text-2xl">Vitaj, {name}</h1>
       </div>
     </div>
   )
 }
 
-export default page

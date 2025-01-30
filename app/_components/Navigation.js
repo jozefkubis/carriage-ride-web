@@ -1,7 +1,6 @@
-"use client"
-
+import { headers } from "next/headers";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { auth } from "../_lib/auth";
 
 const navLinks = [
   { name: "Úvodná stránka", href: "/" },
@@ -10,8 +9,12 @@ const navLinks = [
   { name: "Kontaktujte nás", href: "/contact" },
 ];
 
-export default function Navigation() {
-  const pathname = usePathname();
+export default async function Navigation() {
+  // Získanie aktuálnej URL cesty zo serverových headers
+  const pathname = headers().get("x-invoke-path") || "/";
+
+  const session = await auth()
+
 
   return (
     <nav className="w-full">
@@ -31,21 +34,39 @@ export default function Navigation() {
         </div>
         <div>
           <li className="flex gap-2">
-            <Link
-              href="/login"
-              className={`hover:text-primary-600 transition-colors ${pathname === "/login" ? "text-primary-600 text-xl underline" : ""}`}
-            >
-              Prihlásiť sa
-            </Link>
-            {" / "}
-            <Link
-              href="/registration"
-              className={`hover:text-primary-600 transition-colors ${pathname === "/registration" ? "text-primary-600 text-xl underline" : ""}`}
-            >
-              Registrovať
-            </Link>
+            {session?.user?.image ? (
+              <Link href="/account">
+                <div className="flex gap-2">
+                  <img
+                    src={session.user.image}
+                    alt={session.user.name}
+                    className="rounded-full border border-primary-600 h-8"
+                    referrerPolicy="no-referrer"
+                  /><span>{session.user.name}</span>
+                </div>
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className={`hover:text-primary-600 transition-colors ${pathname === "/login" ? "text-primary-600 text-xl underline" : ""
+                    }`}
+                >
+                  Prihlásiť sa
+                </Link>
+                <span>/</span>
+                <Link
+                  href="/registration"
+                  className={`hover:text-primary-600 transition-colors ${pathname === "/registration" ? "text-primary-600 text-xl underline" : ""
+                    }`}
+                >
+                  Registrovať
+                </Link>
+              </>
+            )}
           </li>
         </div>
+
       </ul>
     </nav>
   );

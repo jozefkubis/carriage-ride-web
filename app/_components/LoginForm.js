@@ -1,9 +1,10 @@
 import Link from "next/link"
 import FormInput from "./FormInput"
+import GoogleLoginButton from "./GoogleLoginButton.js"
 
 export default function LoginForm() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+    <div className="flex items-center justify-center min-h-screen bg-gray-50 gap-10">
       <form className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6">
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Prihlásenie
@@ -66,6 +67,10 @@ export default function LoginForm() {
           </Link>
         </p>
       </form>
+
+      <div className="">
+        <GoogleLoginButton />
+      </div>
     </div>
   )
 }
