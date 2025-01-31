@@ -13,6 +13,9 @@ const navLinks = [
 
 export default async function Navigation() {
   const session = await auth()
+  if (session?.user?.name) {
+    session.user.name = session.user.name.split(" ")[0]
+  }
 
   return (
     <nav className="w-full">
