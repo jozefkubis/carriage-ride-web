@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import Link from "next/link";
 import { auth } from "../_lib/auth";
+import SignOutButton from "./SignOutButton";
 
 const navLinks = [
   { name: "Úvodná stránka", href: "/" },
@@ -35,16 +36,19 @@ export default async function Navigation() {
         <div>
           <li className="flex gap-2">
             {session?.user?.image ? (
-              <Link href="/account">
-                <div className="flex gap-2">
-                  <img
-                    src={session.user.image}
-                    alt={session.user.name}
-                    className="rounded-full border border-primary-600 h-8"
-                    referrerPolicy="no-referrer"
-                  /><span>{session.user.name}</span>
-                </div>
-              </Link>
+              <div className="flex gap-4 items-center">
+                <Link href="/account">
+                  <div className="flex gap-2 ">
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name}
+                      className="rounded-full border border-primary-600 h-8"
+                      referrerPolicy="no-referrer"
+                    /><span>{session.user.name}</span>
+                  </div>
+                </Link>
+                <SignOutButton />
+              </div>
             ) : (
               <>
                 <Link
