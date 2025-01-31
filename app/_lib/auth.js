@@ -28,7 +28,11 @@ const authConfig = {
         const isValid = compare(credentials.password, user.password)
         if (!isValid) throw new Error("Invalid password")
 
-        return user
+        return {
+          id: user.id,
+          name: user.fullName,
+          email: user.email,
+        }
       },
     }),
   ],

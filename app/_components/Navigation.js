@@ -1,21 +1,18 @@
-import { headers } from "next/headers";
-import Link from "next/link";
-import { auth } from "../_lib/auth";
-import SignOutButton from "./SignOutButton";
+import { headers } from "next/headers"
+import Link from "next/link"
+import { auth } from "../_lib/auth"
+import SignOutButton from "./SignOutButton"
+const avatarSrc = "/avatar.png"
 
 const navLinks = [
   { name: "Úvodná stránka", href: "/" },
   { name: "Naše jazdy", href: "/product" },
   { name: "Rezervovať jazdu", href: "/booking" },
   { name: "Kontaktujte nás", href: "/contact" },
-];
+]
 
 export default async function Navigation() {
-  // Získanie aktuálnej URL cesty zo serverových headers
-
-
   const session = await auth()
-
 
   return (
     <nav className="w-full">
@@ -34,16 +31,26 @@ export default async function Navigation() {
         </div>
         <div>
           <li className="flex gap-2">
-            {session?.user?.image ? (
+            {session?.user?.name ? (
               <div className="flex gap-4 items-center">
                 <Link href="/account">
                   <div className="flex gap-2">
-                    <img
-                      src={session.user.image}
-                      alt={session.user.name}
-                      className="rounded-full border border-primary-600 h-8"
-                      referrerPolicy="no-referrer"
-                    /><span>{session.user.name}</span>
+                    {session.user.image ? (
+                      <img
+                        src={session.user.image}
+                        alt={session.user.name}
+                        className="rounded-full border border-primary-600 h-8"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <img
+                        src={avatarSrc}
+                        alt={avatarSrc}
+                        className="rounded-full border border-primary-600 h-8"
+                        referrerPolicy="no-referrer"
+                      />
+                    )}
+                    <span>{session.user.name}</span>
                   </div>
                 </Link>
                 <SignOutButton />
@@ -67,8 +74,7 @@ export default async function Navigation() {
             )}
           </li>
         </div>
-
       </ul>
     </nav>
-  );
+  )
 }

@@ -1,16 +1,46 @@
+"use client"
+
+import { useState } from "react"
+import { signIn } from "next-auth/react"
 import Link from "next/link"
 import FormInput from "./FormInput"
 import GoogleLoginButton from "./GoogleLoginButton.js"
+import { signInGuestAction } from "../_lib/actions"
 
 export default function LoginForm() {
+  const [error, setError] = useState(null)
+
+  async function handleSubmit(formData) {
+    try {
+      // Zavoláme serverovú akciu
+      const result = await signInGuestAction(formData)
+
+      if (result?.success) {
+        // Ak úspešne overené, spustíme `signIn()` na klientovi
+        await signIn("credentials", {
+          email: result.email,
+          password: result.password,
+          redirect: true,
+          callbackUrl: "/account",
+        })
+      }
+    } catch (err) {
+      setError(err.message)
+    }
+  }
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 gap-10">
-      <form className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6">
+      <form
+        action={handleSubmit}
+        className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6"
+      >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Prihlásenie
         </h2>
 
-        {/* Email */}
+        {error && <p className="text-red-500 text-center">{error}</p>}
+
         <div className="flex flex-col">
           <FormInput
             label="Email"
@@ -22,7 +52,6 @@ export default function LoginForm() {
           />
         </div>
 
-        {/* Heslo */}
         <div className="flex flex-col">
           <FormInput
             label="Heslo"
@@ -34,7 +63,6 @@ export default function LoginForm() {
           />
         </div>
 
-        {/* Zapamätať si ma */}
         <div className="flex items-center justify-between">
           <label className="flex items-center text-sm text-gray-600">
             <input
@@ -48,7 +76,6 @@ export default function LoginForm() {
           </a>
         </div>
 
-        {/* Tlačidlo */}
         <button
           type="submit"
           className="w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition focus:outline-none focus:ring-2 focus:ring-primary-500"
@@ -56,7 +83,6 @@ export default function LoginForm() {
           Prihlásiť sa
         </button>
 
-        {/* Link na registráciu */}
         <p className="text-sm text-center text-gray-600">
           Nemáte účet?{" "}
           <Link
