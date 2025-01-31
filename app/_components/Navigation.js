@@ -12,7 +12,7 @@ const navLinks = [
 
 export default async function Navigation() {
   // Získanie aktuálnej URL cesty zo serverových headers
-  const pathname = headers().get("x-invoke-path") || "/";
+
 
   const session = await auth()
 
@@ -22,11 +22,10 @@ export default async function Navigation() {
       <ul className="flex items-center justify-between text-lg font-semibold">
         <div className="flex gap-10">
           {navLinks.map((link) => (
-            <li key={link.name}>
+            <li key={link.name} className="active:scale-105">
               <Link
                 href={link.href}
-                className={`hover:text-primary-600 transition-colors px-4 py-2 ${pathname === link.href ? "text-primary-600 text-xl underline" : ""
-                  }`}
+                className="hover:text-primary-600 transition-colors px-4 py-2 active:scale-105"
               >
                 {link.name}
               </Link>
@@ -38,7 +37,7 @@ export default async function Navigation() {
             {session?.user?.image ? (
               <div className="flex gap-4 items-center">
                 <Link href="/account">
-                  <div className="flex gap-2 ">
+                  <div className="flex gap-2">
                     <img
                       src={session.user.image}
                       alt={session.user.name}
@@ -53,16 +52,14 @@ export default async function Navigation() {
               <>
                 <Link
                   href="/login"
-                  className={`hover:text-primary-600 transition-colors ${pathname === "/login" ? "text-primary-600 text-xl underline" : ""
-                    }`}
+                  className="hover:text-primary-600 transition-colors active:scale-105"
                 >
                   Prihlásiť sa
                 </Link>
                 <span>/</span>
                 <Link
                   href="/registration"
-                  className={`hover:text-primary-600 transition-colors ${pathname === "/registration" ? "text-primary-600 text-xl underline" : ""
-                    }`}
+                  className="hover:text-primary-600 transition-colors active:scale-105"
                 >
                   Registrovať
                 </Link>

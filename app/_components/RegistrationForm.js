@@ -1,10 +1,21 @@
+"use client"
+
 import Link from "next/link"
 import FormInput from "./FormInput"
+import { createGuest } from "../_lib/actions"
+import { useState } from "react"
+
 
 export default function RegistrationForm() {
+  const [fullName, setFullName] = useState("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+  const [password, setPassword] = useState("")
+  const [rePassword, setRePassword] = useState("")
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <form className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6">
+      <form action={createGuest} className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6">
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Registrácia
         </h2>
@@ -17,6 +28,8 @@ export default function RegistrationForm() {
             type="text"
             placeholder="Vaše meno"
             name="fullName"
+            onChange={(e) => setFullName(e.target.value)}
+            value={fullName}
             required
           />
         </div>
@@ -29,9 +42,23 @@ export default function RegistrationForm() {
             type="email"
             placeholder="example@email.com"
             name="email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             required
           />
         </div>
+
+        {/* Telefón */}
+        <FormInput
+          label="Telefón"
+          id="phone"
+          type="tel"
+          placeholder="+421 123 456 789"
+          name="phone"
+          onChange={(e) => setPhone(e.target.value)}
+          value={phone}
+          required
+        />
 
         {/* Heslo */}
         <div className="flex flex-col">
@@ -41,6 +68,8 @@ export default function RegistrationForm() {
             type="password"
             placeholder="Vaše heslo"
             name="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
             required
           />
         </div>
@@ -49,10 +78,12 @@ export default function RegistrationForm() {
         <div className="flex flex-col">
           <FormInput
             label="Potvrdenie hesla"
-            id="confirmPassword"
+            id="re-password"
             type="password"
             placeholder="Potvrdenie hesla"
-            name="confirmPassword"
+            // name="re-password"
+            onChange={(e) => setRePassword(e.target.value)}
+            value={rePassword}
             required
           />
         </div>
