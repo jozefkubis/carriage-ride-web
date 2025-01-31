@@ -4,8 +4,9 @@ npm i date-fns
 npm i @supabase/supabase-js
 npm i next-auth@beta
 npm i react-feather
+npm install bcryptjs
 
-(npm install @heroicons/react react-icons date-fns @supabase/supabase-js next-auth@beta react-feather)
+(npm install @heroicons/react react-icons date-fns @supabase/supabase-js next-auth@beta react-feather bcryptjs)
 
 .................................................
 
