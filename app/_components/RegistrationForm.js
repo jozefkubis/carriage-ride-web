@@ -5,48 +5,62 @@ import FormInput from "./FormInput"
 import { createGuest } from "../_lib/actions"
 import { useState } from "react"
 
-
 export default function RegistrationForm() {
   const [fullName, setFullName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [password, setPassword] = useState("")
   const [rePassword, setRePassword] = useState("")
+  const [error, setError] = useState("")
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (password !== rePassword) {
+      setError("Heslá sa nezhodujú!")
+      setPassword("")
+      setRePassword("")
+      return
+    }
+
+    setError("")
+
+    await createGuest(new FormData(e.target))
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <form action={createGuest} className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6">
+      <form
+        onSubmit={handleSubmit} // Používame našu validovanú metódu
+        className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6"
+      >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Registrácia
         </h2>
 
         {/* Meno */}
-        <div className="flex flex-col">
-          <FormInput
-            label="Meno"
-            id="fullName"
-            type="text"
-            placeholder="Vaše meno"
-            name="fullName"
-            onChange={(e) => setFullName(e.target.value)}
-            value={fullName}
-            required
-          />
-        </div>
+        <FormInput
+          label="Meno"
+          id="fullName"
+          type="text"
+          placeholder="Vaše meno"
+          name="fullName"
+          onChange={(e) => setFullName(e.target.value)}
+          value={fullName}
+          required
+        />
 
         {/* Email */}
-        <div className="flex flex-col">
-          <FormInput
-            label="Email"
-            id="email"
-            type="email"
-            placeholder="example@email.com"
-            name="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            required
-          />
-        </div>
+        <FormInput
+          label="Email"
+          id="email"
+          type="email"
+          placeholder="example@email.com"
+          name="email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          required
+        />
 
         {/* Telefón */}
         <FormInput
@@ -61,32 +75,31 @@ export default function RegistrationForm() {
         />
 
         {/* Heslo */}
-        <div className="flex flex-col">
-          <FormInput
-            label="Heslo"
-            id="password"
-            type="password"
-            placeholder="Vaše heslo"
-            name="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            required
-          />
-        </div>
+        <FormInput
+          label="Heslo"
+          id="password"
+          type="password"
+          placeholder="Vaše heslo"
+          name="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          required
+        />
 
         {/* Potvrdenie hesla */}
-        <div className="flex flex-col">
-          <FormInput
-            label="Potvrdenie hesla"
-            id="re-password"
-            type="password"
-            placeholder="Potvrdenie hesla"
-            // name="re-password"
-            onChange={(e) => setRePassword(e.target.value)}
-            value={rePassword}
-            required
-          />
-        </div>
+        <FormInput
+          label="Potvrdenie hesla"
+          id="re-password"
+          type="password"
+          placeholder="Potvrdenie hesla"
+          name="re-password"
+          onChange={(e) => setRePassword(e.target.value)}
+          value={rePassword}
+          required
+        />
+
+        {/* Chybová správa */}
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
         {/* Tlačidlo */}
         <button
@@ -99,10 +112,7 @@ export default function RegistrationForm() {
         {/* Link na prihlásenie */}
         <p className="text-sm text-center text-gray-600">
           Už máte účet?{" "}
-          <Link
-            href="/login"
-            className="text-primary-600 hover:underline"
-          >
+          <Link href="/login" className="text-primary-600 hover:underline">
             Prihláste sa
           </Link>
         </p>

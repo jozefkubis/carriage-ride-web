@@ -1,12 +1,11 @@
 import "@/app/_styles/globals.css"
 import Header from "./_components/Header"
-import { Josefin_Sans } from "next/font/google";
+import { Josefin_Sans } from "next/font/google"
 
 const josefin = Josefin_Sans({
   subsets: ["latin"],
   display: "swap",
-});
-
+})
 
 export const metadata = {
   title: {
@@ -26,6 +25,6 @@ export default function RootLayout({ children }) {
           <main className="mx-auto w-full">{children}</main>
         </div>
       </body>
-    </html >
+    </html>
   )
 }

@@ -27,13 +27,13 @@ function SideNavigation() {
   const pathname = usePathname()
 
   return (
-    <nav className="border-r border-primary-900 py-20">
+    <nav className="border-r border-primary-900 py-10 bg-white shadow-md min-h-screen w-64 h-screen">
       <ul className="flex flex-col gap-2 h-full">
         {navLinks.map((link) => (
           <li key={link.name}>
             <Link
-              className={`py-3 px-5 hover:bg-primary-100 transition-colors flex items-center gap-4 font-semibold ${pathname === link.href ? "bg-primary-100" : ""
-                }`}
+              className={`py-3 px-5 rounded-lg hover:bg-primary-100 transition-colors flex items-center gap-4 font-semibold 
+                ${pathname === link.href ? "bg-primary-100" : ""}`}
               href={link.href}
             >
               {link.icon}
@@ -42,9 +42,9 @@ function SideNavigation() {
           </li>
         ))}
 
-        <li className="mt-auto">
-          {/* <SignOutButton /> */}
-        </li>
+        {/* <li className="mt-auto px-5">
+          <SignOutButton />
+        </li> */}
       </ul>
     </nav>
   )
