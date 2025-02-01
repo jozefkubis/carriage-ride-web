@@ -68,6 +68,7 @@ export default function RegistrationForm() {
           id="phone"
           type="tel"
           placeholder="+421 123 456 789"
+          pattern="[+][0-9]{1,3}[0-9]{9,14}"
           name="phone"
           onChange={(e) => setPhone(e.target.value)}
           value={phone}

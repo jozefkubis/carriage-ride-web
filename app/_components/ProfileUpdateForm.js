@@ -1,53 +1,56 @@
 import Link from "next/link"
 import FormInput from "./FormInput"
+import { auth } from "../_lib/auth"
 
-export default function ProfileUpdateForm() {
-    return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-50">
-            <form className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6">
-                <h2 className="text-2xl font-bold text-gray-800 text-center">
-                    Aktualizuj svoj profil
-                </h2>
+export default async function ProfileUpdateForm() {
+  const session = await auth()
 
-                {/* Meno */}
-                <div className="flex flex-col">
-                    <FormInput
-                        label="Meno"
-                        id="fullName"
-                        type="text"
-                        placeholder="Vaše meno"
-                        name="fullName"
-                        required
-                    />
-                </div>
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <form className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6">
+        <h2 className="text-2xl font-bold text-gray-800 text-center">
+          Aktualizuj svoj profil
+        </h2>
 
-                {/* Email */}
-                <div className="flex flex-col">
-                    <FormInput
-                        label="Email"
-                        id="email"
-                        type="email"
-                        placeholder="example@email.com"
-                        name="email"
-                        required
-                    />
-                </div>
+        {/* Meno */}
+        <div className="flex flex-col">
+          <FormInput
+            label="Meno"
+            id="fullName"
+            type="text"
+            placeholder={session.user.name}
+            name="fullName"
+            disabled
+          />
+        </div>
 
-                {/* phone */}
-                <div className="flex flex-col">
-                    <FormInput
-                        label="Telefón"
-                        id="phone"
-                        type="tel"
-                        // placeholder="example@email.com"
-                        name="phone"
-                        pattern="[+][0-9]{1,3}[0-9]{9,14}"
-                        required
-                    />
-                </div>
+        {/* Email */}
+        <div className="flex flex-col">
+          <FormInput
+            label="Email"
+            id="email"
+            type="email"
+            placeholder={session.user.email}
+            name="email"
+            required
+          />
+        </div>
 
-                {/* Heslo */}
-                {/* <div className="flex flex-col">
+        {/* phone */}
+        <div className="flex flex-col">
+          <FormInput
+            label="Telefón"
+            id="phone"
+            type="tel"
+            placeholder={session.user.phone}
+            name="phone"
+            pattern="[+][0-9]{1,3}[0-9]{9,14}"
+            required
+          />
+        </div>
+
+        {/* Heslo */}
+        {/* <div className="flex flex-col">
                     <FormInput
                         label="Heslo"
                         id="password"
@@ -58,8 +61,8 @@ export default function ProfileUpdateForm() {
                     />
                 </div> */}
 
-                {/* Potvrdenie hesla */}
-                {/* <div className="flex flex-col">
+        {/* Potvrdenie hesla */}
+        {/* <div className="flex flex-col">
                     <FormInput
                         label="Potvrdenie hesla"
                         id="confirmPassword"
@@ -70,16 +73,16 @@ export default function ProfileUpdateForm() {
                     />
                 </div> */}
 
-                {/* Tlačidlo */}
-                <button
-                    type="submit"
-                    className="w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition focus:outline-none focus:ring-2 focus:ring-primary-500"
-                >
-                    Aktualizovať
-                </button>
+        {/* Tlačidlo */}
+        <button
+          type="submit"
+          className="w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition focus:outline-none focus:ring-2 focus:ring-primary-500"
+        >
+          Aktualizovať
+        </button>
 
-                {/* Link na prihlásenie */}
-                {/* <p className="text-sm text-center text-gray-600">
+        {/* Link na prihlásenie */}
+        {/* <p className="text-sm text-center text-gray-600">
                     Už máte účet?{" "}
                     <Link
                         href="/account/login"
@@ -88,7 +91,7 @@ export default function ProfileUpdateForm() {
                         Prihláste sa
                     </Link>
                 </p> */}
-            </form>
-        </div>
-    )
+      </form>
+    </div>
+  )
 }
