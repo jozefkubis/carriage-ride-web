@@ -4,6 +4,8 @@ import Link from "next/link"
 import FormInput from "./FormInput"
 import { createGuest } from "../_lib/actions"
 import { useState } from "react"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 export default function RegistrationForm() {
   const [fullName, setFullName] = useState("")
@@ -17,13 +19,12 @@ export default function RegistrationForm() {
     e.preventDefault()
 
     if (password !== rePassword) {
-      setError("Heslá sa nezhodujú!")
+      toast("Heslá sa nezhodujú!")
       setPassword("")
       setRePassword("")
       return
     }
-
-    setError("")
+    // setError("")
 
     await createGuest(new FormData(e.target))
   }
@@ -98,6 +99,7 @@ export default function RegistrationForm() {
           value={rePassword}
           required
         />
+        <ToastContainer autoClose={5000} className="toast-container" />
 
         {/* Chybová správa */}
         {error && <p className="text-red-500 text-sm text-center">{error}</p>}
