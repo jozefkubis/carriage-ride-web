@@ -19,12 +19,33 @@ export default function RegistrationForm() {
     e.preventDefault()
 
     if (password !== rePassword) {
-      toast("Heslá sa nezhodujú!")
+      toast.warn("Heslá sa nezhodujú!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
       setPassword("")
       setRePassword("")
       return
     }
-    // setError("")
+
+    onSuccess: {
+      toast.success("Registrácia bola uspešná!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+    }
 
     await createGuest(new FormData(e.target))
   }
@@ -99,7 +120,20 @@ export default function RegistrationForm() {
           value={rePassword}
           required
         />
-        <ToastContainer autoClose={5000} className="toast-container" />
+        <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+
+        <ToastContainer />
 
         {/* Chybová správa */}
         {error && <p className="text-red-500 text-sm text-center">{error}</p>}
