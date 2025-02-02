@@ -6,6 +6,7 @@ import { createGuest } from "../_lib/actions"
 import { useState } from "react"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { useRouter } from "next/navigation"
 
 export default function RegistrationForm() {
   const [fullName, setFullName] = useState("")
@@ -14,6 +15,8 @@ export default function RegistrationForm() {
   const [password, setPassword] = useState("")
   const [rePassword, setRePassword] = useState("")
   const [error, setError] = useState("")
+
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -34,8 +37,30 @@ export default function RegistrationForm() {
       return
     }
 
-    onSuccess: {
-      toast.success("Registrácia bola uspešná!", {
+    try {
+      await createGuest(new FormData(e.target))
+      toast.success("Registrácia bola úspešná!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+
+      setFullName("")
+      setEmail("")
+      setPhone("")
+      setPassword("")
+      setRePassword("")
+
+      setTimeout(() => {
+        router.push("/login")
+      }, 2000)
+    } catch (error) {
+      toast.error("Niečo sa pokazilo!", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -46,14 +71,12 @@ export default function RegistrationForm() {
         theme: "light",
       })
     }
-
-    await createGuest(new FormData(e.target))
   }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <form
-        onSubmit={handleSubmit} // Používame našu validovanú metódu
+        onSubmit={handleSubmit}
         className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6"
       >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
@@ -132,8 +155,6 @@ export default function RegistrationForm() {
           pauseOnHover
           theme="light"
         />
-
-        <ToastContainer />
 
         {/* Chybová správa */}
         {error && <p className="text-red-500 text-sm text-center">{error}</p>}

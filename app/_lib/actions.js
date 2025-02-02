@@ -33,7 +33,8 @@ export async function createGuest(formData) {
   }
 
   revalidatePath("/login")
-  redirect("/login")
+  // redirect("/login")
+  return { success: true }
 }
 
 export async function signInAction() {
