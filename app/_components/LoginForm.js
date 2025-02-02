@@ -6,6 +6,8 @@ import Link from "next/link"
 import FormInput from "./FormInput"
 import GoogleLoginButton from "./GoogleLoginButton.js"
 import { signInGuestAction } from "../_lib/actions"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 export default function LoginForm() {
   const [error, setError] = useState(null)
@@ -25,7 +27,7 @@ export default function LoginForm() {
         })
       }
     } catch (err) {
-      setError(err.message)
+      toast.warn("Upss, chyba pri prihlásení! Skontroluj svoje prihlasovacie údaje.", { position: "bottom-right", hideProgressBar: true, })
     }
   }
 
@@ -75,6 +77,8 @@ export default function LoginForm() {
             Zabudli ste heslo?
           </a>
         </div>
+
+        <ToastContainer />
 
         <button
           type="submit"

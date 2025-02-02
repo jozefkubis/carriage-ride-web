@@ -22,7 +22,7 @@ export default function RegistrationForm() {
     e.preventDefault()
 
     if (password !== rePassword) {
-      toast.warn("Heslá sa nezhodujú!", { position: "bottom-right" })
+      toast.warn("Heslá sa nezhodujú!", { position: "bottom-right", hideProgressBar: true, })
       setPassword("")
       setRePassword("")
       return
@@ -38,11 +38,11 @@ export default function RegistrationForm() {
         setPassword("")
         setRePassword("")
         // 👇 Zobrazíme chybovú správu, ak existuje užívateľ
-        toast.error(result.error, { position: "bottom-right" })
+        toast.error(result.error, { position: "bottom-right", hideProgressBar: true, })
         return
       }
 
-      toast.success("Registrácia bola úspešná!", { position: "bottom-right" })
+      toast.success("Registrácia bola úspešná!", { position: "bottom-right", hideProgressBar: true, })
 
       setFullName("")
       setEmail("")
@@ -54,7 +54,7 @@ export default function RegistrationForm() {
         router.push("/login")
       }, 3000)
     } catch (error) {
-      toast.error("Niečo sa pokazilo!", { position: "bottom-right" })
+      toast.error("Niečo sa pokazilo!", { position: "bottom-right", hideProgressBar: true, })
     }
   }
 
