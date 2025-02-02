@@ -54,6 +54,7 @@ export async function createGuest(formData) {
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" })
+  redirect("/account")
 }
 
 export async function signOutAction() {

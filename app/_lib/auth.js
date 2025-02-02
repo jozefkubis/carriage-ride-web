@@ -3,6 +3,7 @@ import Google from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { compare } from "bcrypt"
 import { supabase } from "./supabase"
+import { createGuest, getGuest } from "./data-service"
 
 const authConfig = {
   providers: [
@@ -42,10 +43,25 @@ const authConfig = {
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      return true;
+      try {
+        const existingGuest = await getGuest(user.email)
+
+        if (!existingGuest) await createGuest({ email: user.email, fullName: user.name })
+
+        return true
+      } catch {
+        return false
+      }
+    },
+    async session({ session, user }) {
+      const guest = await getGuest(session.user.email)
+      session.user.guestId = guest.id
+      session.user.phone = guest.phone
+
+      return session
     },
     async redirect({ url, baseUrl }) {
-      return `${baseUrl}/login`;
+      return `${baseUrl}/account`;
     },
   },
 }
