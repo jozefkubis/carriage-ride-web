@@ -22,33 +22,27 @@ export default function RegistrationForm() {
     e.preventDefault()
 
     if (password !== rePassword) {
-      toast.warn("Heslá sa nezhodujú!", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      })
+      toast.warn("Heslá sa nezhodujú!", { position: "bottom-right" })
       setPassword("")
       setRePassword("")
       return
     }
 
     try {
-      await createGuest(new FormData(e.target))
-      toast.success("Registrácia bola úspešná!", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      })
+      const result = await createGuest(new FormData(e.target))
+
+      if (!result.success) {
+        setFullName("")
+        setEmail("")
+        setPhone("")
+        setPassword("")
+        setRePassword("")
+        // 👇 Zobrazíme chybovú správu, ak existuje užívateľ
+        toast.error(result.error, { position: "bottom-right" })
+        return
+      }
+
+      toast.success("Registrácia bola úspešná!", { position: "bottom-right" })
 
       setFullName("")
       setEmail("")
@@ -60,16 +54,7 @@ export default function RegistrationForm() {
         router.push("/login")
       }, 2000)
     } catch (error) {
-      toast.error("Niečo sa pokazilo!", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      })
+      toast.error("Niečo sa pokazilo!", { position: "bottom-right" })
     }
   }
 

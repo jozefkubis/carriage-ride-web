@@ -13,7 +13,22 @@ export async function createGuest(formData) {
   const password = formData.get("password")
 
   if (!fullName || !email || !phone || !password) {
-    throw new Error("Všetky polia sú povinné.")
+    return { success: false, error: "Všetky polia sú povinné." }
+  }
+
+  // Overíme, či už existuje rovnaký email, meno alebo telefónne číslo
+  const { data: existingUsers, error: fetchError } = await supabase
+    .from("guests")
+    .select("id")
+    .or(`email.eq.${email},phone.eq.${phone},fullName.eq.${fullName}`)
+
+  if (fetchError) {
+    console.error("Supabase Error:", fetchError)
+    return { success: false, error: "Chyba pri kontrole existujúceho používateľa." }
+  }
+
+  if (existingUsers.length > 0) {
+    return { success: false, error: "Používateľ s týmto menom, e-mailom alebo telefónnym číslom už existuje!" }
   }
 
   const hashedPassword = await bcrypt.hash(password, 10)
@@ -28,14 +43,14 @@ export async function createGuest(formData) {
   const { error } = await supabase.from("guests").insert([newGuest])
 
   if (error) {
-    console.error("Supabase Error:", error)
-    throw new Error("Guest could not be created")
+    console.error("Supabase Insert Error:", error)
+    return { success: false, error: "Používateľa sa nepodarilo vytvoriť." }
   }
 
   revalidatePath("/login")
-  // redirect("/login")
   return { success: true }
 }
+
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" })
