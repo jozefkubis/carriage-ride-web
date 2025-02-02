@@ -52,7 +52,7 @@ export default function RegistrationForm() {
 
       setTimeout(() => {
         router.push("/login")
-      }, 2000)
+      }, 3000)
     } catch (error) {
       toast.error("Niečo sa pokazilo!", { position: "bottom-right" })
     }
