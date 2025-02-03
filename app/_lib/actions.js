@@ -24,11 +24,18 @@ export async function createGuest(formData) {
 
   if (fetchError) {
     console.error("Supabase Error:", fetchError)
-    return { success: false, error: "Chyba pri kontrole existujúceho používateľa." }
+    return {
+      success: false,
+      error: "Chyba pri kontrole existujúceho používateľa.",
+    }
   }
 
   if (existingUsers.length > 0) {
-    return { success: false, error: "Používateľ s týmto menom, e-mailom alebo telefónnym číslom už existuje!" }
+    return {
+      success: false,
+      error:
+        "Používateľ s týmto menom, e-mailom alebo telefónnym číslom už existuje!",
+    }
   }
 
   const hashedPassword = await bcrypt.hash(password, 10)
@@ -50,7 +57,6 @@ export async function createGuest(formData) {
   revalidatePath("/login")
   return { success: true }
 }
-
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" })
@@ -76,7 +82,7 @@ export async function signInGuestAction(formData) {
     .single()
 
   if (error || !user) {
-    throw new Error("Guest not found")
+    throw new Error("Užívateľ s týmto e-mailom neexistuje.")
   }
 
   const isValid = await bcrypt.compare(password, user.password)

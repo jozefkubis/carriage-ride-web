@@ -1,40 +1,31 @@
 "use client"
 
-import { useState } from "react"
-import { signIn } from "next-auth/react"
 import Link from "next/link"
+import { useState } from "react"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import handleSubmitLogForm from "../_lib/functions/handleSubmitLogForm"
 import FormInput from "./FormInput"
 import GoogleLoginButton from "./GoogleLoginButton.js"
-import { signInGuestAction } from "../_lib/actions"
-import { ToastContainer, toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
 
 export default function LoginForm() {
   const [error, setError] = useState(null)
 
-  async function handleSubmit(formData) {
-    try {
-      // Zavoláme serverovú akciu
-      const result = await signInGuestAction(formData)
+  async function handleSubmit(e) {
+    e.preventDefault()
+    setError(null) // Reset chyby pri novom pokuse o prihlásenie
+    const formData = new FormData(e.target)
+    const result = await handleSubmitLogForm(formData)
 
-      if (result?.success) {
-        // Ak úspešne overené, spustíme `signIn()` na klientovi
-        await signIn("credentials", {
-          email: result.email,
-          password: result.password,
-          redirect: true,
-          callbackUrl: "/account",
-        })
-      }
-    } catch (err) {
-      toast.warn("Upss, chyba pri prihlásení! Skontroluj svoje prihlasovacie údaje.", { position: "bottom-right", hideProgressBar: true, })
+    if (!result.success) {
+      setError(result.error)
     }
   }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 gap-10">
       <form
-        action={handleSubmit}
+        onSubmit={handleSubmit} // 🔥 OPRAVENÉ: Používame `onSubmit`
         className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6"
       >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
@@ -82,7 +73,7 @@ export default function LoginForm() {
 
         <button
           type="submit"
-          className="w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition focus:outline-none focus:ring-2 focus:ring-primary-500"
+          className="w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition"
         >
           Prihlásiť sa
         </button>
