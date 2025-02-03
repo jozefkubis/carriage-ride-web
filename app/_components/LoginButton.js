@@ -8,9 +8,9 @@ export default function LoginButton() {
     <button
       type="submit"
       disabled={pending}
-      className="pending:bg-primary-300 w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition"
+      className="w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition"
     >
-      {pending ? "Prihlasujem..." : "Prihlásiť sa"}
+      {pending ? "Prihlásiť sa..." : "Prihlásiť sa"}
     </button>
   )
 }
