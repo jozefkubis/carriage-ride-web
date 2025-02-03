@@ -1,12 +1,11 @@
 "use client"
 
-import Link from "next/link"
-import FormInput from "./FormInput"
-import { createGuest } from "../_lib/actions"
-import { useState } from "react"
-import { ToastContainer, toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import FormInput from "./FormInput"
+import { handleSubmitRegForm } from "../_lib/functions/handleSubmitRegForm"
 
 export default function RegistrationForm() {
   const [fullName, setFullName] = useState("")
@@ -15,48 +14,18 @@ export default function RegistrationForm() {
   const [password, setPassword] = useState("")
   const [rePassword, setRePassword] = useState("")
   const [error, setError] = useState("")
+  const router = useRouter() // 👈 Presunieme useRouter sem
 
-  const router = useRouter()
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-
-    if (password !== rePassword) {
-      toast.warn("Heslá sa nezhodujú!", { position: "bottom-right", hideProgressBar: true, })
-      setPassword("")
-      setRePassword("")
-      return
-    }
-
-    try {
-      const result = await createGuest(new FormData(e.target))
-
-      if (!result.success) {
-        setFullName("")
-        setEmail("")
-        setPhone("")
-        setPassword("")
-        setRePassword("")
-        // 👇 Zobrazíme chybovú správu, ak existuje užívateľ
-        toast.error(result.error, { position: "bottom-right", hideProgressBar: true, })
-        return
-      }
-
-      toast.success("Registrácia bola úspešná!", { position: "bottom-right", hideProgressBar: true, })
-
-      setFullName("")
-      setEmail("")
-      setPhone("")
-      setPassword("")
-      setRePassword("")
-
-      setTimeout(() => {
-        router.push("/login")
-      }, 3000)
-    } catch (error) {
-      toast.error("Niečo sa pokazilo!", { position: "bottom-right", hideProgressBar: true, })
-    }
-  }
+  const handleSubmit = handleSubmitRegForm({
+    setFullName,
+    setEmail,
+    setPhone,
+    setPassword,
+    setRePassword,
+    password,
+    rePassword,
+    router, // 👈 Pošleme router ako parameter
+  })
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -68,7 +37,6 @@ export default function RegistrationForm() {
           Registrácia
         </h2>
 
-        {/* Meno */}
         <FormInput
           label="Meno"
           id="fullName"
@@ -79,8 +47,6 @@ export default function RegistrationForm() {
           value={fullName}
           required
         />
-
-        {/* Email */}
         <FormInput
           label="Email"
           id="email"
@@ -91,8 +57,6 @@ export default function RegistrationForm() {
           value={email}
           required
         />
-
-        {/* Telefón */}
         <FormInput
           label="Telefón"
           id="phone"
@@ -104,8 +68,6 @@ export default function RegistrationForm() {
           value={phone}
           required
         />
-
-        {/* Heslo */}
         <FormInput
           label="Heslo"
           id="password"
@@ -116,8 +78,6 @@ export default function RegistrationForm() {
           value={password}
           required
         />
-
-        {/* Potvrdenie hesla */}
         <FormInput
           label="Potvrdenie hesla"
           id="re-password"
@@ -128,37 +88,21 @@ export default function RegistrationForm() {
           value={rePassword}
           required
         />
+
         <ToastContainer
           position="bottom-center"
           autoClose={5000}
           hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
         />
 
-        {/* Chybová správa */}
         {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
-        {/* Tlačidlo */}
         <button
           type="submit"
-          className="w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition focus:outline-none focus:ring-2 focus:ring-primary-500"
+          className="w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition"
         >
           Registrovať sa
         </button>
-
-        {/* Link na prihlásenie */}
-        <p className="text-sm text-center text-gray-600">
-          Už máte účet?{" "}
-          <Link href="/login" className="text-primary-600 hover:underline">
-            Prihláste sa
-          </Link>
-        </p>
       </form>
     </div>
   )
