@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import FormInput from "./FormInput"
 import { handleSubmitRegForm } from "../_lib/functions/handleSubmitRegForm"
+import RegFormButton from "./RegFormButton"
 
 export default function RegistrationForm() {
   const [fullName, setFullName] = useState("")
@@ -97,12 +98,7 @@ export default function RegistrationForm() {
 
         {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
-        <button
-          type="submit"
-          className="w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition"
-        >
-          Registrovať sa
-        </button>
+        <RegFormButton />
       </form>
     </div>
   )

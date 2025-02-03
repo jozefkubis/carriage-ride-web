@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css"
 import handleSubmitLogForm from "../_lib/functions/handleSubmitLogForm"
 import FormInput from "./FormInput"
 import GoogleLoginButton from "./GoogleLoginButton.js"
+import LoginButton from "./LoginButton"
 
 export default function LoginForm() {
   const [error, setError] = useState(null)
@@ -71,12 +72,8 @@ export default function LoginForm() {
 
         <ToastContainer />
 
-        <button
-          type="submit"
-          className="w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition"
-        >
-          Prihlásiť sa
-        </button>
+        <LoginButton />
+        <GoogleLoginButton />
 
         <p className="text-sm text-center text-gray-600">
           Nemáte účet?{" "}
@@ -87,11 +84,8 @@ export default function LoginForm() {
             Zaregistrujte sa
           </Link>
         </p>
+        {/* <div className="w-full h-full"></div> */}
       </form>
-
-      <div className="">
-        <GoogleLoginButton />
-      </div>
     </div>
   )
 }
