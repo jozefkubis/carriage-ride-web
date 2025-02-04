@@ -1,7 +1,7 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { signIn, signOut } from "./auth"
+import { auth, signIn, signOut } from "./auth"
 import { supabase } from "./supabase"
 import { redirect } from "next/navigation"
 import bcrypt from "bcrypt"
@@ -94,3 +94,38 @@ export async function signInGuestAction(formData) {
   // Vrátime status pre klienta
   return { success: true, email, password }
 }
+
+export async function updateGuest(formData) {
+  const session = await auth()
+  if (!session) throw new Error("You must be logged in to update your profile.")
+
+  const guestId = session.user.guestId
+  if (!guestId) throw new Error("Guest ID not found.") // Kontrola či guestId existuje
+
+  const email = formData.get("email")
+  const phone = formData.get("phone")
+  const password = formData.get("password")
+
+  let updateData = { email, phone } // Základné dáta
+
+  // ✅ Hashujeme heslo iba ak je zadané
+  if (password) {
+    updateData.password = await bcrypt.hash(password, 10)
+  }
+
+  console.log("Updating guest with:", updateData) // Debugging log
+
+  // ✅ Update len ak máme `guestId`
+  const { error } = await supabase
+    .from("guests")
+    .update(updateData)
+    .eq("id", guestId)
+
+  if (error) {
+    console.error("Supabase error:", error)
+    throw new Error("Profile update failed")
+  }
+
+  revalidatePath("/account")
+}
+

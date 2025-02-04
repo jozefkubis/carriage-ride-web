@@ -1,13 +1,19 @@
-import Link from "next/link"
-import FormInput from "./FormInput"
-import { auth } from "../_lib/auth"
+"use client"
 
-export default async function ProfileUpdateForm() {
-  const session = await auth()
+import { useState } from "react";
+import FormInput from "./FormInput"
+import { updateGuest } from "../_lib/actions";
+
+function ProfileUpdateForm({ guest }) {
+  const [fullName, setFullName] = useState(guest.fullName)
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+  const [password, setPassword] = useState("")
+  const [repassword, setRepassword] = useState("")
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <form className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6">
+      <form action={updateGuest} className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6">
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Aktualizuj svoj profil
         </h2>
@@ -18,8 +24,8 @@ export default async function ProfileUpdateForm() {
             label="Meno"
             id="fullName"
             type="text"
-            placeholder={session.user.name}
             name="fullName"
+            value={fullName}
             disabled
           />
         </div>
@@ -30,9 +36,10 @@ export default async function ProfileUpdateForm() {
             label="Email"
             id="email"
             type="email"
-            placeholder={session.user.email}
             name="email"
-            required
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            placeholder={guest.email}
           />
         </div>
 
@@ -42,36 +49,39 @@ export default async function ProfileUpdateForm() {
             label="Telefón"
             id="phone"
             type="tel"
-            placeholder={session.user.phone}
             name="phone"
+            onChange={(e) => setPhone(e.target.value)}
             pattern="[+][0-9]{1,3}[0-9]{9,14}"
-            required
+            value={phone}
+            placeholder={guest.phone}
           />
         </div>
 
         {/* Heslo */}
-        {/* <div className="flex flex-col">
-                    <FormInput
-                        label="Heslo"
-                        id="password"
-                        type="password"
-                        placeholder="Vaše heslo"
-                        name="password"
-                        required
-                    />
-                </div> */}
+        <div className="flex flex-col">
+          <FormInput
+            label="Heslo"
+            id="password"
+            type="password"
+            placeholder="Vaše heslo"
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+        </div>
 
         {/* Potvrdenie hesla */}
-        {/* <div className="flex flex-col">
-                    <FormInput
-                        label="Potvrdenie hesla"
-                        id="confirmPassword"
-                        type="password"
-                        placeholder="Potvrdenie hesla"
-                        name="confirmPassword"
-                        required
-                    />
-                </div> */}
+        <div className="flex flex-col">
+          <FormInput
+            label="Potvrdenie hesla"
+            id="re-password"
+            type="password"
+            placeholder="Potvrdenie hesla"
+            name="repassword"
+            onChange={(e) => setRepassword(e.target.value)}
+            value={repassword}
+          />
+        </div>
 
         {/* Tlačidlo */}
         <button
@@ -95,3 +105,5 @@ export default async function ProfileUpdateForm() {
     </div>
   )
 }
+
+export default ProfileUpdateForm

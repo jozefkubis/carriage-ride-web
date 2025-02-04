@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css"
 import FormInput from "./FormInput"
 import { handleSubmitRegForm } from "../_lib/functions/handleSubmitRegForm"
 import RegFormButton from "./RegFormButton"
-import GoogleLoginButton from "./GoogleLoginButton.js"
 
 export default function RegistrationForm() {
   const [fullName, setFullName] = useState("")
@@ -100,7 +99,6 @@ export default function RegistrationForm() {
         {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
         <RegFormButton />
-        <GoogleLoginButton />
       </form>
     </div>
   )
