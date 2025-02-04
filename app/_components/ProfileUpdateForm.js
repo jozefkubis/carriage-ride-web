@@ -1,19 +1,22 @@
 "use client"
 
-import { useState } from "react";
+import { useState } from "react"
 import FormInput from "./FormInput"
-import { updateGuest } from "../_lib/actions";
+import { updateGuest } from "../_lib/actions"
 
 function ProfileUpdateForm({ guest }) {
   const [fullName, setFullName] = useState(guest.fullName)
-  const [email, setEmail] = useState("")
-  const [phone, setPhone] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState(guest.email)
+  const [phone, setPhone] = useState(guest.phone)
+  const [password, setPassword] = useState(guest.password)
   const [repassword, setRepassword] = useState("")
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <form action={updateGuest} className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6">
+      <form
+        action={updateGuest}
+        className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6"
+      >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Aktualizuj svoj profil
         </h2>
@@ -25,8 +28,8 @@ function ProfileUpdateForm({ guest }) {
             id="fullName"
             type="text"
             name="fullName"
+            onChange={(e) => setFullName(e.target.value)}
             value={fullName}
-            disabled
           />
         </div>
 
@@ -39,7 +42,7 @@ function ProfileUpdateForm({ guest }) {
             name="email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
-            placeholder={guest.email}
+            placeholder={email}
           />
         </div>
 
@@ -50,10 +53,10 @@ function ProfileUpdateForm({ guest }) {
             id="phone"
             type="tel"
             name="phone"
-            onChange={(e) => setPhone(e.target.value)}
             pattern="[+][0-9]{1,3}[0-9]{9,14}"
+            onChange={(e) => setPhone(e.target.value)}
             value={phone}
-            placeholder={guest.phone}
+            placeholder={phone}
           />
         </div>
 

@@ -100,22 +100,20 @@ export async function updateGuest(formData) {
   if (!session) throw new Error("You must be logged in to update your profile.")
 
   const guestId = session.user.guestId
-  if (!guestId) throw new Error("Guest ID not found.") // Kontrola či guestId existuje
+  if (!guestId) throw new Error("Guest ID not found.")
 
-  const email = formData.get("email")
   const phone = formData.get("phone")
   const password = formData.get("password")
+  const email = formData.get("email")
+  const fullName = formData.get("fullName")
 
-  let updateData = { email, phone } // Základné dáta
-
-  // ✅ Hashujeme heslo iba ak je zadané
-  if (password) {
-    updateData.password = await bcrypt.hash(password, 10)
+  const updateData = {
+    phone,
+    password,
+    email,
+    fullName,
   }
 
-  console.log("Updating guest with:", updateData) // Debugging log
-
-  // ✅ Update len ak máme `guestId`
   const { error } = await supabase
     .from("guests")
     .update(updateData)
@@ -128,4 +126,3 @@ export async function updateGuest(formData) {
 
   revalidatePath("/account")
 }
-
