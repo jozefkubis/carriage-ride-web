@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { handleSubmitUpdForm } from "../_lib/functions/hndleSubmitUpdForm"
 import FormInput from "./FormInput"
+import UpdFormButton from "./UpdFormButton"
 
 export default function ProfileUpdateForm({ guest }) {
   const [fullName, setFullName] = useState(guest.fullName)
@@ -74,13 +75,7 @@ export default function ProfileUpdateForm({ guest }) {
         />
 
         <ToastContainer />
-
-        <button
-          type="submit"
-          className="w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition"
-        >
-          Aktualizovať
-        </button>
+        <UpdFormButton />
       </form>
     </div>
   )

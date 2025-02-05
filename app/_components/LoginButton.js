@@ -10,7 +10,7 @@ export default function LoginButton() {
       disabled={pending}
       className="w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition"
     >
-      {pending ? "Prihlásiť sa..." : "Prihlásiť sa"}
+      {pending ? "Prihlasujem..." : "Prihlásiť sa"}
     </button>
   )
 }
