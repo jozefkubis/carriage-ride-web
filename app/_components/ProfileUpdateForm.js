@@ -1,11 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
-import FormInput from "./FormInput"
-import { signOutAction, updateGuest } from "../_lib/actions"
-import { toast, ToastContainer } from "react-toastify"
+import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { handleSubmitUpdForm } from "../_lib/functions/hndleSubmitUpdForm"
+import FormInput from "./FormInput"
 
 export default function ProfileUpdateForm({ guest }) {
   const [fullName, setFullName] = useState(guest.fullName)
@@ -13,32 +12,10 @@ export default function ProfileUpdateForm({ guest }) {
   const [phone, setPhone] = useState(guest.phone)
   const [password, setPassword] = useState("")
   const [repassword, setRepassword] = useState("")
-  const [error, setError] = useState("")
-  // const [success, setSuccess] = useState("")
-  // const router = useRouter()
+
 
   async function handleSubmit(e) {
-    e.preventDefault()
-    setError("")
-    // setSuccess("")
-
-    const response = await updateGuest(new FormData(e.target))
-
-    if (response.logout) {
-      confirm("Váš email alebo heslo boli zmenené. Prihláste sa znova.")
-      return await signOutAction()
-    }
-
-    if (response.error)
-      return toast.error(response.error, {
-        position: "bottom-right",
-        hideProgressBar: true,
-      })
-
-    toast.success("Profil bol úspešne aktualizovaný!", {
-      position: "bottom-right",
-      hideProgressBar: true,
-    })
+    await handleSubmitUpdForm(e)
   }
 
   return (
@@ -50,11 +27,6 @@ export default function ProfileUpdateForm({ guest }) {
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Aktualizuj svoj profil
         </h2>
-
-        {/* {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-        {success && (
-          <p className="text-green-500 text-sm text-center">{success}</p>
-        )} */}
 
         <FormInput
           label="Meno"
