@@ -88,7 +88,7 @@ export async function signInGuestAction(formData) {
   const isValid = await bcrypt.compare(password, user.password)
 
   if (!isValid) {
-    throw new Error("Invalid password")
+    throw new Error("Nesprávne heslo.")
   }
 
   // Vrátime status pre klienta

@@ -2,8 +2,11 @@ import { signIn } from "next-auth/react"
 import { signInGuestAction } from "../actions"
 import { toast } from "react-toastify"
 
-export default async function handleSubmitLogForm(formData) {
+export default async function handleSubmitLogForm(e) {
   try {
+    e.preventDefault()
+
+    const formData = new FormData(e.target)
     const result = await signInGuestAction(formData)
 
     if (result?.success) {
@@ -15,13 +18,16 @@ export default async function handleSubmitLogForm(formData) {
       })
       return { success: true }
     } else {
-      throw new Error("Neplatné prihlasovacie údaje")
+      toast.error("Niekde v prihlasovaní sa stala chyba!", {
+        position: "bottom-right",
+        hideProgressBar: true,
+      })
     }
   } catch (err) {
-    toast.warn(
-      "Upss, chyba pri prihlásení! Skontroluj svoje prihlasovacie údaje.",
-      { position: "bottom-right", hideProgressBar: true }
-    )
+    toast.error(err.message, {
+      position: "bottom-right",
+      hideProgressBar: true,
+    })
     return { success: false, error: err.message }
   }
 }

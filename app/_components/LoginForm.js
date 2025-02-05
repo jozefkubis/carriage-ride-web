@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { ToastContainer } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import handleSubmitLogForm from "../_lib/functions/handleSubmitLogForm"
 import FormInput from "./FormInput"
@@ -10,30 +10,20 @@ import GoogleLoginButton from "./GoogleLoginButton.js"
 import LoginButton from "./LoginButton"
 
 export default function LoginForm() {
-  const [error, setError] = useState(null)
 
   async function handleSubmit(e) {
-    e.preventDefault()
-    setError(null) // Reset chyby pri novom pokuse o prihlásenie
-    const formData = new FormData(e.target)
-    const result = await handleSubmitLogForm(formData)
-
-    if (!result.success) {
-      setError(result.error)
-    }
+    await handleSubmitLogForm(e)
   }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 gap-10">
       <form
-        onSubmit={handleSubmit} // 🔥 OPRAVENÉ: Používame `onSubmit`
+        onSubmit={handleSubmit}
         className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6"
       >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Prihlásenie
         </h2>
-
-        {error && <p className="text-red-500 text-center">{error}</p>}
 
         <div className="flex flex-col">
           <FormInput
