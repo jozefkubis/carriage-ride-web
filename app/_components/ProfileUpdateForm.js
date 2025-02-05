@@ -16,7 +16,7 @@ export default function ProfileUpdateForm({ guest }) {
 
 
   async function handleSubmit(e) {
-    await handleSubmitUpdForm(e)
+    await handleSubmitUpdForm(e, { password, repassword, setRepassword })
   }
 
   return (

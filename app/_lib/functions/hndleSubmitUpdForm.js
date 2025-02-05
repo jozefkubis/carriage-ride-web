@@ -1,11 +1,20 @@
 import { toast } from "react-toastify"
 import { signOutAction, updateGuest } from "../actions"
 
-export async function handleSubmitUpdForm(e) {
+export async function handleSubmitUpdForm(e, { password, repassword, setRepassword }) {
 
     e.preventDefault()
 
     const response = await updateGuest(new FormData(e.target))
+
+    if (password !== repassword) {
+        toast.warn("Heslá sa nezhodujú!", {
+            position: "bottom-right",
+            hideProgressBar: true,
+        })
+        setRepassword("")
+        return
+    }
 
     if (response.logout) {
         confirm("Váš email alebo heslo boli zmenené. Prihláste sa znova.")
