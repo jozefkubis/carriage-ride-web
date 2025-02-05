@@ -96,33 +96,26 @@ export async function signInGuestAction(formData) {
 }
 
 export async function updateGuest(formData) {
-  const session = await auth()
-  if (!session) throw new Error("You must be logged in to update your profile.")
+  const session = await auth().catch(() => null)
+  if (!session?.user?.guestId) return { logout: true } // Ak nie je session, odhlásiť
 
-  const guestId = session.user.guestId
-  if (!guestId) throw new Error("Guest ID not found.")
+  const { phone, email, fullName, password } = Object.fromEntries(formData)
 
-  const phone = formData.get("phone")
-  const password = formData.get("password")
-  const email = formData.get("email")
-  const fullName = formData.get("fullName")
-
-  const updateData = {
-    phone,
-    password,
-    email,
-    fullName,
-  }
+  const updateData = { phone, email, fullName }
+  if (password) updateData.password = await bcrypt.hash(password, 10)
 
   const { error } = await supabase
     .from("guests")
     .update(updateData)
-    .eq("id", guestId)
+    .eq("id", session.user.guestId)
 
-  if (error) {
-    console.error("Supabase error:", error)
-    throw new Error("Profile update failed")
+  if (error) return { error: "Profil sa nepodarilo aktualizovať." }
+
+  if (email !== session.user.email || password) {
+    await supabase.auth.signOut()
+    return { logout: true }
   }
 
   revalidatePath("/account")
+  return { logout: false }
 }

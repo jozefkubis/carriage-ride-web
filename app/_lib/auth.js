@@ -26,7 +26,8 @@ const authConfig = {
 
         if (!user) throw new Error("No user found")
 
-        const isValid = compare(credentials.password, user.password)
+        // ✅ Opravené: compare() musí byť await
+        const isValid = await compare(credentials.password, user.password)
         if (!isValid) throw new Error("Invalid password")
 
         return {
@@ -54,9 +55,18 @@ const authConfig = {
       }
     },
     async session({ session, user }) {
-      const guest = await getGuest(session.user.email)
-      session.user.guestId = guest.id
-      session.user.phone = guest.phone
+      if (!session?.user?.email) {
+        console.warn("⚠ No valid session, skipping guest lookup")
+        return session // ✅ Ak session neexistuje, vrátime prázdnu session
+      }
+
+      try {
+        const guest = await getGuest(session.user.email)
+        session.user.guestId = guest?.id || null
+        session.user.phone = guest?.phone || null
+      } catch (error) {
+        console.warn("⚠ Error fetching guest:", error)
+      }
 
       return session
     },
