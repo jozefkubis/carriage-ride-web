@@ -6,15 +6,16 @@ export const metadata = {
   title: "Prihlásenie",
 }
 
-export default async function page() {
-
+export default async function Page() {
   const session = await auth()
 
+  if (session?.user) {
+    redirect("/account") // ✅ Prihláseného hosťa hneď presmerujeme
+  }
+
   return (
-    <>
-      {!session?.user ? <div>
-        <LoginForm />
-      </div> : redirect("/account")}
-    </>
+    <div>
+      <LoginForm />
+    </div>
   )
 }

@@ -46,6 +46,11 @@ export function handleSubmitRegForm({
         hideProgressBar: true,
       })
 
+      toast.info("Overovací email bude čoskoro dostupný.", {
+        position: "bottom-right",
+        hideProgressBar: true,
+      })
+
       setFullName("")
       setEmail("")
       setPhone("")

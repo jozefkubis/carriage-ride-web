@@ -6,18 +6,16 @@ import { supabase } from "./supabase"
 import { redirect } from "next/navigation"
 import bcrypt from "bcrypt"
 
+// MARK: Create Guest......................................
 export async function createGuest(formData) {
-  const fullName = formData.get("fullName")
-  const email = formData.get("email")
-  const phone = formData.get("phone")
-  const password = formData.get("password")
+  const { fullName, email, phone, password } = Object.fromEntries(formData)
 
   if (!fullName || !email || !phone || !password) {
     return { success: false, error: "Všetky polia sú povinné." }
   }
 
   // Overíme, či už existuje rovnaký email, meno alebo telefónne číslo
-  const { data: existingUsers, error: fetchError } = await supabase
+  const { data: existingGuest, error: fetchError } = await supabase
     .from("guests")
     .select("id")
     .or(`email.eq.${email},phone.eq.${phone},fullName.eq.${fullName}`)
@@ -30,7 +28,7 @@ export async function createGuest(formData) {
     }
   }
 
-  if (existingUsers.length > 0) {
+  if (existingGuest.length > 0) {
     return {
       success: false,
       error:
@@ -58,15 +56,18 @@ export async function createGuest(formData) {
   return { success: true }
 }
 
+// MARK: Sing In Action.......................................
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" })
   redirect("/account")
 }
 
+//  MARK: Sign Out Action............................................
 export async function signOutAction() {
   await signOut("google", { redirectTo: "/" })
 }
 
+// MARK: Sign In Guest Action.............................
 export async function signInGuestAction(formData) {
   const email = formData.get("email")
   const password = formData.get("password")
@@ -95,6 +96,7 @@ export async function signInGuestAction(formData) {
   return { success: true, email, password }
 }
 
+// MARK: Update Guest Action........................
 export async function updateGuest(formData) {
   const session = await auth().catch(() => null)
   if (!session?.user?.guestId) return { logout: true } // Ak nie je session, odhlásiť
