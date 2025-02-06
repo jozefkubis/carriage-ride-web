@@ -98,7 +98,7 @@ export async function signInGuestAction(formData) {
 
 // MARK: Update Guest Action........................
 export async function updateGuest(formData) {
-  const session = await auth().catch(() => null)
+  const session = await auth()
   if (!session?.user?.guestId) return { logout: true } // Ak nie je session, odhlásiť
 
   const { phone, email, fullName, password } = Object.fromEntries(formData)
@@ -120,4 +120,19 @@ export async function updateGuest(formData) {
 
   revalidatePath("/account")
   return { logout: false }
+}
+
+// MARK: Create Booking
+export async function createBooking(formData) {
+
+  const { fullName, email, date, time, phone, numGuests, notes } = Object.fromEntries(formData)
+
+  const bookingData = { fullName, email, date, time, phone, numGuests, notes }
+
+
+  const { error } = await supabase.from("bookings").insert([bookingData])
+
+  if (error) return { error: "Rezerváciu sa nepodarilo vytvoriť." }
+
+  return { success: true }
 }

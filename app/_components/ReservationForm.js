@@ -1,16 +1,25 @@
 "use client"
 
-import FormInput from "./FormInput";
+import { useState } from "react"
+import { createBooking } from "../_lib/actions"
+import FormInput from "./FormInput"
 
-export default function ReservationForm() {
+export default function ReservationForm({ guest }) {
+  const [fullName, setFullName] = useState(guest?.fullName || "")
+  const [email, setEmail] = useState(guest?.email || "")
+  const [date, setDate] = useState("")
+  const [time, setTime] = useState("")
+  const [numGuests, setNumGuests] = useState(1)
+  const [phone, setPhone] = useState(guest?.phone || "")
+  const [notes, setNotes] = useState("")
 
-  function handleFormSubmit(e) {
-    e.preventDefault();
-  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50 py-10">
-      <form onSubmit={() => handleFormSubmit} className="w-full max-w-2xl bg-white shadow-md rounded-md p-8">
+      <form
+        action={createBooking}
+        className="w-full max-w-2xl bg-white shadow-md rounded-md p-8"
+      >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Rezervačný formulár
         </h2>
@@ -27,6 +36,8 @@ export default function ReservationForm() {
             type="text"
             placeholder="Vaše meno"
             name="fullName"
+            onChange={(e) => setFullName(e.target.value)}
+            value={fullName}
             required
           />
 
@@ -37,14 +48,32 @@ export default function ReservationForm() {
             type="email"
             placeholder="example@email.com"
             name="email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             required
           />
 
           {/* Dátum */}
-          <FormInput label="Dátum" id="date" type="date" name="date" required />
+          <FormInput
+            label="Dátum"
+            id="date"
+            type="date"
+            name="date"
+            onChange={(e) => setDate(e.target.value)}
+            value={date}
+            required
+          />
 
           {/* Čas */}
-          <FormInput label="Čas" id="time" type="time" name="time" required />
+          <FormInput
+            label="Čas"
+            id="time"
+            type="time"
+            name="time"
+            onChange={(e) => setTime(e.target.value)}
+            value={time}
+            required
+          />
 
           {/* Telefón */}
           <FormInput
@@ -53,6 +82,8 @@ export default function ReservationForm() {
             type="tel"
             placeholder="+421 123 456 789"
             name="phone"
+            onChange={(e) => setPhone(e.target.value)}
+            value={phone}
             required
           />
 
@@ -64,6 +95,9 @@ export default function ReservationForm() {
             <select
               id="numGuests"
               className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none"
+              name="numGuests"
+              onChange={(e) => setNumGuests(e.target.value)}
+              value={numGuests}
               required
             >
               <option value="1">1</option>
@@ -83,6 +117,9 @@ export default function ReservationForm() {
               rows="3"
               placeholder="Sem môžete napísať akékoľvek špeciálne požiadavky..."
               className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none resize-none"
+              name="notes"
+              onChange={(e) => setNotes(e.target.value)}
+              value={notes}
             ></textarea>
           </div>
         </div>
@@ -98,8 +135,5 @@ export default function ReservationForm() {
         </div>
       </form>
     </div>
-  );
+  )
 }
-
-
-
