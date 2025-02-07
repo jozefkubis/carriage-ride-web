@@ -15,7 +15,7 @@ export default async function page() {
 
   return (
     <div>
-      <ReservationForm guest={guest} session={session} />
+      <ReservationForm guest={guest} />
     </div>
   )
 }

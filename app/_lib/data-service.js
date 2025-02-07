@@ -27,7 +27,7 @@ export async function getBookingsRegistered(guestId) {
     .from("bookings")
     .select("*, cride(*)") // ✅ Opravený názov vzťahu
     .eq("guestId", guestId)
-    .order("date", { ascending: true }) // ✅ Usporiadané podľa dátumu
+    .order("created_at", { ascending: true }) // ✅ Usporiadané podľa dátumu
 
   console.log(data)
 
@@ -45,8 +45,6 @@ export async function getBookingsNotRegistered(email) {
     .select("*, cride(*)")
     .eq("email", email)
     .order("created_at", { ascending: true })
-
-  console.log(data)
 
   if (error) {
     console.error(error)

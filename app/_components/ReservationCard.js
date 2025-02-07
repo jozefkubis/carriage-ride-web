@@ -2,7 +2,6 @@
 
 export default function ReservationCard({ booking }) {
   const {
-    createdAt,
     fullName,
     email,
     date,
@@ -10,7 +9,7 @@ export default function ReservationCard({ booking }) {
     phone,
     numGuests,
     notes,
-    // cride: { regularPrice, discount, totalPrice, extraprice, id },
+    cride: { regularPrice, discount, totalPrice, extraprice, id },
   } = booking
 
   return (
@@ -33,14 +32,14 @@ export default function ReservationCard({ booking }) {
       <p>
         <strong>Počet hostí:</strong> {numGuests}
       </p>
+      <p>
+        <strong>Cena:</strong> {totalPrice}€
+      </p>
       {notes && (
         <p>
           <strong>Poznámky:</strong> {notes}
         </p>
       )}
-      <p>
-        <strong>Datum vytvorenia:</strong> {createdAt}
-      </p>
     </div>
   )
 }
