@@ -5,11 +5,8 @@ export const metadata = {
 }
 
 export default async function page() {
-
   const session = await auth()
   const name = session.user.name?.split(" ")[0] || "Používateľ"
-  console.log(session);
-
 
   return (
     <div className="bg-gray-50">
@@ -19,4 +16,3 @@ export default async function page() {
     </div>
   )
 }
-

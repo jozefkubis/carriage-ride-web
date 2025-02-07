@@ -6,17 +6,16 @@ export const metadata = {
 }
 
 export default async function page() {
-  const session = await auth();
-  let guest = null;
+  const session = await auth()
+  let guest = null
 
   if (session && session.user) {
-    guest = await getGuest(session.user.email);
+    guest = await getGuest(session.user.email)
   }
 
   return (
     <div>
       <ReservationForm guest={guest} session={session} />
     </div>
-  );
+  )
 }
-

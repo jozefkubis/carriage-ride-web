@@ -124,11 +124,29 @@ export async function updateGuest(formData) {
 
 // MARK: Create Booking
 export async function createBooking(formData) {
+  const {
+    guestId,
+    fullName,
+    email,
+    date,
+    time,
+    phone,
+    numGuests,
+    notes,
+    rideId,
+  } = Object.fromEntries(formData)
 
-  const { fullName, email, date, time, phone, numGuests, notes } = Object.fromEntries(formData)
-
-  const bookingData = { fullName, email, date, time, phone, numGuests, notes }
-
+  const bookingData = {
+    guestId,
+    fullName,
+    email,
+    date,
+    time,
+    phone,
+    numGuests,
+    notes,
+    rideId,
+  }
 
   const { error } = await supabase.from("bookings").insert([bookingData])
 

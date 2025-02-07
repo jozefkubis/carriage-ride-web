@@ -3,6 +3,9 @@
 import { useState } from "react"
 import { createBooking } from "../_lib/actions"
 import FormInput from "./FormInput"
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import { redirect } from "next/navigation"
 
 export default function ReservationForm({ guest }) {
   const [fullName, setFullName] = useState(guest?.fullName || "")
@@ -12,12 +15,31 @@ export default function ReservationForm({ guest }) {
   const [numGuests, setNumGuests] = useState(1)
   const [phone, setPhone] = useState(guest?.phone || "")
   const [notes, setNotes] = useState("")
+  const [guestId] = useState(guest?.id || "")
+  const [rideId, setRideId] = useState(1)
 
+  async function handleSubmit(e) {
+    e.preventDefault()
+
+    const formData = new FormData(e.target)
+    const response = await createBooking(formData)
+
+    if (response.error) {
+      toast.error(response.error)
+    } else {
+      toast.success("Rezervácia bola úspešne odoslaná!", {
+        position: "bottom-right",
+        hideProgressBar: true,
+        autoClose: 3000,
+      })
+      redirect("/account/reservations")
+    }
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50 py-10">
       <form
-        action={createBooking}
+        onSubmit={handleSubmit}
         className="w-full max-w-2xl bg-white shadow-md rounded-md p-8"
       >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
@@ -29,31 +51,26 @@ export default function ReservationForm({ guest }) {
 
         {/* GRID LAYOUT */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Meno */}
+          <input type="hidden" name="guestId" value={guestId} readOnly />
+
           <FormInput
             label="Meno"
             id="fullName"
             type="text"
-            placeholder="Vaše meno"
             name="fullName"
             onChange={(e) => setFullName(e.target.value)}
             value={fullName}
             required
           />
-
-          {/* Email */}
           <FormInput
             label="Email"
             id="email"
             type="email"
-            placeholder="example@email.com"
             name="email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             required
           />
-
-          {/* Dátum */}
           <FormInput
             label="Dátum"
             id="date"
@@ -63,8 +80,6 @@ export default function ReservationForm({ guest }) {
             value={date}
             required
           />
-
-          {/* Čas */}
           <FormInput
             label="Čas"
             id="time"
@@ -74,40 +89,56 @@ export default function ReservationForm({ guest }) {
             value={time}
             required
           />
-
-          {/* Telefón */}
           <FormInput
             label="Telefón"
             id="phone"
             type="tel"
-            placeholder="+421 123 456 789"
             name="phone"
             onChange={(e) => setPhone(e.target.value)}
             value={phone}
             required
           />
 
-          {/* Počet osôb */}
-          <div className="flex flex-col">
-            <label htmlFor="numGuests" className="font-medium text-gray-700">
-              Počet osôb
-            </label>
-            <select
-              id="numGuests"
-              className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none"
-              name="numGuests"
-              onChange={(e) => setNumGuests(e.target.value)}
-              value={numGuests}
-              required
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </select>
+          {/* Počet osôb + Jazda vedľa seba */}
+          <div className="flex flex-col md:flex-row gap-6 md:col-span-2">
+            {/* Počet osôb */}
+            <div className="flex flex-col w-full">
+              <label htmlFor="numGuests" className="font-medium text-gray-700">
+                Počet osôb
+              </label>
+              <select
+                id="numGuests"
+                name="numGuests"
+                onChange={(e) => setNumGuests(Number(e.target.value))}
+                value={numGuests}
+                className="mt-1 px-4 py-2 border rounded-md w-full"
+              >
+                {[1, 2, 3, 4].map((num) => (
+                  <option key={num} value={num}>
+                    {num}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Jazda */}
+            <div className="flex flex-col w-full">
+              <label htmlFor="rideId" className="font-medium text-gray-700">
+                Jazda
+              </label>
+              <select
+                id="rideId"
+                name="rideId"
+                onChange={(e) => setRideId(Number(e.target.value))}
+                value={rideId}
+                className="mt-1 px-4 py-2 border rounded-md w-full"
+              >
+                <option value={1}>Romantická jazda</option>
+              </select>
+            </div>
           </div>
 
-          {/* Poznámky - textarea (full width) */}
+          {/* Poznámky */}
           <div className="md:col-span-2 flex flex-col">
             <label htmlFor="notes" className="font-medium text-gray-700">
               Poznámky
@@ -115,11 +146,10 @@ export default function ReservationForm({ guest }) {
             <textarea
               id="notes"
               rows="3"
-              placeholder="Sem môžete napísať akékoľvek špeciálne požiadavky..."
-              className="mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none resize-none"
               name="notes"
               onChange={(e) => setNotes(e.target.value)}
               value={notes}
+              className="mt-1 px-4 py-2 border rounded-md resize-none"
             ></textarea>
           </div>
         </div>
@@ -128,11 +158,12 @@ export default function ReservationForm({ guest }) {
         <div className="flex justify-center mt-6">
           <button
             type="submit"
-            className="w-full md:w-auto px-6 py-3 bg-primary-500 text-white font-bold rounded-md hover:bg-primary-600 transition focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full md:w-auto px-6 py-3 bg-primary-500 text-white font-bold rounded-md hover:bg-primary-600 transition"
           >
             Odoslať rezerváciu
           </button>
         </div>
+        <ToastContainer />
       </form>
     </div>
   )
