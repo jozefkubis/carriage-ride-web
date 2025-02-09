@@ -1,6 +1,6 @@
 import ReservationForm from "../_components/ReservationForm"
 import { auth } from "../_lib/auth"
-import { getGuest } from "../_lib/data-service"
+import { getGuest, getRide } from "../_lib/data-service"
 export const metadata = {
   title: "Rezervácia",
 }

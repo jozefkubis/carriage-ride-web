@@ -2,6 +2,7 @@
 
 export default function ReservationCard({ booking }) {
   const {
+    rideId,
     fullName,
     email,
     date,
@@ -9,7 +10,7 @@ export default function ReservationCard({ booking }) {
     phone,
     numGuests,
     notes,
-    cride: { regularPrice, discount, totalPrice, extraprice, id },
+    cride: { regularPrice, discount, totalPrice, extraprice, id, name },
   } = booking
 
   return (
@@ -31,6 +32,9 @@ export default function ReservationCard({ booking }) {
       </p>
       <p>
         <strong>Počet hostí:</strong> {numGuests}
+      </p>
+      <p>
+        <strong>Typ jazdy:</strong> {name}
       </p>
       <p>
         <strong>Cena:</strong> {totalPrice}€

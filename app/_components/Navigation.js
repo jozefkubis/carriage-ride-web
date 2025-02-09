@@ -8,7 +8,7 @@ const avatarSrc = "/avatar.png"
 const navLinks = [
   { name: "Úvodná stránka", href: "/" },
   { name: "Naše jazdy", href: "/product" },
-  { name: "Rezervovať jazdu", href: "/booking" },
+  { name: "Rezervovať jazdu", href: "/reservation" },
   { name: "Kontaktujte nás", href: "/contact" },
 ]
 

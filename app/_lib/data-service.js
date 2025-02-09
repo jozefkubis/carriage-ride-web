@@ -5,7 +5,7 @@ export async function createGuest(newGuest) {
 
   if (error) {
     console.error(error)
-    throw new Error("Guest could not be created")
+    throw new Error("Používateľa sa nepodarilo vytvoriť.")
   }
 
   return data
@@ -27,9 +27,7 @@ export async function getBookingsRegistered(guestId) {
     .from("bookings")
     .select("*, cride(*)") // ✅ Opravený názov vzťahu
     .eq("guestId", guestId)
-    .order("created_at", { ascending: true }) // ✅ Usporiadané podľa dátumu
-
-  console.log(data)
+    .order("created_at", { ascending: false }) // ✅ Usporiadané podľa dátumu
 
   if (error) {
     console.error("Chyba pri načítaní rezervácií:", error)
@@ -42,7 +40,7 @@ export async function getBookingsRegistered(guestId) {
 export async function getBookingsNotRegistered(email) {
   const { data, error } = await supabase
     .from("bookings")
-    .select("*, cride(*)")
+    .select("*")
     .eq("email", email)
     .order("created_at", { ascending: true })
 

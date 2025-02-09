@@ -17,6 +17,7 @@ export default function ReservationForm({ guest }) {
   const [notes, setNotes] = useState("")
   const [guestId] = useState(guest?.id || "")
   const [rideId, setRideId] = useState(1)
+  const [price, setPrice] = useState("50€") // Príklad ceny
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -89,18 +90,25 @@ export default function ReservationForm({ guest }) {
             value={time}
             required
           />
-          <FormInput
-            label="Telefón"
-            id="phone"
-            type="tel"
-            name="phone"
-            onChange={(e) => setPhone(e.target.value)}
-            value={phone}
-            required
-          />
 
-          {/* Počet osôb + Jazda vedľa seba */}
+          {/* Telefón a Počet osôb vedľa seba */}
           <div className="flex flex-col md:flex-row gap-6 md:col-span-2">
+            {/* Telefón */}
+            <div className="flex flex-col w-full">
+              <label htmlFor="phone" className="font-medium text-gray-700">
+                Telefón
+              </label>
+              <input
+                id="phone"
+                type="tel"
+                name="phone"
+                onChange={(e) => setPhone(e.target.value)}
+                value={phone}
+                required
+                className="mt-1 px-4 py-2 border rounded-md w-full"
+              />
+            </div>
+
             {/* Počet osôb */}
             <div className="flex flex-col w-full">
               <label htmlFor="numGuests" className="font-medium text-gray-700">
@@ -111,7 +119,7 @@ export default function ReservationForm({ guest }) {
                 name="numGuests"
                 onChange={(e) => setNumGuests(Number(e.target.value))}
                 value={numGuests}
-                className="mt-1 px-4 py-2 border rounded-md w-full"
+                className="mt-1 px-4 py-2 border rounded-md w-full bg-white"
               >
                 {[1, 2, 3, 4].map((num) => (
                   <option key={num} value={num}>
@@ -120,7 +128,10 @@ export default function ReservationForm({ guest }) {
                 ))}
               </select>
             </div>
+          </div>
 
+          {/* Jazda a Cena vedľa seba */}
+          <div className="flex flex-col md:flex-row gap-6 md:col-span-2">
             {/* Jazda */}
             <div className="flex flex-col w-full">
               <label htmlFor="rideId" className="font-medium text-gray-700">
@@ -131,10 +142,23 @@ export default function ReservationForm({ guest }) {
                 name="rideId"
                 onChange={(e) => setRideId(Number(e.target.value))}
                 value={rideId}
-                className="mt-1 px-4 py-2 border rounded-md w-full"
+                className="mt-1 px-4 py-2 border rounded-md w-full bg-white"
               >
                 <option value={1}>Romantická jazda</option>
+                <option value={2}>Rodinná jazda</option>
+                <option value={3}>Špeciálna jazda</option>
               </select>
+            </div>
+
+            {/* Cena */}
+            <div className="flex flex-col w-full">
+              <label className="font-medium text-gray-700">Cena</label>
+              <input
+                type="text"
+                value={price}
+                readOnly
+                className="mt-1 px-4 py-2 border rounded-md w-full bg-gray-100 text-gray-700 cursor-not-allowed"
+              />
             </div>
           </div>
 
