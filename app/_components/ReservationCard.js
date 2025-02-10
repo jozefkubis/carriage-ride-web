@@ -10,8 +10,10 @@ export default function ReservationCard({ booking }) {
     phone,
     numGuests,
     notes,
-    cride: { regularPrice, discount, totalPrice, extraprice, id, name },
+    cride: { regularPrice, discount, id, name },
   } = booking
+
+  const totalPrice = regularPrice - discount
 
   return (
     <div className="border p-4 rounded-lg shadow-md bg-white">

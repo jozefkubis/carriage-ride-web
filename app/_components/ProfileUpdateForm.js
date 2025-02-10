@@ -10,7 +10,7 @@ import UpdFormButton from "./UpdFormButton"
 export default function ProfileUpdateForm({ guest }) {
   const [fullName, setFullName] = useState(guest.fullName)
   const [email, setEmail] = useState(guest.email)
-  const [phone, setPhone] = useState(guest.phone)
+  const [phone, setPhone] = useState(guest?.phone || "")
   const [password, setPassword] = useState("")
   const [repassword, setRepassword] = useState("")
 
@@ -66,7 +66,7 @@ export default function ProfileUpdateForm({ guest }) {
         />
         <FormInput
           label="Potvrdenie hesla"
-          id="re-password"
+          id="repassword"
           type="password"
           name="repassword"
           onChange={(e) => setRepassword(e.target.value)}

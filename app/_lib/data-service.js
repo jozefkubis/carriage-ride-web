@@ -51,3 +51,17 @@ export async function getBookingsNotRegistered(email) {
 
   return data
 }
+
+export async function getCrides() {
+  const { data, error } = await supabase
+    .from("cride")
+    .select("*")
+    .order("id", { ascending: true })
+
+  if (error) {
+    console.error(error)
+    throw new Error("Rezervácie nie je možné načítať")
+  }
+
+  return data
+}

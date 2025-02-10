@@ -6,7 +6,7 @@ export const metadata = {
 
 export default async function page() {
   const session = await auth()
-  const name = session.user.name?.split(" ")[0] || "Používateľ"
+  const name = session?.user.name.split(" ")[0] || "Používateľ"
 
   return (
     <div className="bg-gray-50">

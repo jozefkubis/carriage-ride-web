@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { redirect } from "next/navigation"
 
-export default function ReservationForm({ guest }) {
+export default function ReservationForm({ guest, crides }) {
   const [fullName, setFullName] = useState(guest?.fullName || "")
   const [email, setEmail] = useState(guest?.email || "")
   const [date, setDate] = useState("")
@@ -17,7 +17,11 @@ export default function ReservationForm({ guest }) {
   const [notes, setNotes] = useState("")
   const [guestId] = useState(guest?.id || "")
   const [rideId, setRideId] = useState(1)
-  const [price, setPrice] = useState("50€") // Príklad ceny
+
+  const regularPrice = crides[rideId - 1].regularPrice
+  const discount = crides[rideId - 1].discount
+  const totalPrice = regularPrice - discount
+
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -63,6 +67,7 @@ export default function ReservationForm({ guest }) {
             value={fullName}
             required
           />
+
           <FormInput
             label="Email"
             id="email"
@@ -72,6 +77,7 @@ export default function ReservationForm({ guest }) {
             value={email}
             required
           />
+
           <FormInput
             label="Dátum"
             id="date"
@@ -79,8 +85,12 @@ export default function ReservationForm({ guest }) {
             name="date"
             onChange={(e) => setDate(e.target.value)}
             value={date}
+            min={new Date(new Date().setDate(new Date().getDate() + 1))
+              .toISOString()
+              .split("T")[0]}
             required
           />
+
           <FormInput
             label="Čas"
             id="time"
@@ -89,7 +99,10 @@ export default function ReservationForm({ guest }) {
             onChange={(e) => setTime(e.target.value)}
             value={time}
             required
+            min="08:00"
+            max="21:00"
           />
+
 
           {/* Telefón a Počet osôb vedľa seba */}
           <div className="flex flex-col md:flex-row gap-6 md:col-span-2">
@@ -155,7 +168,7 @@ export default function ReservationForm({ guest }) {
               <label className="font-medium text-gray-700">Cena</label>
               <input
                 type="text"
-                value={price}
+                value={totalPrice + "€"}
                 readOnly
                 className="mt-1 px-4 py-2 border rounded-md w-full bg-gray-100 text-gray-700 cursor-not-allowed"
               />
