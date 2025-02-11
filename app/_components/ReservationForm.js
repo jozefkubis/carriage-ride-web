@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import FormInput from "./FormInput"
 import { handleSubmitResForm } from "../_lib/functions/handleSubmitResForm"
+import ResFormButton from "./ResFormButton"
 
 export default function ReservationForm({ guest, crides }) {
   const [fullName, setFullName] = useState(guest?.fullName || "")
@@ -176,15 +177,7 @@ export default function ReservationForm({ guest, crides }) {
           </div>
         </div>
 
-        {/* TLAČIDLO */}
-        <div className="flex justify-center mt-6">
-          <button
-            type="submit"
-            className="w-full md:w-auto px-6 py-3 bg-primary-500 text-white font-bold rounded-md hover:bg-primary-600 transition"
-          >
-            Odoslať rezerváciu
-          </button>
-        </div>
+        <ResFormButton />
         <ToastContainer />
       </form>
     </div>
