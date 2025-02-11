@@ -1,11 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { createBooking } from "../_lib/actions"
-import FormInput from "./FormInput"
-import { toast, ToastContainer } from "react-toastify"
+import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import { redirect } from "next/navigation"
+import FormInput from "./FormInput"
+import { handleSubmitResForm } from "../_lib/functions/handleSubmitResForm"
 
 export default function ReservationForm({ guest, crides }) {
   const [fullName, setFullName] = useState(guest?.fullName || "")
@@ -24,21 +23,7 @@ export default function ReservationForm({ guest, crides }) {
 
 
   async function handleSubmit(e) {
-    e.preventDefault()
-
-    const formData = new FormData(e.target)
-    const response = await createBooking(formData)
-
-    if (response.error) {
-      toast.error(response.error)
-    } else {
-      toast.success("Rezervácia bola úspešne odoslaná!", {
-        position: "bottom-right",
-        hideProgressBar: true,
-        autoClose: 3000,
-      })
-      redirect("/account/reservations")
-    }
+    await handleSubmitResForm(e)
   }
 
   return (

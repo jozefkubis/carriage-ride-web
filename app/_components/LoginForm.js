@@ -1,8 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
-import { toast, ToastContainer } from "react-toastify"
+import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import handleSubmitLogForm from "../_lib/functions/handleSubmitLogForm"
 import FormInput from "./FormInput"

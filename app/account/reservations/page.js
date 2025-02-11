@@ -16,7 +16,7 @@ export default async function Page() {
       <div className="flex flex-col pl-20 pt-20 gap-5 h-screen w-full">
         <h1 className="text-2xl">Moje rezervácie</h1>
 
-        {bookings.length === 0 ? (
+        {!bookings.length ? (
           <p>
             Zatiaľ nemáte žiadne rezervácie. Rezervovať jazdu{" "}
             <Link className="underline text-accent-500" href="/booking">
