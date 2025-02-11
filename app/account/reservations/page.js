@@ -19,7 +19,7 @@ export default async function Page() {
         {!bookings.length ? (
           <p>
             Zatiaľ nemáte žiadne rezervácie. Rezervovať jazdu{" "}
-            <Link className="underline text-accent-500" href="/booking">
+            <Link className="underline text-accent-500" href="/reservation">
               tu &rarr;
             </Link>
           </p>

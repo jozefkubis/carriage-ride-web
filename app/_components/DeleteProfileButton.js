@@ -1,9 +1,9 @@
 "use client"
 
+import SpinnerMini from "./SpinnerMini"
+import { deleteGuest, signOutAction } from "../_lib/actions"
 import { useTransition } from "react"
 import { toast } from "react-toastify"
-import { deleteGuest, signOutAction } from "../_lib/actions"
-import SpinnerMini from "./SpinnerMini"
 
 
 function DeleteProfileButton({ guestId }) {

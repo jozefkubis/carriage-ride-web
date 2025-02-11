@@ -78,7 +78,7 @@ export default function ProfileUpdateForm({ guest }) {
         <ToastContainer />
         <UpdFormButton />
       </form>
-      <DeleteProfileButton guestId={guest.id} />
+      <DeleteProfileButton guestId={guest?.id} />
     </div>
   )
 }
