@@ -1,4 +1,5 @@
 import ReservationForm from "../_components/ReservationForm"
+import ReservationMessage from "../_components/ReservationMessage"
 import { auth } from "../_lib/auth"
 import { getCrides, getGuest } from "../_lib/data-service"
 export const metadata = {
@@ -16,9 +17,5 @@ export default async function page() {
   const crides = await getCrides()
 
 
-  return (
-    <div>
-      <ReservationForm guest={guest} crides={crides} />
-    </div>
-  )
+  return session?.user ? <ReservationForm guest={guest} crides={crides} /> : <ReservationMessage />
 }
