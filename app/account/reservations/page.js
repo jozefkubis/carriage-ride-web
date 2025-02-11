@@ -24,7 +24,7 @@ export default async function Page() {
             </Link>
           </p>
         ) : (
-          <ul>
+          <ul className="flex flex-wrap gap-5">
             {bookings.map((booking) => (
               <ReservationCard booking={booking} key={booking.id} />
             ))}
