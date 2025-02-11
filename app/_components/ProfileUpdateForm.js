@@ -6,10 +6,11 @@ import "react-toastify/dist/ReactToastify.css"
 import { handleSubmitUpdForm } from "../_lib/functions/hndleSubmitUpdForm"
 import FormInput from "./FormInput"
 import UpdFormButton from "./UpdFormButton"
+import DeleteProfileButton from "./DeleteProfileButton"
 
 export default function ProfileUpdateForm({ guest }) {
-  const [fullName, setFullName] = useState(guest.fullName)
-  const [email, setEmail] = useState(guest.email)
+  const [fullName, setFullName] = useState(guest?.fullName || "")
+  const [email, setEmail] = useState(guest?.email || "")
   const [phone, setPhone] = useState(guest?.phone || "")
   const [password, setPassword] = useState("")
   const [repassword, setRepassword] = useState("")
@@ -20,10 +21,10 @@ export default function ProfileUpdateForm({ guest }) {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6"
+        className="w-full max-w-md bg-white rounded-t-lg shadow-md p-8 space-y-6"
       >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Aktualizuj svoj profil
@@ -77,6 +78,7 @@ export default function ProfileUpdateForm({ guest }) {
         <ToastContainer />
         <UpdFormButton />
       </form>
+      <DeleteProfileButton guestId={guest.id} />
     </div>
   )
 }

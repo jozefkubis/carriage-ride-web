@@ -1,3 +1,5 @@
+import { signOutAction } from "./actions"
+import { auth } from "./auth"
 import { supabase } from "./supabase"
 
 export async function createGuest(newGuest) {
@@ -65,3 +67,5 @@ export async function getCrides() {
 
   return data
 }
+
+

@@ -122,7 +122,7 @@ export async function updateGuest(formData) {
   return { logout: false }
 }
 
-// MARK: Create Booking
+// MARK: Create Booking.....................................
 export async function createBooking(formData) {
   const {
     guestId,
@@ -154,3 +154,31 @@ export async function createBooking(formData) {
 
   return { success: true }
 }
+
+// MARK: Delete Guest..........................................
+export async function deleteGuest(guestId) {
+  try {
+    // Overíme, či máme platné guestId
+    if (!guestId) return { error: "Neplatné ID hosťa." }
+
+    // Vymazanie hosťa zo Supabase
+    const { error } = await supabase
+      .from("guests")
+      .delete()
+      .eq("id", guestId)
+
+    if (error) {
+      console.error("Chyba pri mazaní hosťa:", error)
+      return { error: "Profil sa nepodarilo vymazať." }
+    }
+
+    // Revalidujeme stránku, aby sa session správne aktualizovala
+    revalidatePath("/")
+
+    return { success: true }
+  } catch (err) {
+    console.error("Chyba pri deleteGuest:", err)
+    return { error: "Vyskytla sa neočakávaná chyba." }
+  }
+}
+
