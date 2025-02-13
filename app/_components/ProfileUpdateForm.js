@@ -15,7 +15,6 @@ export default function ProfileUpdateForm({ guest }) {
   const [password, setPassword] = useState("")
   const [repassword, setRepassword] = useState("")
 
-
   async function handleSubmit(e) {
     await handleSubmitUpdForm(e, { password, repassword, setRepassword })
   }
@@ -24,7 +23,7 @@ export default function ProfileUpdateForm({ guest }) {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white rounded-t-lg shadow-md p-8 space-y-6"
+        className="w-full max-w-md bg-white rounded-t-lg shadow-md px-8 pt-8 pb-2 space-y-6"
       >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Aktualizuj svoj profil

@@ -23,7 +23,7 @@ function DeleteProfileButton({ guestId }) {
   }
 
   return (
-    <div className="w-full max-w-md bg-white rounded-b-lg shadow-md px-8 pb-8 space-y-6">
+    <div className="w-full max-w-md bg-white rounded-b-lg shadow-md px-8 pb-8">
       <button
         onClick={() => startTransition(handleDelete)}
         className="w-full max-w-md bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-md  transition"
