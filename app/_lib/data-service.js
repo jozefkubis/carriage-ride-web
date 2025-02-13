@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation"
 import { signOutAction } from "./actions"
 import { auth } from "./auth"
 import { supabase } from "./supabase"
@@ -25,6 +26,10 @@ export async function getGuest(email) {
 }
 
 export async function getBookingsRegistered(guestId) {
+  if (!guestId) {
+    throw new Error("Neplatné ID hosťa, odhlásite sa.")
+  }
+
   const { data, error } = await supabase
     .from("bookings")
     .select("*, cride(*)") // ✅ Opravený názov vzťahu
@@ -67,5 +72,3 @@ export async function getCrides() {
 
   return data
 }
-
-

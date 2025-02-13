@@ -157,28 +157,22 @@ export async function createBooking(formData) {
 
 // MARK: Delete Guest..........................................
 export async function deleteGuest(guestId) {
-  try {
-    // Overíme, či máme platné guestId
-    if (!guestId) return { error: "Neplatné ID hosťa." }
+  if (!guestId) return { error: "Neplatné ID hosťa." }
 
-    // Vymazanie hosťa zo Supabase
-    const { error } = await supabase
-      .from("guests")
-      .delete()
-      .eq("id", guestId)
+  const { error: deleteError } = await supabase
+    .from("guests")
+    .delete()
+    .eq("id", guestId)
 
-    if (error) {
-      console.error("Chyba pri mazaní hosťa:", error)
-      return { error: "Profil sa nepodarilo vymazať." }
-    }
-
-    // Revalidujeme stránku, aby sa session správne aktualizovala
-    revalidatePath("/")
-
-    return { success: true }
-  } catch (err) {
-    console.error("Chyba pri deleteGuest:", err)
-    return { error: "Vyskytla sa neočakávaná chyba." }
+  if (deleteError) {
+    console.error(deleteError)
+    return { error: "Chyba pri mazaní hosťa" }
   }
-}
 
+  // Revalidácia cache v Next.js (iba ak používaš App Router)
+  if (typeof revalidatePath === "function") {
+    revalidatePath("/")
+  }
+
+  return { success: true }
+}

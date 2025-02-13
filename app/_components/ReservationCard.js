@@ -20,12 +20,19 @@ export default function ReservationCard({ booking }) {
   const formattedDate = date
     ? format(parseISO(date), "dd.MM.yyyy")
     : "Neposkytnuté"
-
   const formattedTime = time.slice(0, 5)
-
   const formattedCreatedAt = created_at
     ? format(parseISO(created_at), "dd.MM.yyyy")
     : "Neposkytnuté"
+
+  // const router = useRouter()
+
+  const handleDelete = async () => {}
+
+  const handleUpdate = async () => {
+    // Vaša funkcia na aktualizáciu jazdy (presmerujte na aktualizačnú stránku)
+    // router.push(`/update-ride/${booking.id}`)
+  }
 
   return (
     <div className="border border-gray-300 p-6 rounded-lg shadow-lg bg-white w-full mx-auto max-w-xl">
@@ -72,7 +79,6 @@ export default function ReservationCard({ booking }) {
         )}
       </div>
 
-
       <div className="mt-6 flex justify-between items-center border-t pt-4">
         <span className="text-lg font-medium text-gray-900">💰 Cena:</span>
         <span className="text-2xl font-semibold text-green-600">
@@ -81,6 +87,21 @@ export default function ReservationCard({ booking }) {
           </span>
           {totalPrice}€
         </span>
+      </div>
+
+      <div className="mt-6 w-full flex justify-end space-x-4 border-t pt-6">
+        <button
+          onClick={handleDelete}
+          className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded w-1/2"
+        >
+          Vymazať jazdu
+        </button>
+        <button
+          onClick={handleUpdate}
+          className="bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded w-1/2"
+        >
+          Aktualizovať jazdu
+        </button>
       </div>
     </div>
   )
