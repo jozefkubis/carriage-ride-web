@@ -1,9 +1,11 @@
 "use client"
 
 import { format, parseISO } from "date-fns"
+import { deleteBooking } from "../_lib/actions"
 
 export default function ReservationCard({ booking }) {
   const {
+    id,
     created_at,
     fullName,
     email,
@@ -27,7 +29,9 @@ export default function ReservationCard({ booking }) {
 
   // const router = useRouter()
 
-  const handleDelete = async () => {}
+  const handleDelete = async () => {
+    await deleteBooking(booking.id)
+  }
 
   const handleUpdate = async () => {
     // Vaša funkcia na aktualizáciu jazdy (presmerujte na aktualizačnú stránku)

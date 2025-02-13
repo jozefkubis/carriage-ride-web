@@ -176,3 +176,26 @@ export async function deleteGuest(guestId) {
 
   return { success: true }
 }
+
+// MARK: Delete Booking..........................................
+
+export async function deleteBooking(id) {
+  const { error: deleteError } = await supabase
+    .from("bookings")
+    .delete()
+    .eq("id", id)
+
+  if (deleteError) {
+    console.error(deleteError)
+    return { error: "Chyba pri mazaní rezervácie" }
+  }
+
+  // Revalidácia cache v Next.js (iba ak používaš App Router)
+  if (typeof revalidatePath === "function") {
+    revalidatePath("/")
+  }
+
+  return { success: true }
+}
+
+// MARK: Update Booking..........................................
