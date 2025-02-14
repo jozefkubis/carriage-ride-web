@@ -1,6 +1,7 @@
 import ReservationCard from "@/app/_components/ReservationCard"
+import UpdateBookingForm from "@/app/_components/UpdateBookingForm"
 import { auth } from "@/app/_lib/auth"
-import { getBookingsRegistered } from "@/app/_lib/data-service"
+import { getBookingsRegistered, getCrides } from "@/app/_lib/data-service"
 import Link from "next/link"
 
 export const metadata = {
@@ -10,6 +11,7 @@ export const metadata = {
 export default async function Page() {
   const session = await auth()
   const bookings = await getBookingsRegistered(session.user.guestId)
+  const crides = await getCrides()
 
   return (
     <div className="bg-gray-50">
@@ -24,11 +26,13 @@ export default async function Page() {
             </Link>
           </p>
         ) : (
-          <ul className="flex flex-wrap gap-5">
-            {bookings.map((booking) => (
-              <ReservationCard booking={booking} key={booking.id} />
-            ))}
-          </ul>
+          <div>
+            <ul className="flex flex-wrap gap-5">
+              {bookings.map((booking) => (
+                <ReservationCard booking={booking} crides={crides} key={booking.id} />
+              ))}
+            </ul>
+          </div>
         )}
       </div>
     </div>

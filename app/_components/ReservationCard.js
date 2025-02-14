@@ -2,8 +2,9 @@
 
 import { format, parseISO } from "date-fns"
 import { deleteBooking } from "../_lib/actions"
+import UpdateBookingForm from "./UpdateBookingForm"
 
-export default function ReservationCard({ booking }) {
+export default function ReservationCard({ booking, crides }) {
   const {
     id,
     created_at,
@@ -107,6 +108,8 @@ export default function ReservationCard({ booking }) {
           Aktualizovať jazdu
         </button>
       </div>
+
+      <UpdateBookingForm booking={booking} crides={crides} key={booking.id} />
     </div>
   )
 }
