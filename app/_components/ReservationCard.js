@@ -34,10 +34,7 @@ export default function ReservationCard({ booking, crides }) {
     await deleteBooking(booking.id)
   }
 
-  const handleUpdate = async () => {
-    // Vaša funkcia na aktualizáciu jazdy (presmerujte na aktualizačnú stránku)
-    // router.push(`/update-ride/${booking.id}`)
-  }
+  // const handleUpdate = async () => {}
 
   return (
     <div className="border border-gray-300 p-6 rounded-lg shadow-lg bg-white w-full mx-auto max-w-xl">
@@ -101,12 +98,12 @@ export default function ReservationCard({ booking, crides }) {
         >
           Vymazať jazdu
         </button>
-        <button
+        {/* <button
           onClick={handleUpdate}
           className="bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded w-1/2"
         >
           Aktualizovať jazdu
-        </button>
+        </button> */}
       </div>
 
       <UpdateBookingForm booking={booking} crides={crides} key={booking.id} />

@@ -200,33 +200,42 @@ export async function deleteBooking(id) {
 
 // MARK: Update Booking..........................................
 export async function updateBooking(formData) {
-  const formObject = Object.fromEntries(formData)
+  const {
+    id,
+    guestId,
+    fullName,
+    email,
+    date,
+    time,
+    phone,
+    numGuests,
+    notes,
+    rideId,
+  } = Object.fromEntries(formData)
 
-  // Používame správne `bookingId` namiesto `id`
-  const bookingId = formObject.bookingId
-  if (!bookingId) return { error: "Neplatné ID rezervácie." }
-
-  // Konverzia hodnôt
   const updateData = {
-    date: formObject.date || null,
-    time: formObject.time || null,
-    phone: formObject.phone || null,
-    numGuests: formObject.numGuests ? Number(formObject.numGuests) : null,
-    notes: formObject.notes || null,
-    rideId: formObject.rideId ? Number(formObject.rideId) : null,
+    guestId,
+    fullName,
+    email,
+    date,
+    time,
+    phone,
+    numGuests,
+    notes,
+    rideId,
   }
 
-  // Aktualizácia v Supabase
+  console.log(typeof updateData.rideId)
+  console.log(typeof updateData.guestId)
+  console.log(typeof updateData.numGuests)
+  console.log(typeof id)
+
   const { error } = await supabase
     .from("bookings")
     .update(updateData)
-    .eq("id", bookingId)
+    .eq("id", id)
 
-  if (error) {
-    console.error("Chyba pri aktualizácii rezervácie:", error)
-    return { error: "Rezerváciu sa nepodarilo aktualizovať." }
-  }
+  if (error) return { error: "Rezerváciu sa nepodarilo aktualizovať." }
 
-  revalidatePath("/account") // Refresh cache v Next.js
   return { success: true }
 }
