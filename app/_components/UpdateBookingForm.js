@@ -34,8 +34,8 @@ export default function UpdateBookingForm({ booking, crides }) {
           Vyplňte nasledujúce údaje a aktualizujte svoju rezerváciu.
         </p>
 
-        <input type="hidden" name="guestId" value={booking.guestId} />
-        <input type="hidden" name="bookingId" value={booking.id} />
+        <input type="hidden" name="guestId" value={booking.guestId} readOnly />
+        <input type="hidden" name="bookingId" value={booking.id} readOnly />
 
         <FormInput
           label="Meno"
@@ -63,8 +63,14 @@ export default function UpdateBookingForm({ booking, crides }) {
           name="date"
           onChange={(e) => setDate(e.target.value)}
           value={date}
+          min={
+            new Date(new Date().setDate(new Date().getDate() + 1))
+              .toISOString()
+              .split("T")[0]
+          }
           required
         />
+
         <FormInput
           label="Čas"
           id="time"
@@ -73,9 +79,12 @@ export default function UpdateBookingForm({ booking, crides }) {
           onChange={(e) => setTime(e.target.value)}
           value={time}
           required
+          min="08:00"
+          max="21:00"
         />
 
         <div className="flex flex-col md:flex-row gap-6 md:col-span-2">
+          {/* Telefón */}
           <div className="flex flex-col w-full">
             <label htmlFor="phone" className="font-medium text-gray-700">
               Telefón
@@ -90,6 +99,7 @@ export default function UpdateBookingForm({ booking, crides }) {
               className="mt-1 px-4 py-2 border rounded-md w-full"
             />
           </div>
+
           <div className="flex flex-col w-full">
             <label htmlFor="numGuests" className="font-medium text-gray-700">
               Počet osôb
@@ -111,6 +121,7 @@ export default function UpdateBookingForm({ booking, crides }) {
         </div>
 
         <div className="flex flex-col md:flex-row gap-6 md:col-span-2">
+          {/* Jazda */}
           <div className="flex flex-col w-full">
             <label htmlFor="rideId" className="font-medium text-gray-700">
               Jazda

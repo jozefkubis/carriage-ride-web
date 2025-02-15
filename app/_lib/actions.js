@@ -200,42 +200,45 @@ export async function deleteBooking(id) {
 
 // MARK: Update Booking..........................................
 export async function updateBooking(formData) {
-  const {
-    id,
-    guestId,
-    fullName,
-    email,
-    date,
-    time,
-    phone,
-    numGuests,
-    notes,
-    rideId,
-  } = Object.fromEntries(formData)
+  const id = formData.get("bookingId") // Získa ID ako string
+  console.log("🔍 ID odoslané do Supabase:", id)
 
-  const updateData = {
-    guestId,
-    fullName,
-    email,
-    date,
-    time,
-    phone,
-    numGuests,
-    notes,
-    rideId,
+  if (!id) {
+    console.error("❌ Chyba: Booking ID nebolo nájdené!")
+    return { error: "Chýba booking ID" }
   }
 
-  console.log(typeof updateData.rideId)
-  console.log(typeof updateData.guestId)
-  console.log(typeof updateData.numGuests)
-  console.log(typeof id)
+  const updateData = {
+    fullName: formData.get("fullName"),
+    email: formData.get("email"),
+    date: formData.get("date"),
+    time: formData.get("time"),
+    phone: formData.get("phone"),
+    numGuests: Number(formData.get("numGuests")),
+    notes: formData.get("notes"),
+    rideId: Number(formData.get("rideId")),
+  }
 
-  const { error } = await supabase
+  console.log("📤 Dáta odoslané do Supabase:", updateData)
+
+  const { data, error } = await supabase
     .from("bookings")
     .update(updateData)
-    .eq("id", id)
+    .eq("id", Number(id)) // Skús Number() odstrániť, ak ID je UUID
+    .select()
 
-  if (error) return { error: "Rezerváciu sa nepodarilo aktualizovať." }
+  console.log("🟢 Supabase odpoveď:", { data, error })
 
-  return { success: true }
+  if (error) {
+    console.error("❌ Supabase error:", error)
+    return { error: error.message }
+  }
+
+  if (!data.length) {
+    console.warn("⚠️ Warning: No rows updated!")
+    return { error: "Žiadne záznamy neboli aktualizované." }
+  }
+
+  revalidatePath("/account/reservations")
+  return { success: true, updatedData: data }
 }
