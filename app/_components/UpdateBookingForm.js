@@ -44,7 +44,7 @@ export default function UpdateBookingForm({ booking, crides }) {
           name="fullName"
           onChange={(e) => setFullName(e.target.value)}
           value={fullName}
-          //   disabled
+        //   disabled
         />
         <FormInput
           label="Email"
@@ -53,7 +53,7 @@ export default function UpdateBookingForm({ booking, crides }) {
           name="email"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
-          //   disabled
+        //   disabled
         />
 
         <FormInput
