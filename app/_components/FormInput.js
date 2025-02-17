@@ -21,8 +21,9 @@ export default function FormInput({
         type={type}
         id={id}
         placeholder={placeholder}
-        className={`mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none ${disabled ? "bg-gray-200" : "bg-white"
-          }`}
+        className={`hover:cursor-pointer mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none ${
+          disabled ? "bg-gray-200" : "bg-white"
+        }`}
         required={required}
         name={name}
         onChange={onChange}

@@ -203,8 +203,8 @@ export async function updateBooking(formData) {
   const id = Number(formData.get("bookingId"))
 
   const updateData = {
-    fullName: formData.get("fullName"),
-    email: formData.get("email"),
+    // fullName: formData.get("fullName"),
+    // email: formData.get("email"),
     date: formData.get("date"),
     time: formData.get("time"),
     phone: formData.get("phone"),

@@ -54,18 +54,20 @@ export default function UpdateBookingForm({ booking, crides }) {
             id="fullName"
             type="text"
             name="fullName"
-            value={fullName}
+            defaultValue={fullName}
             placeholder={fullName}
             disabled
+            readOnly
           />
           <FormInput
             label="Email"
             id="email"
             type="email"
             name="email"
-            value={email}
+            defaultValue={email}
             placeholder={email}
             disabled
+            readOnly
           />
 
           <FormInput
@@ -100,7 +102,7 @@ export default function UpdateBookingForm({ booking, crides }) {
               <label htmlFor="phone" className="font-medium text-gray-700">
                 Telefón
               </label>
-              <input
+              <FormInput
                 id="phone"
                 type="tel"
                 name="phone"
@@ -120,7 +122,7 @@ export default function UpdateBookingForm({ booking, crides }) {
                 name="numGuests"
                 onChange={(e) => setNumGuests(Number(e.target.value))}
                 value={numGuests}
-                className="mt-1 px-4 py-2 border rounded-md w-full bg-white"
+                className="mt-1 px-4 py-2 border rounded-md w-full bg-white hover:cursor-pointer"
               >
                 {[1, 2, 3, 4].map((num) => (
                   <option key={num} value={num}>
@@ -142,7 +144,7 @@ export default function UpdateBookingForm({ booking, crides }) {
                 name="rideId"
                 onChange={(e) => setRideId(Number(e.target.value))}
                 value={rideId}
-                className="mt-1 px-4 py-2 border rounded-md w-full bg-white"
+                className="mt-1 px-4 py-2 border rounded-md w-full bg-white hover:cursor-pointer"
               >
                 {crides.map((ride) => (
                   <option key={ride.id} value={ride.id}>
@@ -174,7 +176,7 @@ export default function UpdateBookingForm({ booking, crides }) {
               name="notes"
               onChange={(e) => setNotes(e.target.value)}
               value={notes}
-              className="mt-1 px-4 py-2 border rounded-md resize-none"
+              className="mt-1 px-4 py-2 border rounded-md resize-none hover:cursor-pointer"
             ></textarea>
           </div>
         </div>
