@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import FormInput from "./FormInput"
@@ -18,10 +18,14 @@ export default function ReservationForm({ guest, crides }) {
   const [guestId] = useState(guest?.id || "")
   const [rideId, setRideId] = useState(1)
 
-  const regularPrice = crides[rideId - 1].regularPrice
-  const discount = crides[rideId - 1].discount
-  const totalPrice = regularPrice - discount
-
+  // Použitie useMemo na optimalizáciu výpočtu ceny
+  const selectedRide = useMemo(
+    () => crides.find((r) => r.id === rideId) || {},
+    [rideId, crides]
+  )
+  const totalPrice = selectedRide.regularPrice
+    ? selectedRide.regularPrice - (selectedRide.discount || 0)
+    : 0
 
   async function handleSubmit(e) {
     await handleSubmitResForm(e)
@@ -53,7 +57,6 @@ export default function ReservationForm({ guest, crides }) {
             value={fullName}
             required
           />
-
           <FormInput
             label="Email"
             id="email"
@@ -71,12 +74,13 @@ export default function ReservationForm({ guest, crides }) {
             name="date"
             onChange={(e) => setDate(e.target.value)}
             value={date}
-            min={new Date(new Date().setDate(new Date().getDate() + 1))
-              .toISOString()
-              .split("T")[0]}
+            min={
+              new Date(new Date().setDate(new Date().getDate() + 1))
+                .toISOString()
+                .split("T")[0]
+            }
             required
           />
-
           <FormInput
             label="Čas"
             id="time"
@@ -89,10 +93,8 @@ export default function ReservationForm({ guest, crides }) {
             max="21:00"
           />
 
-
           {/* Telefón a Počet osôb vedľa seba */}
           <div className="flex flex-col md:flex-row gap-6 md:col-span-2">
-            {/* Telefón */}
             <div className="flex flex-col w-full">
               <label htmlFor="phone" className="font-medium text-gray-700">
                 Telefón
@@ -108,7 +110,6 @@ export default function ReservationForm({ guest, crides }) {
               />
             </div>
 
-            {/* Počet osôb */}
             <div className="flex flex-col w-full">
               <label htmlFor="numGuests" className="font-medium text-gray-700">
                 Počet osôb
@@ -131,7 +132,6 @@ export default function ReservationForm({ guest, crides }) {
 
           {/* Jazda a Cena vedľa seba */}
           <div className="flex flex-col md:flex-row gap-6 md:col-span-2">
-            {/* Jazda */}
             <div className="flex flex-col w-full">
               <label htmlFor="rideId" className="font-medium text-gray-700">
                 Jazda
@@ -143,18 +143,19 @@ export default function ReservationForm({ guest, crides }) {
                 value={rideId}
                 className="mt-1 px-4 py-2 border rounded-md w-full bg-white"
               >
-                <option value={1}>Romantická jazda</option>
-                <option value={2}>Rodinná jazda</option>
-                <option value={3}>Špeciálna jazda</option>
+                {crides.map((ride) => (
+                  <option key={ride.id} value={ride.id}>
+                    {ride.name}
+                  </option>
+                ))}
               </select>
             </div>
 
-            {/* Cena */}
             <div className="flex flex-col w-full">
               <label className="font-medium text-gray-700">Cena</label>
               <input
                 type="text"
-                value={totalPrice + "€"}
+                value={`${totalPrice}€`}
                 readOnly
                 className="mt-1 px-4 py-2 border rounded-md w-full bg-gray-100 text-gray-700 cursor-not-allowed"
               />

@@ -1,11 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import FormInput from "./FormInput"
-import { updateBooking } from "../_lib/actions"
 import BookingUpdateButton from "./BookingUpdateButton"
+import FormInput from "./FormInput"
+import { handleSubmitUpdBookingForm } from "../_lib/functions/handleSubmitUpdBookingForm"
 
 export default function UpdateBookingForm({ booking, crides }) {
   const [fullName, setFullName] = useState(booking?.fullName || "")
@@ -17,14 +17,19 @@ export default function UpdateBookingForm({ booking, crides }) {
   const [notes, setNotes] = useState(booking?.notes || "")
   const [rideId, setRideId] = useState(booking?.rideId || 1)
 
-  const regularPrice = crides[rideId - 1].regularPrice
-  const discount = crides[rideId - 1].discount
-  const totalPrice = regularPrice - discount
+  // Bezpečné získanie ceny
+  const selectedRide = useMemo(
+    () => crides.find((r) => r.id === rideId) || {},
+    [rideId, crides]
+  )
+  const totalPrice = selectedRide.regularPrice
+    ? selectedRide.regularPrice - (selectedRide.discount || 0)
+    : 0
 
   return (
     <div className="flex justify-center items-center py-10">
       <form
-        action={updateBooking}
+        onSubmit={handleSubmitUpdBookingForm}
         className="w-full max-w-2xl bg-white shadow-md rounded-md p-8"
       >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
@@ -44,7 +49,6 @@ export default function UpdateBookingForm({ booking, crides }) {
           name="fullName"
           onChange={(e) => setFullName(e.target.value)}
           value={fullName}
-        //   disabled
         />
         <FormInput
           label="Email"
@@ -53,7 +57,6 @@ export default function UpdateBookingForm({ booking, crides }) {
           name="email"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
-        //   disabled
         />
 
         <FormInput
@@ -84,7 +87,6 @@ export default function UpdateBookingForm({ booking, crides }) {
         />
 
         <div className="flex flex-col md:flex-row gap-6 md:col-span-2">
-          {/* Telefón */}
           <div className="flex flex-col w-full">
             <label htmlFor="phone" className="font-medium text-gray-700">
               Telefón
@@ -121,7 +123,6 @@ export default function UpdateBookingForm({ booking, crides }) {
         </div>
 
         <div className="flex flex-col md:flex-row gap-6 md:col-span-2">
-          {/* Jazda */}
           <div className="flex flex-col w-full">
             <label htmlFor="rideId" className="font-medium text-gray-700">
               Jazda
@@ -133,9 +134,11 @@ export default function UpdateBookingForm({ booking, crides }) {
               value={rideId}
               className="mt-1 px-4 py-2 border rounded-md w-full bg-white"
             >
-              <option value={1}>Romantická jazda</option>
-              <option value={2}>Rodinná jazda</option>
-              <option value={3}>Špeciálna jazda</option>
+              {crides.map((ride) => (
+                <option key={ride.id} value={ride.id}>
+                  {ride.name}
+                </option>
+              ))}
             </select>
           </div>
           <div className="flex flex-col w-full">

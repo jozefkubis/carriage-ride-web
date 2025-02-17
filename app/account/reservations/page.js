@@ -29,7 +29,11 @@ export default async function Page() {
           <div>
             <ul className="flex flex-wrap gap-5">
               {bookings.map((booking) => (
-                <ReservationCard booking={booking} crides={crides} key={booking.id} />
+                <ReservationCard
+                  booking={booking}
+                  crides={crides}
+                  key={booking.id}
+                />
               ))}
             </ul>
           </div>
