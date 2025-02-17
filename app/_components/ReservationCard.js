@@ -4,6 +4,7 @@ import { useState } from "react"
 import { format, parseISO } from "date-fns"
 import { deleteBooking } from "../_lib/actions"
 import UpdateBookingForm from "./UpdateBookingForm"
+import Modal from "./Modal"
 
 export default function ReservationCard({ booking, crides }) {
   const {
@@ -30,14 +31,14 @@ export default function ReservationCard({ booking, crides }) {
     : "Neposkytnuté"
 
   // Správa viditeľnosti formulára
-  const [showForm, setShowForm] = useState(false)
+  const [isOpenModal, setIsOpenModal] = useState(false)
 
   const handleDelete = async () => {
     await deleteBooking(booking.id)
   }
 
   const handleUpdate = () => {
-    setShowForm((prev) => !prev) // Prepína viditeľnosť formulára
+    setIsOpenModal((prev) => !prev)
   }
 
   return (
@@ -106,18 +107,20 @@ export default function ReservationCard({ booking, crides }) {
           onClick={handleUpdate}
           className="bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded w-1/2"
         >
-          {showForm ? "Zrušiť aktualizáciu" : "Aktualizovať jazdu"}
+          {isOpenModal ? "Zrušiť aktualizáciu" : "Aktualizovať jazdu"}
         </button>
       </div>
 
       {/* Podmienené vykreslenie UpdateBookingForm */}
-      {showForm && (
+      {isOpenModal && (
         <div className="mt-6">
-          <UpdateBookingForm
-            booking={booking}
-            crides={crides}
-            key={booking.id}
-          />
+          <Modal>
+            <UpdateBookingForm
+              booking={booking}
+              crides={crides}
+              key={booking.id}
+            />
+          </Modal>
         </div>
       )}
     </div>
