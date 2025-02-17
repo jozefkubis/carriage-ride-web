@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { format, parseISO } from "date-fns"
 import { deleteBooking } from "../_lib/actions"
 import UpdateBookingForm from "./UpdateBookingForm"
@@ -28,17 +29,20 @@ export default function ReservationCard({ booking, crides }) {
     ? format(parseISO(created_at), "dd.MM.yyyy")
     : "Neposkytnuté"
 
-  // const router = useRouter()
+  // Správa viditeľnosti formulára
+  const [showForm, setShowForm] = useState(false)
 
   const handleDelete = async () => {
     await deleteBooking(booking.id)
   }
 
-  // const handleUpdate = async () => {}
+  const handleUpdate = () => {
+    setShowForm((prev) => !prev) // Prepína viditeľnosť formulára
+  }
 
   return (
     <div className="border border-gray-300 p-6 rounded-lg shadow-lg bg-white w-full mx-auto max-w-xl">
-      <div className="flex justify-between">
+      <div className="flex justify-between relative">
         <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
           📝 <span className="ml-2">{name}</span>
         </h3>
@@ -98,15 +102,24 @@ export default function ReservationCard({ booking, crides }) {
         >
           Vymazať jazdu
         </button>
-        {/* <button
+        <button
           onClick={handleUpdate}
           className="bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded w-1/2"
         >
-          Aktualizovať jazdu
-        </button> */}
+          {showForm ? "Zrušiť aktualizáciu" : "Aktualizovať jazdu"}
+        </button>
       </div>
 
-      <UpdateBookingForm booking={booking} crides={crides} key={booking.id} />
+      {/* Podmienené vykreslenie UpdateBookingForm */}
+      {showForm && (
+        <div className="mt-6">
+          <UpdateBookingForm
+            booking={booking}
+            crides={crides}
+            key={booking.id}
+          />
+        </div>
+      )}
     </div>
   )
 }
