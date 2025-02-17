@@ -5,13 +5,15 @@ function BookingUpdateButton() {
   const { pending } = useFormStatus()
 
   return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition"
-    >
-      {pending ? <SpinnerMini /> : "Aktualizovať"}
-    </button>
+    <div className="flex justify-center w-full mt-8">
+      <button
+        type="submit"
+        disabled={pending}
+        className="disable:bg-primary-300 w-1/3 bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition"
+      >
+        {pending ? <SpinnerMini /> : "Aktualizovať"}
+      </button>
+    </div>
   )
 }
 

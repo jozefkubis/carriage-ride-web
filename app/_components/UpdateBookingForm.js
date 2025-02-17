@@ -181,9 +181,7 @@ export default function UpdateBookingForm({ booking, crides }) {
           </div>
         </div>
 
-        <div className="mt-6">
-          <BookingUpdateButton />
-        </div>
+        <BookingUpdateButton />
         <ToastContainer />
       </form>
     </div>
