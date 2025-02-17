@@ -1,4 +1,6 @@
+import { ToastContainer } from "react-toastify"
 import styled from "styled-components"
+import { IoCloseOutline } from "react-icons/io5"
 
 const StyledModal = styled.div`
   position: fixed;
@@ -8,7 +10,7 @@ const StyledModal = styled.div`
   background-color: white;
   box-shadow: var(--shadow-lg);
   border-radius: 10px;
-  padding: 3.2rem 4rem;
+  /* padding: 2rem 2rem; */
   transition: all 0.5s;
 `
 
@@ -18,7 +20,7 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: var(--primary-50);
   backdrop-filter: blur(4px);
   z-index: 1000;
   transition: all 0.5s;
@@ -36,19 +38,30 @@ const Button = styled.button`
   right: 1.9rem;
 
   &:hover {
-    background-color: gray;
+    background-color: var(--primary-50);
   }
 
   & svg {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 1.4rem;
+    height: 1.4rem;
     /* Sometimes we need both */
     /* fill: var(--color-grey-500);
     stroke: var(--color-grey-500); */
-    color: var(--color-grey-500);
+    color: var(--primary-200);
   }
 `
 
-export default function Modal({ children }) {
-  return <StyledModal>{children}</StyledModal>
+export default function Modal({ children, onClose }) {
+  return (
+    <Overlay>
+      <StyledModal>
+        <Button onClick={onClose}>
+          <IoCloseOutline />
+        </Button>
+
+        <div>{children}</div>
+      </StyledModal>
+      <ToastContainer />
+    </Overlay>
+  )
 }

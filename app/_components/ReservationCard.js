@@ -113,15 +113,14 @@ export default function ReservationCard({ booking, crides }) {
 
       {/* Podmienené vykreslenie UpdateBookingForm */}
       {isOpenModal && (
-        <div className="mt-6">
-          <Modal>
-            <UpdateBookingForm
-              booking={booking}
-              crides={crides}
-              key={booking.id}
-            />
-          </Modal>
-        </div>
+        <Modal onClose={() => setIsOpenModal(false)}>
+          <UpdateBookingForm
+            booking={booking}
+            crides={crides}
+            key={booking.id}
+            onClose={() => setIsOpenModal(false)}
+          />
+        </Modal>
       )}
     </div>
   )
