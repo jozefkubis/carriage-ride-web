@@ -49,6 +49,6 @@ const Button = styled.button`
   }
 `
 
-export default function Modal() {
-  return <StyledModal>Modal</StyledModal>
+export default function Modal({ children }) {
+  return <StyledModal>{children}</StyledModal>
 }
