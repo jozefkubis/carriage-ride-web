@@ -1,67 +1,21 @@
 import { ToastContainer } from "react-toastify"
-import styled from "styled-components"
 import { IoCloseOutline } from "react-icons/io5"
-
-const StyledModal = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  box-shadow: var(--shadow-lg);
-  border-radius: 10px;
-  /* padding: 2rem 2rem; */
-  transition: all 0.5s;
-`
-
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: var(--primary-50);
-  backdrop-filter: blur(4px);
-  z-index: 1000;
-  transition: all 0.5s;
-`
-
-const Button = styled.button`
-  background: none;
-  border: none;
-  padding: 0.4rem;
-  /* border-radius: var(--border-radius-sm); */
-  transform: translateX(0.8rem);
-  transition: all 0.2s;
-  position: absolute;
-  top: 1.2rem;
-  right: 1.9rem;
-
-  &:hover {
-    background-color: var(--primary-50);
-  }
-
-  & svg {
-    width: 1.4rem;
-    height: 1.4rem;
-    /* Sometimes we need both */
-    /* fill: var(--color-grey-500);
-    stroke: var(--color-grey-500); */
-    color: var(--primary-200);
-  }
-`
 
 export default function Modal({ children, onClose }) {
   return (
-    <Overlay>
-      <StyledModal>
-        <Button onClick={onClose}>
-          <IoCloseOutline />
-        </Button>
+    <div className="fixed inset-0 bg-primary-50 bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center">
+      <div className="relative bg-white shadow-lg rounded-lg w-2/5 transition-all">
+        <button
+          onClick={onClose}
+          className="absolute top-5 right-5 p-1 transition-all hover:bg-primary-50 rounded-full"
+        >
+          <IoCloseOutline className="w-6 h-6 text-primary-200" />
+        </button>
 
         <div>{children}</div>
-      </StyledModal>
+      </div>
+
       <ToastContainer />
-    </Overlay>
+    </div>
   )
 }
