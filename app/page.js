@@ -1,3 +1,7 @@
+import Image from "next/image"
+import titlepic from "../public/titlepic.png"
+import Link from "next/link"
+
 export default function Page() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -11,16 +15,21 @@ export default function Page() {
             Vitajte na našej stránke, kde ponúkame romantické jazdy mestom v
             kočiari s koňmi. Užite si nezabudnuteľné chvíle s vašimi blízkymi.
           </p>
-          <button className="mt-4 w-fit px-6 py-3 bg-primary-200 text-primary-900 font-semibold rounded-md hover:bg-primary-300 transition focus:outline-none focus:ring-2 focus:ring-primary-500">
-            Viac informácií
-          </button>
+          <Link href="/product">
+            <button className="mt-4 w-fit px-6 py-3 bg-primary-200 text-primary-900 font-semibold rounded-md hover:bg-primary-300 transition focus:outline-none focus:ring-2 focus:ring-primary-500">
+              Viac informácií
+            </button>
+          </Link>
         </div>
 
         {/* OBRÁZKOVÁ ČASŤ */}
-        <div className="bg-primary-200 rounded-lg shadow-md flex items-center justify-center">
-          <p className="text-primary-900 text-xl font-semibold">
-            Tu môže byť obrázok alebo grafika
-          </p>
+        <div className="relative">
+          <Image
+            className="object-cover rounded-md shadow-md"
+            src={titlepic}
+            alt="Carriage Ride"
+            fill
+          />
         </div>
       </div>
     </div>

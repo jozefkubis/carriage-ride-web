@@ -1,3 +1,9 @@
+import romanticproduct from "@/public/romanticproduct.png"
+import familyproduct from "@/public/familyproduct.png"
+import specialproduct from "@/public/specialproduct.png"
+import Image from "next/image"
+import Link from "next/link"
+
 export const metadata = {
   title: "Naše jazdy",
 }
@@ -22,38 +28,41 @@ export default function Page() {
         {/* KARTA 1 */}
         <Card
           title="Jazdy pre páry na romantické chvíle"
-          bgClass="bg-primary-200"
+          image={romanticproduct}
         />
+
         {/* KARTA 2 */}
         <Card
           title="Rodinné jazdy pre všetkých členov rodiny"
-          bgClass="bg-primary-200"
+          image={familyproduct}
         />
         {/* KARTA 3 */}
         <Card
           title="Špeciálne udalosti a oslavy v kočiari"
-          bgClass="bg-primary-200"
+          image={specialproduct}
         />
       </div>
 
       {/* TLAČIDLO */}
       <div className="flex justify-center my-10">
-        <button className="bg-primary-200 text-primary-900 text-lg font-semibold px-6 py-3 rounded-md hover:bg-primary-300 transition focus:outline-none focus:ring-2 focus:ring-primary-500">
-          Rezervovať
-        </button>
+        <Link href="/reservation">
+          <button className="bg-primary-200 text-primary-900 text-lg font-semibold px-6 py-3 rounded-md hover:bg-primary-300 transition focus:outline-none focus:ring-2 focus:ring-primary-500">
+            Rezervovať
+          </button>
+        </Link>
       </div>
     </div>
   )
 }
 
 /* KOMPONENT KARTA */
-function Card({ title, bgClass }) {
+function Card({ title, bgClass, image }) {
   return (
     <div className="flex flex-col items-center text-center gap-6">
-      {/* Obrázok alebo pozadie */}
-      <div
-        className={`${bgClass} w-full aspect-[4/3] rounded-lg shadow-md`}
-      ></div>
+      {/* Obrázok */}
+      <div className="w-full aspect-[4/3] relative rounded-lg shadow-md overflow-hidden">
+        <Image src={image} alt={title} layout="fill" objectFit="cover" />
+      </div>
       {/* Nadpis karty */}
       <p className="text-xl font-bold text-gray-800">{title}</p>
     </div>
