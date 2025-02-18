@@ -5,6 +5,7 @@ import { format, parseISO } from "date-fns"
 import { deleteBooking } from "../_lib/actions"
 import UpdateBookingForm from "./UpdateBookingForm"
 import Modal from "./Modal"
+import DeleteBookingButton from "./DeleteBookingButton"
 
 export default function ReservationCard({ booking, crides }) {
   const {
@@ -31,10 +32,6 @@ export default function ReservationCard({ booking, crides }) {
     : "Neposkytnuté"
 
   const [isOpenModal, setIsOpenModal] = useState(false)
-
-  const handleDelete = async () => {
-    await deleteBooking(booking.id)
-  }
 
   const handleUpdate = () => {
     setIsOpenModal((prev) => !prev)
@@ -96,12 +93,8 @@ export default function ReservationCard({ booking, crides }) {
       </div>
 
       <div className="mt-6 w-full flex justify-end space-x-4 border-t pt-6">
-        <button
-          onClick={handleDelete}
-          className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded w-1/2"
-        >
-          Vymazať jazdu
-        </button>
+        <DeleteBookingButton bookingId={booking.id} />
+
         <button
           onClick={handleUpdate}
           className="bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded w-1/2"
