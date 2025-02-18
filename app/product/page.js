@@ -1,14 +1,20 @@
-import romanticproduct from "@/public/romanticproduct.png"
-import familyproduct from "@/public/familyproduct.png"
-import specialproduct from "@/public/specialproduct.png"
 import Image from "next/image"
 import Link from "next/link"
+import { getCrides } from "../_lib/data-service"
 
 export const metadata = {
   title: "Naše jazdy",
 }
 
-export default function Page() {
+export default async function Page() {
+  const crides = await getCrides()
+
+  const titles = [
+    "Jazdy pre páry na romantické chvíle",
+    "Rodinné jazdy pre všetkých členov rodiny",
+    "Špeciálne udalosti a oslavy v kočiari",
+  ]
+
   return (
     <div className="flex flex-col items-center bg-gray-50">
       {/* HEADER */}
@@ -25,22 +31,9 @@ export default function Page() {
 
       {/* GRID SEKCIA */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 w-full px-6 sm:px-20 lg:px-36 mb-16">
-        {/* KARTA 1 */}
-        <Card
-          title="Jazdy pre páry na romantické chvíle"
-          image={romanticproduct}
-        />
-
-        {/* KARTA 2 */}
-        <Card
-          title="Rodinné jazdy pre všetkých členov rodiny"
-          image={familyproduct}
-        />
-        {/* KARTA 3 */}
-        <Card
-          title="Špeciálne udalosti a oslavy v kočiari"
-          image={specialproduct}
-        />
+        {titles.map((title, index) => (
+          <Card key={index} title={title} image={crides[index]?.image} />
+        ))}
       </div>
 
       {/* TLAČIDLO */}
@@ -56,14 +49,14 @@ export default function Page() {
 }
 
 /* KOMPONENT KARTA */
-function Card({ title, bgClass, image }) {
+function Card({ title, image }) {
   return (
     <div className="flex flex-col items-center text-center gap-6">
-      {/* Obrázok */}
       <div className="w-full aspect-[4/3] relative rounded-lg shadow-md overflow-hidden">
-        <Image src={image} alt={title} layout="fill" objectFit="cover" />
+        {image && (
+          <Image src={image} alt={title} layout="fill" objectFit="cover" />
+        )}
       </div>
-      {/* Nadpis karty */}
       <p className="text-xl font-bold text-gray-800">{title}</p>
     </div>
   )

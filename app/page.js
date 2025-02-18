@@ -1,8 +1,10 @@
 import Image from "next/image"
-import titlepic from "../public/titlepic.png"
 import Link from "next/link"
 
 export default function Page() {
+  const titlepic =
+    "https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/productPics//titlepic.png"
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="grid grid-cols-1 md:grid-cols-2 w-full max-w-screen-xl h-auto md:h-[80vh] px-6 sm:px-12 md:px-16 lg:px-32 py-10 gap-10">

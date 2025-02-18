@@ -67,7 +67,7 @@ export async function getCrides() {
 
   if (error) {
     console.error(error)
-    throw new Error("Rezervácie nie je možné načítať")
+    throw new Error("Jazdy nie je možné načítať")
   }
 
   return data
