@@ -30,7 +30,6 @@ export default function ReservationCard({ booking, crides }) {
     ? format(parseISO(created_at), "dd.MM.yyyy")
     : "Neposkytnuté"
 
-  // Správa viditeľnosti formulára
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   const handleDelete = async () => {
