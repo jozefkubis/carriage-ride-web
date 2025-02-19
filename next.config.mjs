@@ -7,10 +7,16 @@ const nextConfig = {
         hostname: "jlfekazftgytoziyfzfn.supabase.co",
         port: "",
         pathname: "/storage/v1/object/public/productPics/**",
-        // search: "",
       },
+      {
+        protocol: "https",
+        hostname: "jlfekazftgytoziyfzfn.supabase.co",
+        port: "",
+        pathname: "/storage/v1/object/public/avatars/**",
+      }
     ],
   },
   // output: "export",
-}
-export default nextConfig
+};
+
+export default nextConfig;

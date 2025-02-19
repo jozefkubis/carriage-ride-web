@@ -1,9 +1,7 @@
-import { headers } from "next/headers"
 import Link from "next/link"
 import { auth } from "../_lib/auth"
 import SignOutButton from "./SignOutButton"
-
-const avatarSrc = "/avatar.png"
+import Image from "next/image"
 
 const navLinks = [
   { name: "Úvodná stránka", href: "/" },
@@ -13,6 +11,9 @@ const navLinks = [
 ]
 
 export default async function Navigation() {
+  const avatarSrc =
+    "https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/avatars//avatar.png"
+
   const session = await auth()
   if (session?.user?.name) {
     session.user.name = session.user.name.split(" ")[0]
@@ -43,12 +44,15 @@ export default async function Navigation() {
                 href="/account"
                 className="flex items-center gap-3 min-w-[100px]"
               >
-                <img
-                  src={session.user.image || avatarSrc}
-                  alt={session.user.name || "Avatar"}
-                  className="rounded-full border border-primary-600 h-9 w-9 object-cover"
-                  referrerPolicy="no-referrer"
-                />
+                <div className="relative h-11 w-11">
+                  <Image
+                    src={session.user.image || avatarSrc}
+                    alt={session.user.name || "Avatar"}
+                    className="rounded-full border border-primary-600 h-9 w-9 object-cover"
+                    referrerPolicy="no-referrer"
+                    fill
+                  />
+                </div>
                 <span className="whitespace-nowrap active:scale-105">
                   {session.user.name}
                 </span>
