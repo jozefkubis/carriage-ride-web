@@ -30,6 +30,7 @@ export default function RegistrationForm() {
     router, // 👈 Pošleme router ako parameter
   })
 
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <form
@@ -94,12 +95,12 @@ export default function RegistrationForm() {
 
         <FormInput
           label="Pridaj obrázok"
+          accept="image/*"
           id="image"
           type="file"
           name="image"
           onChange={(e) => setImage(e.target.value)}
           value={image}
-          required
         />
 
         <ToastContainer

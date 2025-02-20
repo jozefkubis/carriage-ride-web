@@ -35,6 +35,7 @@ const authConfig = {
           name: user.fullName,
           email: user.email,
           phone: user.phone,
+          image: user.image,
         }
       },
     }),

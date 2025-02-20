@@ -11,6 +11,7 @@ export default function FormInput({
   min,
   max,
   step,
+  accept
 }) {
   return (
     <div className="flex flex-col">
@@ -21,9 +22,8 @@ export default function FormInput({
         type={type}
         id={id}
         placeholder={placeholder}
-        className={`hover:cursor-pointer mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none ${
-          disabled ? "bg-gray-200" : "bg-white"
-        }`}
+        className={`hover:cursor-pointer mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none ${disabled ? "bg-gray-200" : "bg-white"
+          }`}
         required={required}
         name={name}
         onChange={onChange}
@@ -32,6 +32,7 @@ export default function FormInput({
         min={min}
         max={max}
         step={step}
+        accept={accept}
       />
     </div>
   )

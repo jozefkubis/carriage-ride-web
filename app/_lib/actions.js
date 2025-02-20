@@ -8,52 +8,66 @@ import bcrypt from "bcrypt"
 
 // MARK: Create Guest......................................
 export async function createGuest(formData) {
-  const { fullName, email, phone, password } = Object.fromEntries(formData)
+  const { fullName, email, phone, password, image } =
+    Object.fromEntries(formData);
 
-  if (!fullName || !email || !phone || !password) {
-    return { success: false, error: "Všetky polia sú povinné." }
+  if (!fullName || !email || !phone || !password || !image) {
+    return { success: false, error: "Všetky polia sú povinné." };
   }
 
-  // Overíme, či už existuje rovnaký email, meno alebo telefónne číslo
+  // Overenie existencie používateľa
   const { data: existingGuest, error: fetchError } = await supabase
     .from("guests")
     .select("id")
-    .or(`email.eq.${email},phone.eq.${phone},fullName.eq.${fullName}`)
+    .or(`email.eq.${email},phone.eq.${phone},fullName.eq.${fullName}`);
 
   if (fetchError) {
-    console.error("Supabase Error:", fetchError)
-    return {
-      success: false,
-      error: "Chyba pri kontrole existujúceho používateľa.",
-    }
+    console.error("Supabase Error:", fetchError);
+    return { success: false, error: "Chyba pri kontrole existujúceho používateľa." };
   }
 
   if (existingGuest.length > 0) {
     return {
       success: false,
-      error:
-        "Používateľ s týmto menom, e-mailom alebo telefónnym číslom už existuje!",
-    }
+      error: "Používateľ s týmto menom, e-mailom alebo telefónnym číslom už existuje!",
+    };
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10)
+  const hashedPassword = await bcrypt.hash(password, 10);
 
+  // 📌 ✅ Upload obrázka na Supabase Storage
+  const imageName = `${Date.now()}-${image.name}`.replace(/\s/g, "-");
+  const { data: uploadData, error: uploadError } = await supabase.storage
+    .from("avatars")
+    .upload(imageName, image, {
+      cacheControl: "3600",
+      upsert: false,
+    });
+
+  if (uploadError) {
+    console.error("Chyba pri nahrávaní obrázka:", uploadError);
+    return { success: false, error: "Nepodarilo sa nahrať obrázok." };
+  }
+
+  // 📌 Generovanie URL obrázka  
+  const imagePath = `https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/avatars/${imageName}`
   const newGuest = {
     fullName,
     email,
     phone,
     password: hashedPassword,
-  }
+    image: imagePath,
+  };
 
-  const { error } = await supabase.from("guests").insert([newGuest])
+
+  const { error } = await supabase.from("guests").insert([newGuest]);
 
   if (error) {
-    console.error("Supabase Insert Error:", error)
-    return { success: false, error: "Používateľa sa nepodarilo vytvoriť." }
+    console.error("Supabase Insert Error:", error);
+    return { success: false, error: "Používateľa sa nepodarilo vytvoriť." };
   }
 
-  revalidatePath("/login")
-  return { success: true }
+  return { success: true };
 }
 
 // MARK: Sing In Action.......................................
