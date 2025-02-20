@@ -91,6 +91,16 @@ export default function RegistrationForm() {
           required
         />
 
+        <FormInput
+          label="Pridaj obrázok"
+          id="image"
+          type="file"
+          name="image"
+          // onChange={(e) => setRePassword(e.target.value)}
+          // value={rePassword}
+          required
+        />
+
         <ToastContainer
           position="bottom-center"
           autoClose={5000}
