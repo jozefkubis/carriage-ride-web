@@ -13,10 +13,13 @@ const nextConfig = {
         hostname: "jlfekazftgytoziyfzfn.supabase.co",
         port: "",
         pathname: "/storage/v1/object/public/avatars/**",
-      }
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com", // ✅ Pridaný Google host
+      },
     ],
   },
-  // output: "export",
 };
 
 export default nextConfig;

@@ -16,6 +16,7 @@ export default function RegistrationForm() {
   const [password, setPassword] = useState("")
   const [rePassword, setRePassword] = useState("")
   const [error, setError] = useState("")
+  const [image, setImage] = useState("")
   const router = useRouter() // 👈 Presunieme useRouter sem
 
   const handleSubmit = handleSubmitRegForm({
@@ -96,8 +97,8 @@ export default function RegistrationForm() {
           id="image"
           type="file"
           name="image"
-          // onChange={(e) => setRePassword(e.target.value)}
-          // value={rePassword}
+          onChange={(e) => setImage(e.target.value)}
+          value={image}
           required
         />
 
