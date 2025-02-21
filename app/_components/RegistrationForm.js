@@ -92,7 +92,21 @@ export default function RegistrationForm() {
           required
         />
 
-        <FormInput
+        <div>
+          <label htmlFor="image" className="font-medium text-gray-700">
+            Pridaj obrázok
+          </label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            className="hover:cursor-pointer mt-1 py-2"
+            onChange={(e) => setImage(e.target.value)}
+            value={image}
+          />
+        </div>
+
+        {/* <FormInput
           label="Pridaj obrázok"
           accept="image/*"
           id="image"
@@ -100,7 +114,7 @@ export default function RegistrationForm() {
           name="image"
           onChange={(e) => setImage(e.target.value)}
           value={image}
-        />
+        /> */}
 
         <ToastContainer
           position="bottom-center"
