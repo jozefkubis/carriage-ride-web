@@ -9,7 +9,7 @@ function SignOutButton() {
   const [isPending, startTransition] = useTransition()
 
   function handleSignOut() {
-    confirm("Chcete sa odhlásiť?")
+    if (!confirm("Chcete sa odhlásiť?")) return
     startTransition(() => signOutAction())
   }
 
