@@ -14,7 +14,7 @@ export default function ProfileUpdateForm({ guest }) {
   const [phone, setPhone] = useState(guest?.phone || "")
   const [password, setPassword] = useState("")
   const [repassword, setRepassword] = useState("")
-  const [image, setImage] = useState("")
+  const [image, setImage] = useState(guest?.image || "")
 
   async function handleSubmit(e) {
     await handleSubmitUpdForm(e, { password, repassword, setRepassword })
@@ -38,6 +38,7 @@ export default function ProfileUpdateForm({ guest }) {
           onChange={(e) => setFullName(e.target.value)}
           value={fullName}
         />
+
         <FormInput
           label="Email"
           id="email"
@@ -46,6 +47,7 @@ export default function ProfileUpdateForm({ guest }) {
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
+
         <FormInput
           label="Telefón"
           id="phone"
@@ -65,6 +67,7 @@ export default function ProfileUpdateForm({ guest }) {
           value={password}
           placeholder="Vaše heslo"
         />
+
         <FormInput
           label="Potvrdenie hesla"
           id="repassword"
@@ -81,8 +84,7 @@ export default function ProfileUpdateForm({ guest }) {
           id="image"
           type="file"
           name="image"
-          onChange={(e) => setImage(e.target.value)}
-          value={image}
+          onChange={(e) => setImage(e.target.files[0])} // ✅ Uloží skutočný `File` objekt
         />
 
         <ToastContainer />

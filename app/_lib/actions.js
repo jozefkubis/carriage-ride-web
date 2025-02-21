@@ -9,47 +9,51 @@ import bcrypt from "bcrypt"
 // MARK: Create Guest......................................
 export async function createGuest(formData) {
   const { fullName, email, phone, password, image } =
-    Object.fromEntries(formData);
+    Object.fromEntries(formData)
 
   if (!fullName || !email || !phone || !password || !image) {
-    return { success: false, error: "Všetky polia sú povinné." };
+    return { success: false, error: "Všetky polia sú povinné." }
   }
 
   // Overenie existencie používateľa
   const { data: existingGuest, error: fetchError } = await supabase
     .from("guests")
     .select("id")
-    .or(`email.eq.${email},phone.eq.${phone},fullName.eq.${fullName}`);
+    .or(`email.eq.${email},phone.eq.${phone},fullName.eq.${fullName}`)
 
   if (fetchError) {
-    console.error("Supabase Error:", fetchError);
-    return { success: false, error: "Chyba pri kontrole existujúceho používateľa." };
+    console.error("Supabase Error:", fetchError)
+    return {
+      success: false,
+      error: "Chyba pri kontrole existujúceho používateľa.",
+    }
   }
 
   if (existingGuest.length > 0) {
     return {
       success: false,
-      error: "Používateľ s týmto menom, e-mailom alebo telefónnym číslom už existuje!",
-    };
+      error:
+        "Používateľ s týmto menom, e-mailom alebo telefónnym číslom už existuje!",
+    }
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10)
 
   // 📌 ✅ Upload obrázka na Supabase Storage
-  const imageName = `${Date.now()}-${image.name}`.replace(/\s/g, "-");
+  const imageName = `${Date.now()}-${image.name}`.replace(/\s/g, "-")
   const { data: uploadData, error: uploadError } = await supabase.storage
     .from("avatars")
     .upload(imageName, image, {
       cacheControl: "3600",
       upsert: false,
-    });
+    })
 
   if (uploadError) {
-    console.error("Chyba pri nahrávaní obrázka:", uploadError);
-    return { success: false, error: "Nepodarilo sa nahrať obrázok." };
+    console.error("Chyba pri nahrávaní obrázka:", uploadError)
+    return { success: false, error: "Nepodarilo sa nahrať obrázok." }
   }
 
-  // 📌 Generovanie URL obrázka  
+  // 📌 Generovanie URL obrázka
   const imagePath = `https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/avatars/${imageName}`
   const newGuest = {
     fullName,
@@ -57,17 +61,16 @@ export async function createGuest(formData) {
     phone,
     password: hashedPassword,
     image: imagePath,
-  };
-
-
-  const { error } = await supabase.from("guests").insert([newGuest]);
-
-  if (error) {
-    console.error("Supabase Insert Error:", error);
-    return { success: false, error: "Používateľa sa nepodarilo vytvoriť." };
   }
 
-  return { success: true };
+  const { error } = await supabase.from("guests").insert([newGuest])
+
+  if (error) {
+    console.error("Supabase Insert Error:", error)
+    return { success: false, error: "Používateľa sa nepodarilo vytvoriť." }
+  }
+
+  return { success: true }
 }
 
 // MARK: Sing In Action.......................................
@@ -113,13 +116,37 @@ export async function signInGuestAction(formData) {
 // MARK: Update Guest Action........................
 export async function updateGuest(formData) {
   const session = await auth()
-  if (!session?.user?.guestId) return { logout: true } // Ak nie je session, odhlásiť
+  if (!session?.user?.guestId) return { logout: true }
 
-  const { phone, email, fullName, password } = Object.fromEntries(formData)
+  const { phone, email, fullName, password, image } =
+    Object.fromEntries(formData)
 
   const updateData = { phone, email, fullName }
+
+  // 📌 1️⃣ Ak je nové heslo zadané, zašifruj ho
   if (password) updateData.password = await bcrypt.hash(password, 10)
 
+  // 📌 2️⃣ Spracovanie nového obrázka, ak bol nahraný
+  let imagePath = null
+  if (image && image.size > 0) {
+    const imageName = `${Date.now()}-${image.name}`.replace(/\s/g, "-")
+
+    // 🛠 Nahraj obrázok do Supabase Storage
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from("avatars")
+      .upload(imageName, image, { cacheControl: "3600", upsert: false })
+
+    if (uploadError) {
+      console.error("Chyba pri nahrávaní obrázka:", uploadError)
+      return { error: "Nepodarilo sa nahrať obrázok." }
+    }
+
+    // 📌 Vytvor URL nového obrázka
+    imagePath = `https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/avatars/${imageName}`
+    updateData.image = imagePath
+  }
+
+  // 📌 3️⃣ Aktualizuj dáta v databáze
   const { error } = await supabase
     .from("guests")
     .update(updateData)
@@ -127,6 +154,7 @@ export async function updateGuest(formData) {
 
   if (error) return { error: "Profil sa nepodarilo aktualizovať." }
 
+  // 📌 4️⃣ Ak sa zmenil e-mail alebo heslo, odhlás používateľa
   if (email !== session.user.email || password) {
     await supabase.auth.signOut()
     return { logout: true }
