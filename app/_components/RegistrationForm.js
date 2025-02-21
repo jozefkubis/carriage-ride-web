@@ -30,7 +30,6 @@ export default function RegistrationForm() {
     router, // 👈 Pošleme router ako parameter
   })
 
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <form
@@ -113,7 +112,6 @@ export default function RegistrationForm() {
 
         <RegFormButton />
         <GoogleLoginButton />
-
       </form>
     </div>
   )
