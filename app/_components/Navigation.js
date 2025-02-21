@@ -4,7 +4,6 @@ import SignOutButton from "./SignOutButton"
 import Image from "next/image"
 import { getGuest } from "../_lib/data-service"
 
-
 const navLinks = [
   { name: "Úvodná stránka", href: "/" },
   { name: "Naše jazdy", href: "/product" },
@@ -14,8 +13,7 @@ const navLinks = [
 
 export default async function Navigation() {
   const avatarSrc =
-    "https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/avatars/avatar.png";
-
+    "https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/avatars/avatar.png"
 
   const session = await auth()
   if (session?.user?.name) {
@@ -23,7 +21,6 @@ export default async function Navigation() {
   }
 
   const guest = await getGuest(session?.user?.email)
-
 
   return (
     <nav className="w-full">
@@ -52,13 +49,15 @@ export default async function Navigation() {
               >
                 <div className="relative h-11 w-11">
                   <Image
-                    src={guest.image || session.user.image || avatarSrc}
+                    src={guest?.image || session.user.image || avatarSrc}
                     alt={session.user.name || "Avatar"}
-                    className="rounded-full border border-primary-600 h-9 w-9 object-cover"
+                    className="rounded-full border border-primary-600"
                     referrerPolicy="no-referrer"
                     fill
+                    style={{ objectFit: "cover" }}
                   />
                 </div>
+
                 <span className="whitespace-nowrap active:scale-105">
                   {session.user.name}
                 </span>

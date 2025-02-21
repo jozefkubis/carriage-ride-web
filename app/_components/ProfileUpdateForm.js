@@ -14,6 +14,7 @@ export default function ProfileUpdateForm({ guest }) {
   const [phone, setPhone] = useState(guest?.phone || "")
   const [password, setPassword] = useState("")
   const [repassword, setRepassword] = useState("")
+  const [image, setImage] = useState("")
 
   async function handleSubmit(e) {
     await handleSubmitUpdForm(e, { password, repassword, setRepassword })
@@ -72,6 +73,16 @@ export default function ProfileUpdateForm({ guest }) {
           onChange={(e) => setRepassword(e.target.value)}
           value={repassword}
           placeholder="Potvrdenie hesla"
+        />
+
+        <FormInput
+          label="Pridaj obrázok"
+          accept="image/*"
+          id="image"
+          type="file"
+          name="image"
+          onChange={(e) => setImage(e.target.value)}
+          value={image}
         />
 
         <ToastContainer />
