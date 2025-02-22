@@ -121,8 +121,8 @@ export async function updateGuest(formData) {
   const session = await auth()
   if (!session?.user?.guestId) return { logout: true }
 
-  const { phone, email, fullName, password, image } =
-    Object.fromEntries(formData)
+  const { phone, email, fullName, password } = Object.fromEntries(formData)
+  let image = formData.get("image") // ✅ Správne získame obrázok
 
   const updateData = { phone, email, fullName }
 
@@ -130,14 +130,13 @@ export async function updateGuest(formData) {
   if (password) updateData.password = await bcrypt.hash(password, 10)
 
   // 📌 2️⃣ Spracovanie nového obrázka, ak bol nahraný
-  let imagePath = null
-  if (image && image.size > 0) {
+  if (image && image instanceof File) {
     const imageName = `${Date.now()}-${image.name}`.replace(/\s/g, "-")
 
-    // 🛠 Nahraj obrázok do Supabase Storage
+    // 🛠 Nahraj obrázok do Supabase Storage s možnosťou prepisovania
     const { data: uploadData, error: uploadError } = await supabase.storage
       .from("avatars")
-      .upload(imageName, image, { cacheControl: "3600", upsert: false })
+      .upload(imageName, image, { cacheControl: "3600", upsert: true }) // ✅ `upsert: true` umožní prepis obrázka
 
     if (uploadError) {
       console.error("Chyba pri nahrávaní obrázka:", uploadError)
@@ -145,7 +144,7 @@ export async function updateGuest(formData) {
     }
 
     // 📌 Vytvor URL nového obrázka
-    imagePath = `https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/avatars/${imageName}`
+    const imagePath = `https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/avatars/${imageName}`
     updateData.image = imagePath
   }
 

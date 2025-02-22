@@ -1,8 +1,19 @@
-import { useCallback, useState } from "react"
+import { useCallback, useState, useEffect } from "react"
 import { useDropzone } from "react-dropzone"
 
-export default function ImageUploader({ onImageSelect }) {
-  const [preview, setPreview] = useState(null)
+export default function ImageUploader({ onImageSelect, image }) {
+  const [preview, setPreview] = useState(
+    image instanceof File ? URL.createObjectURL(image) : image || null
+  )
+
+  // Ak sa `image` zmení, nastavíme nový `preview`
+  useEffect(() => {
+    if (image instanceof File) {
+      setPreview(URL.createObjectURL(image))
+    } else {
+      setPreview(image || null) // Ak je URL, použijeme ju priamo
+    }
+  }, [image])
 
   const onDrop = useCallback(
     (acceptedFiles) => {

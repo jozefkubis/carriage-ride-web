@@ -18,7 +18,7 @@ export default function ProfileUpdateForm({ guest }) {
   const [image, setImage] = useState(guest?.image || null)
 
   async function handleSubmit(e) {
-    await handleSubmitUpdForm(e, { password, repassword, setRepassword })
+    await handleSubmitUpdForm(e, { password, repassword, setRepassword, image })
   }
 
   return (
@@ -79,7 +79,7 @@ export default function ProfileUpdateForm({ guest }) {
           placeholder="Potvrdenie hesla"
         />
 
-        <ImageUploader onImageSelect={setImage} />
+        <ImageUploader onImageSelect={setImage} image={guest?.image} />
 
         <ToastContainer />
         <UpdFormButton />
