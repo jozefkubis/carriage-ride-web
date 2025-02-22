@@ -7,6 +7,7 @@ import { handleSubmitUpdForm } from "../_lib/functions/hndleSubmitUpdForm"
 import FormInput from "./FormInput"
 import UpdFormButton from "./UpdFormButton"
 import DeleteProfileButton from "./DeleteProfileButton"
+import ImageUploader from "./ImageUploader"
 
 export default function ProfileUpdateForm({ guest }) {
   const [fullName, setFullName] = useState(guest?.fullName || "")
@@ -14,7 +15,7 @@ export default function ProfileUpdateForm({ guest }) {
   const [phone, setPhone] = useState(guest?.phone || "")
   const [password, setPassword] = useState("")
   const [repassword, setRepassword] = useState("")
-  const [image, setImage] = useState(guest?.image || "")
+  const [image, setImage] = useState(guest?.image || null)
 
   async function handleSubmit(e) {
     await handleSubmitUpdForm(e, { password, repassword, setRepassword })
@@ -78,14 +79,7 @@ export default function ProfileUpdateForm({ guest }) {
           placeholder="Potvrdenie hesla"
         />
 
-        <FormInput
-          label="Pridaj obrázok"
-          accept="image/*"
-          id="image"
-          type="file"
-          name="image"
-          onChange={(e) => setImage(e.target.files[0])} // ✅ Uloží skutočný `File` objekt
-        />
+        <ImageUploader onImageSelect={setImage} />
 
         <ToastContainer />
         <UpdFormButton />

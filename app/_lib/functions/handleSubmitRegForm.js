@@ -10,7 +10,8 @@ export function handleSubmitRegForm({
   setRePassword,
   password,
   rePassword,
-  router, // 👈 pridáme router ako parameter
+  image, // ⬅️ Pridáme image ako parameter
+  router,
 }) {
   return async (e) => {
     e.preventDefault()
@@ -25,8 +26,14 @@ export function handleSubmitRegForm({
       return
     }
 
+    // 🔥 Vytvoríme FormData a manuálne pridáme súbor
+    const formData = new FormData(e.target)
+    if (image) {
+      formData.append("image", image) // ✅ Pridáme obrázok správne
+    }
+
     try {
-      const result = await createGuest(new FormData(e.target))
+      const result = await createGuest(formData)
 
       if (!result.success) {
         setFullName("")

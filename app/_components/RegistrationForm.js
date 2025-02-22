@@ -1,13 +1,15 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useState, useCallback } from "react"
+import { useDropzone } from "react-dropzone"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import FormInput from "./FormInput"
 import { handleSubmitRegForm } from "../_lib/functions/handleSubmitRegForm"
 import RegFormButton from "./RegFormButton"
 import GoogleLoginButton from "./GoogleLoginButton.js"
+import ImageUploader from "./ImageUploader"
 
 export default function RegistrationForm() {
   const [fullName, setFullName] = useState("")
@@ -16,8 +18,26 @@ export default function RegistrationForm() {
   const [password, setPassword] = useState("")
   const [rePassword, setRePassword] = useState("")
   const [error, setError] = useState("")
-  const [image, setImage] = useState("")
-  const router = useRouter() // 👈 Presunieme useRouter sem
+  const [image, setImage] = useState(null) // ✅ Ukladáme ako File objekt
+  const router = useRouter()
+
+  // 🖼 Funkcia na spracovanie obrázka cez Dropzone
+  const onDrop = useCallback((acceptedFiles) => {
+    if (acceptedFiles.length > 0) {
+      setImage(acceptedFiles[0]) // ✅ Uložíme len prvý súbor
+    }
+  }, [])
+
+  // 🖼 Nastavenie Dropzone (fix MIME typov)
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      "image/jpeg": [".jpg", ".jpeg"],
+      "image/png": [".png"],
+      "image/gif": [".gif"],
+    },
+    multiple: false,
+  })
 
   const handleSubmit = handleSubmitRegForm({
     setFullName,
@@ -27,7 +47,8 @@ export default function RegistrationForm() {
     setRePassword,
     password,
     rePassword,
-    router, // 👈 Pošleme router ako parameter
+    image, // ✅ Odovzdáme obrázok
+    router,
   })
 
   return (
@@ -92,29 +113,7 @@ export default function RegistrationForm() {
           required
         />
 
-        <div>
-          <label htmlFor="image" className="font-medium text-gray-700">
-            Pridaj obrázok
-          </label>
-          <input
-            type="file"
-            id="image"
-            accept="image/*"
-            className="hover:cursor-pointer mt-1 py-2"
-            onChange={(e) => setImage(e.target.value)}
-            value={image}
-          />
-        </div>
-
-        {/* <FormInput
-          label="Pridaj obrázok"
-          accept="image/*"
-          id="image"
-          type="file"
-          name="image"
-          onChange={(e) => setImage(e.target.value)}
-          value={image}
-        /> */}
+        <ImageUploader onImageSelect={setImage} />
 
         <ToastContainer
           position="bottom-center"

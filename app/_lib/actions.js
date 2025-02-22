@@ -8,8 +8,11 @@ import bcrypt from "bcrypt"
 
 // MARK: Create Guest......................................
 export async function createGuest(formData) {
-  const { fullName, email, phone, password, image } =
-    Object.fromEntries(formData)
+  const fullName = formData.get("fullName")
+  const email = formData.get("email")
+  const phone = formData.get("phone")
+  const password = formData.get("password")
+  const image = formData.get("image") // ✅ Načítame obrázok správne
 
   if (!fullName || !email || !phone || !password || !image) {
     return { success: false, error: "Všetky polia sú povinné." }
@@ -39,7 +42,7 @@ export async function createGuest(formData) {
 
   const hashedPassword = await bcrypt.hash(password, 10)
 
-  // 📌 ✅ Upload obrázka na Supabase Storage
+  // ✅ Správne nahranie obrázka
   const imageName = `${Date.now()}-${image.name}`.replace(/\s/g, "-")
   const { data: uploadData, error: uploadError } = await supabase.storage
     .from("avatars")
