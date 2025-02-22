@@ -1,8 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useState, useCallback } from "react"
-import { useDropzone } from "react-dropzone"
+import { useState } from "react"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import FormInput from "./FormInput"
@@ -21,24 +20,6 @@ export default function RegistrationForm() {
   const [image, setImage] = useState(null) // ✅ Ukladáme ako File objekt
   const router = useRouter()
 
-  // 🖼 Funkcia na spracovanie obrázka cez Dropzone
-  const onDrop = useCallback((acceptedFiles) => {
-    if (acceptedFiles.length > 0) {
-      setImage(acceptedFiles[0]) // ✅ Uložíme len prvý súbor
-    }
-  }, [])
-
-  // 🖼 Nastavenie Dropzone (fix MIME typov)
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: {
-      "image/jpeg": [".jpg", ".jpeg"],
-      "image/png": [".png"],
-      "image/gif": [".gif"],
-    },
-    multiple: false,
-  })
-
   const handleSubmit = handleSubmitRegForm({
     setFullName,
     setEmail,
@@ -53,79 +34,89 @@ export default function RegistrationForm() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6"
-      >
-        <h2 className="text-2xl font-bold text-gray-800 text-center">
-          Registrácia
-        </h2>
+      <div className="flex bg-white rounded-lg shadow-lg p-8 space-x-8 max-w-4xl w-full">
+        {/* 🖼 Nahrávanie obrázka vedľa formulára */}
+        <div className="w-1/3 flex items-center justify-center">
+          <ImageUploader onImageSelect={setImage} />
+        </div>
 
-        <FormInput
-          label="Meno"
-          id="fullName"
-          type="text"
-          placeholder="Vaše meno"
-          name="fullName"
-          onChange={(e) => setFullName(e.target.value)}
-          value={fullName}
-          required
-        />
-        <FormInput
-          label="Email"
-          id="email"
-          type="email"
-          placeholder="example@email.com"
-          name="email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          required
-        />
-        <FormInput
-          label="Telefón"
-          id="phone"
-          type="tel"
-          placeholder="+421 123 456 789"
-          pattern="[+][0-9]{1,3}[0-9]{9,14}"
-          name="phone"
-          onChange={(e) => setPhone(e.target.value)}
-          value={phone}
-          required
-        />
-        <FormInput
-          label="Heslo"
-          id="password"
-          type="password"
-          placeholder="Vaše heslo"
-          name="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-          required
-        />
-        <FormInput
-          label="Potvrdenie hesla"
-          id="re-password"
-          type="password"
-          placeholder="Potvrdenie hesla"
-          name="re-password"
-          onChange={(e) => setRePassword(e.target.value)}
-          value={rePassword}
-          required
-        />
+        {/* 📜 Formulár */}
+        <form onSubmit={handleSubmit} className="w-2/3 space-y-6">
+          <h2 className="text-2xl font-bold text-gray-800 text-center">
+            Registrácia
+          </h2>
 
-        <ImageUploader onImageSelect={setImage} />
+          {/* 🔹 Grid layout pre lepšie rozloženie */}
+          <div className="grid grid-cols-2 gap-4">
+            <FormInput
+              label="Meno"
+              id="fullName"
+              type="text"
+              placeholder="Vaše meno"
+              name="fullName"
+              onChange={(e) => setFullName(e.target.value)}
+              value={fullName}
+              required
+            />
+            <FormInput
+              label="Email"
+              id="email"
+              type="email"
+              placeholder="example@email.com"
+              name="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              required
+            />
+          </div>
 
-        <ToastContainer
-          position="bottom-center"
-          autoClose={5000}
-          hideProgressBar={false}
-        />
+          <FormInput
+            label="Telefón"
+            id="phone"
+            type="tel"
+            placeholder="+421 123 456 789"
+            pattern="[+][0-9]{1,3}[0-9]{9,14}"
+            name="phone"
+            onChange={(e) => setPhone(e.target.value)}
+            value={phone}
+            required
+          />
 
-        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+          <div className="grid grid-cols-2 gap-4">
+            <FormInput
+              label="Heslo"
+              id="password"
+              type="password"
+              placeholder="Vaše heslo"
+              name="password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              required
+            />
+            <FormInput
+              label="Potvrdenie hesla"
+              id="re-password"
+              type="password"
+              placeholder="Potvrdenie hesla"
+              name="re-password"
+              onChange={(e) => setRePassword(e.target.value)}
+              value={rePassword}
+              required
+            />
+          </div>
 
-        <RegFormButton />
-        <GoogleLoginButton />
-      </form>
+          <ToastContainer
+            position="bottom-center"
+            autoClose={5000}
+            hideProgressBar={false}
+          />
+
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+
+          <RegFormButton />
+          <GoogleLoginButton />
+        </form>
+      </div>
     </div>
   )
 }
