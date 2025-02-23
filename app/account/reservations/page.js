@@ -15,7 +15,7 @@ export default async function Page() {
 
   return (
     <div className="bg-gray-50">
-      <div className="flex flex-col pl-20 pt-20 gap-5 h-screen w-full">
+      <div className="flex flex-col pl-20 pt-20 gap-5 w-full">
         <h1 className="text-2xl">Moje rezervácie</h1>
 
         {!bookings.length ? (
