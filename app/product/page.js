@@ -16,7 +16,7 @@ export default async function Page() {
   ]
 
   return (
-    <div className="flex flex-col items-center bg-gray-50">
+    <div className="flex flex-col items-center bg-secondary-100 min-h-screen">
       {/* HEADER */}
       <header className="text-center mx-auto gap-5 my-20 px-5 sm:px-12">
         <h1 className="text-4xl sm:text-5xl font-bold text-gray-800">

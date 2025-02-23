@@ -6,7 +6,7 @@ export default function Page() {
     "https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/productPics//titlepic.png"
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-secondary-100">
       <div className="grid grid-cols-1 md:grid-cols-2 w-full max-w-screen-xl h-auto md:h-[80vh] px-6 sm:px-12 md:px-16 lg:px-32 py-10 gap-10">
         {/* TEXTOVÁ ČASŤ */}
         <div className="flex flex-col justify-center gap-6">
