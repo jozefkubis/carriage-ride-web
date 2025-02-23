@@ -19,14 +19,20 @@ function DeleteProfileButton({ guestId }) {
         autoClose: 3000,
       })
       await signOutAction()
+    } else {
+      toast.error("Nastala chyba pri mazaní profilu.", {
+        position: "bottom-right",
+        hideProgressBar: true,
+        autoClose: 3000,
+      })
     }
   }
 
   return (
-    <div className="w-full max-w-md bg-white rounded-b-lg shadow-md px-8 pb-8">
+    <div className="mt-8 w-2/3 flex justify-center pr-10">
       <button
         onClick={() => startTransition(handleDelete)}
-        className="w-full max-w-md bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-md  transition"
+        className="bg-red-500 hover:bg-red-600 text-white font-semibold px-8 py-4 rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
       >
         {isPending ? <SpinnerMini /> : "Vymazať profil"}
       </button>

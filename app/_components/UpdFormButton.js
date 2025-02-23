@@ -5,12 +5,14 @@ function UpdFormButton() {
     const { pending } = useFormStatus()
 
     return (
-        <button
-            type="submit"
-            className="w-full bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition"
-        >
-            {pending ? "Aktualizujem..." : "Aktualizovať"}
-        </button>
+        <div className="flex justify-center w-full my-8">
+            <button
+                type="submit"
+                className="w-1/3 bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition"
+            >
+                {pending ? "Aktualizujem..." : "Aktualizovať"}
+            </button>
+        </div>
     )
 }
 
