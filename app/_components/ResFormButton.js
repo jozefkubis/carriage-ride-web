@@ -10,7 +10,7 @@ function ResFormButton() {
             <button
                 type="submit"
                 disabled={pending}
-                className="disable:bg-primary-300 w-1/3 bg-primary-500 text-white font-semibold py-2 rounded-md hover:bg-primary-600 transition"
+                className="disable:bg-creamy-300 w-1/3 bg-secondary-400 text-primary-800 font-semibold py-3 rounded-md hover:bg-secondary-700 transition my-4"
             >
                 {pending ? <SpinnerMini /> : "Odoslať rezerváciu"}
             </button>

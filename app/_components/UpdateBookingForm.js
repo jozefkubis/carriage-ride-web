@@ -28,14 +28,8 @@ export default function UpdateBookingForm({ booking, crides, onClose }) {
   return (
     <form
       onSubmit={handleSubmitUpdBookingForm}
-      className="w-full border border-primary-100 rounded-md p-8 shadow-2xl"
+      className="w-full border border-primary-100 rounded-md p-8 shadow-2xl bg-primary-800"
     >
-      {/* <h2 className="text-2xl font-bold text-gray-800 text-center">
-          Aktualizácia rezervácie
-        </h2>
-        <p className="text-gray-600 text-center mb-6">
-          Upravte údaje a potvrďte zmeny.
-        </p> */}
 
       {/* GRID LAYOUT */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -92,22 +86,19 @@ export default function UpdateBookingForm({ booking, crides, onClose }) {
         {/* Telefón a Počet osôb vedľa seba */}
         <div className="flex flex-col md:flex-row gap-6 md:col-span-2">
           <div className="flex flex-col w-full">
-            <label htmlFor="phone" className="font-medium text-gray-700">
-              Telefón
-            </label>
             <FormInput
+              label="Telefón"
               id="phone"
               type="tel"
               name="phone"
               onChange={(e) => setPhone(e.target.value)}
               value={phone}
               required
-              className="mt-1 px-4 py-2 border rounded-md w-full"
             />
           </div>
 
           <div className="flex flex-col w-full">
-            <label htmlFor="numGuests" className="font-medium text-gray-700">
+            <label htmlFor="numGuests" className="font-medium text-primary-50">
               Počet osôb
             </label>
             <select
@@ -115,7 +106,7 @@ export default function UpdateBookingForm({ booking, crides, onClose }) {
               name="numGuests"
               onChange={(e) => setNumGuests(Number(e.target.value))}
               value={numGuests}
-              className="mt-1 px-4 py-2 border rounded-md w-full bg-white hover:cursor-pointer"
+              className="mt-1 px-4 py-2 border rounded-md w-full bg-creamy-100 hover:cursor-pointer"
             >
               {[1, 2, 3, 4].map((num) => (
                 <option key={num} value={num}>
@@ -129,7 +120,7 @@ export default function UpdateBookingForm({ booking, crides, onClose }) {
         {/* Jazda a Cena vedľa seba */}
         <div className="flex flex-col md:flex-row gap-6 md:col-span-2">
           <div className="flex flex-col w-full">
-            <label htmlFor="rideId" className="font-medium text-gray-700">
+            <label htmlFor="rideId" className="font-medium text-primary-50">
               Jazda
             </label>
             <select
@@ -137,7 +128,7 @@ export default function UpdateBookingForm({ booking, crides, onClose }) {
               name="rideId"
               onChange={(e) => setRideId(Number(e.target.value))}
               value={rideId}
-              className="mt-1 px-4 py-2 border rounded-md w-full bg-white hover:cursor-pointer"
+              className="mt-1 px-4 py-2 border rounded-md w-full bg-creamy-100 hover:cursor-pointer"
             >
               {crides.map((ride) => (
                 <option key={ride.id} value={ride.id}>
@@ -148,19 +139,19 @@ export default function UpdateBookingForm({ booking, crides, onClose }) {
           </div>
 
           <div className="flex flex-col w-full">
-            <label className="font-medium text-gray-700">Cena</label>
-            <input
+            <FormInput
+              label="Cena"
+              id="price"
               type="text"
               value={`${totalPrice}€`}
               readOnly
-              className="mt-1 px-4 py-2 border rounded-md w-full bg-gray-100 text-gray-700 cursor-not-allowed"
             />
           </div>
         </div>
 
         {/* Poznámky */}
         <div className="md:col-span-2 flex flex-col">
-          <label htmlFor="notes" className="font-medium text-gray-700">
+          <label htmlFor="notes" className="font-medium text-primary-50">
             Poznámky
           </label>
           <textarea
@@ -169,7 +160,7 @@ export default function UpdateBookingForm({ booking, crides, onClose }) {
             name="notes"
             onChange={(e) => setNotes(e.target.value)}
             value={notes}
-            className="mt-1 px-4 py-2 border rounded-md resize-none hover:cursor-pointer"
+            className="mt-1 px-4 py-2 border rounded-md resize-none hover:cursor-pointer bg-creamy-100"
           ></textarea>
         </div>
       </div>

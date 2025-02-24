@@ -33,11 +33,11 @@ export default function RegistrationForm() {
   })
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-primary-50">
-      <div className="flex bg-white rounded-lg shadow-2xl p-8 space-x-8 max-w-4xl w-full">
+    <div className="flex items-center justify-center min-h-screen bg-creamy-100">
+      <div className="flex bg-primary-800 rounded-lg shadow-2xl p-8 space-x-8 max-w-4xl w-full">
         {/* 📜 Formulár */}
         <form onSubmit={handleSubmit} className="w-2/3 space-y-6">
-          <h2 className="text-2xl font-bold text-gray-800 text-center">
+          <h2 className="text-2xl font-bold text-primary-50 text-center">
             Registrácia
           </h2>
 

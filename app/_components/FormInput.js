@@ -7,6 +7,8 @@ export default function FormInput({
   required,
   onChange,
   value,
+  defaultValue,
+  readOnly,
   disabled,
   min,
   max,
@@ -15,14 +17,14 @@ export default function FormInput({
 }) {
   return (
     <div className="flex flex-col">
-      <label htmlFor={id} className="font-medium text-gray-700">
+      <label htmlFor={id} className="font-medium text-primary-50">
         {label}
       </label>
       <input
         type={type}
         id={id}
         placeholder={placeholder}
-        className={`hover:cursor-pointer mt-1 px-4 py-2 border w-full rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none ${disabled ? "bg-gray-200" : "bg-white"
+        className={`hover:cursor-pointer mt-1 px-4 py-2 border w-full rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none ${disabled ? "bg-primary-200" : "bg-creamy-100"
           }`}
         required={required}
         name={name}
@@ -33,6 +35,8 @@ export default function FormInput({
         max={max}
         step={step}
         accept={accept}
+        defaultValue={defaultValue}
+        readOnly={readOnly}
       />
     </div>
   )

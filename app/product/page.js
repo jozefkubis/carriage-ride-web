@@ -16,13 +16,13 @@ export default async function Page() {
   ]
 
   return (
-    <div className="flex flex-col items-center bg-primary-50 min-h-screen">
+    <div className="flex flex-col items-center bg-creamy-100 min-h-screen">
       {/* HEADER */}
       <header className="text-center mx-auto gap-5 my-20 px-5 sm:px-12">
-        <h1 className="text-4xl sm:text-5xl font-bold text-gray-800">
+        <h1 className="text-4xl sm:text-5xl font-bold text-primary-800">
           Naše romantické jazdy pre každého
         </h1>
-        <p className="text-lg sm:text-xl text-gray-600 mt-4">
+        <p className="text-lg sm:text-xl text-primary-600 mt-4">
           Ponúkame rôzne typy jázd, ktoré sú ideálne pre páry, rodiny a
           špeciálne udalosti. Každá jazda je jedinečným zážitkom, ktorý si
           zamilujete.
@@ -51,7 +51,7 @@ export default async function Page() {
 /* KOMPONENT KARTA */
 function Card({ title, image }) {
   return (
-    <div className="flex flex-col items-center text-center gap-6 bg-primary-800 rounded-lg pb-6">
+    <div className="flex flex-col items-center text-center gap-6 bg-primary-800 rounded-lg pb-6 shadow-xl">
       <div className="w-full aspect-[4/3] relative rounded-t-lg shadow-md overflow-hidden">
         {image && (
           <Image src={image} alt={title} layout="fill" objectFit="cover" />

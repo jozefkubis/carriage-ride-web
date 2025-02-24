@@ -14,10 +14,10 @@ export default async function Page() {
   const crides = await getCrides()
 
   return (
-    <div className="min-h-screen bg-primary-50">
+    <div className="min-h-screen bg-creamy-100">
       <div className="">
         <div className="flex flex-col pl-20 pt-20 gap-5 w-full">
-          <h1 className="text-2xl">Moje rezervácie</h1>
+          <h1 className="text-3xl">Moje rezervácie</h1>
 
           {!bookings.length ? (
             <p>

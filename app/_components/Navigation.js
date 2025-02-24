@@ -31,7 +31,7 @@ export default async function Navigation() {
             <li key={link.name} className="active:scale-105">
               <Link
                 href={link.href}
-                className="hover:text-secondary-200 transition-colors px-4 py-2"
+                className="hover:text-secondary-400 transition-colors px-4 py-2"
               >
                 {link.name}
               </Link>
@@ -58,7 +58,7 @@ export default async function Navigation() {
                   />
                 </div>
 
-                <span className="whitespace-nowrap active:scale-105 hover:text-secondary-200">
+                <span className="whitespace-nowrap active:scale-105 hover:text-secondary-400">
                   {session.user.name}
                 </span>
               </Link>
@@ -68,14 +68,14 @@ export default async function Navigation() {
             <div className="flex gap-4">
               <Link
                 href="/login"
-                className="hover:text-secondary-200 transition-colors active:scale-105"
+                className="hover:text-secondary-400 transition-colors active:scale-105"
               >
                 Prihlásiť sa
               </Link>
               <span>/</span>
               <Link
                 href="/registration"
-                className="hover:text-secondary-200 transition-colors active:scale-105"
+                className="hover:text-secondary-400 transition-colors active:scale-105"
               >
                 Registrovať
               </Link>

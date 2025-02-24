@@ -32,15 +32,15 @@ export default function ReservationForm({ guest, crides }) {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-primary-50 py-10">
+    <div className="flex justify-center items-center min-h-screen bg-creamy-100 py-10">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-2xl bg-white shadow-2xl rounded-lg p-8"
+        className="w-full max-w-2xl bg-primary-800 shadow-2xl rounded-lg p-8  "
       >
-        <h2 className="text-2xl font-bold text-gray-800 text-center">
+        <h2 className="text-2xl font-bold text-primary-50 text-center">
           Rezervačný formulár
         </h2>
-        <p className="text-gray-600 text-center mb-6">
+        <p className="text-primary-50 text-center mb-6">
           Vyplňte nasledujúce údaje a potvrďte svoju rezerváciu.
         </p>
 
@@ -96,22 +96,21 @@ export default function ReservationForm({ guest, crides }) {
           {/* Telefón a Počet osôb vedľa seba */}
           <div className="flex flex-col md:flex-row gap-6 md:col-span-2">
             <div className="flex flex-col w-full">
-              <label htmlFor="phone" className="font-medium text-gray-700">
-                Telefón
-              </label>
-              <input
+              <FormInput
+                label="Telefón"
                 id="phone"
                 type="tel"
+                placeholder="+421 123 456 789"
+                pattern="[+][0-9]{1,3}[0-9]{9,14}"
                 name="phone"
                 onChange={(e) => setPhone(e.target.value)}
                 value={phone}
                 required
-                className="mt-1 px-4 py-2 border rounded-md w-full"
               />
             </div>
 
             <div className="flex flex-col w-full">
-              <label htmlFor="numGuests" className="font-medium text-gray-700">
+              <label htmlFor="numGuests" className="font-medium text-primary-50">
                 Počet osôb
               </label>
               <select
@@ -119,7 +118,8 @@ export default function ReservationForm({ guest, crides }) {
                 name="numGuests"
                 onChange={(e) => setNumGuests(Number(e.target.value))}
                 value={numGuests}
-                className="mt-1 px-4 py-2 border rounded-md w-full bg-white"
+                required
+                className="mt-1 px-4 py-2 border rounded-md w-full bg-creamy-100"
               >
                 {[1, 2, 3, 4].map((num) => (
                   <option key={num} value={num}>
@@ -133,7 +133,7 @@ export default function ReservationForm({ guest, crides }) {
           {/* Jazda a Cena vedľa seba */}
           <div className="flex flex-col md:flex-row gap-6 md:col-span-2">
             <div className="flex flex-col w-full">
-              <label htmlFor="rideId" className="font-medium text-gray-700">
+              <label htmlFor="rideId" className="font-medium text-primary-50">
                 Jazda
               </label>
               <select
@@ -141,7 +141,8 @@ export default function ReservationForm({ guest, crides }) {
                 name="rideId"
                 onChange={(e) => setRideId(Number(e.target.value))}
                 value={rideId}
-                className="mt-1 px-4 py-2 border rounded-md w-full bg-white"
+                required
+                className="mt-1 px-4 py-2 border rounded-md w-full bg-creamy-100"
               >
                 {crides.map((ride) => (
                   <option key={ride.id} value={ride.id}>
@@ -152,19 +153,18 @@ export default function ReservationForm({ guest, crides }) {
             </div>
 
             <div className="flex flex-col w-full">
-              <label className="font-medium text-gray-700">Cena</label>
-              <input
+              <FormInput
                 type="text"
+                label="Cena"
                 value={`${totalPrice}€`}
                 readOnly
-                className="mt-1 px-4 py-2 border rounded-md w-full bg-gray-100 text-gray-700 cursor-not-allowed"
               />
             </div>
           </div>
 
           {/* Poznámky */}
           <div className="md:col-span-2 flex flex-col">
-            <label htmlFor="notes" className="font-medium text-gray-700">
+            <label htmlFor="notes" className="font-medium text-primary-50">
               Poznámky
             </label>
             <textarea
@@ -173,7 +173,7 @@ export default function ReservationForm({ guest, crides }) {
               name="notes"
               onChange={(e) => setNotes(e.target.value)}
               value={notes}
-              className="mt-1 px-4 py-2 border rounded-md resize-none"
+              className="mt-1 px-4 py-2 border rounded-md resize-none bg-creamy-100"
             ></textarea>
           </div>
         </div>

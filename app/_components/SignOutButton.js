@@ -17,7 +17,7 @@ function SignOutButton() {
     <div className="w-full flex justify-center">
       <button
         onClick={handleSignOut}
-        className="py-4 px-8 bg-primary-100 hover:bg-secondary-400 transition-all flex items-center gap-3 font-semibold w-full rounded-lg active:scale-95 shadow-md hover:shadow-lg focus:outline-none"
+        className="py-4 px-8 bg-secondary-400 hover:bg-secondary-700 transition-all flex items-center gap-3 font-semibold w-full rounded-lg active:scale-95 shadow-md hover:shadow-lg focus:outline-none"
       >
         {isPending ? (
           <SpinnerMini />

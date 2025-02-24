@@ -33,9 +33,9 @@ function SideNavigation({ guest }) {
         {navLinks.map((link) => (
           <li key={link.name}>
             <Link
-              className={`py-3 px-5 rounded-lg hover:bg-primary-100 hover:text-primary-800 transition-colors flex items-center gap-4 font-semibold 
+              className={`py-3 px-5 rounded-lg hover:bg-creamy-100 hover:text-primary-800 transition-colors flex items-center gap-4 font-semibold 
                 ${pathname === link.href
-                  ? "bg-primary-100 text-primary-800"
+                  ? "bg-creamy-100 text-primary-800"
                   : ""
                 }`}
               href={link.href}

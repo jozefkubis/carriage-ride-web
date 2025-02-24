@@ -47,7 +47,7 @@ export default function ImageUploader({ onImageSelect, image }) {
         {isDragActive ? (
           <p className="text-blue-500">Pustite súbor sem...</p>
         ) : (
-          <p className="text-gray-500">
+          <p className="text-primary-50">
             Pretiahnite obrázok sem alebo kliknite na výber
           </p>
         )}

@@ -15,12 +15,12 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-primary-50 gap-10">
+    <div className="flex items-center justify-center min-h-screen bg-creamy-100 gap-10">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white rounded-lg shadow-2xl p-8 space-y-6"
+        className="w-full max-w-md bg-primary-800 rounded-lg shadow-2xl p-8 space-y-6"
       >
-        <h2 className="text-2xl font-bold text-gray-800 text-center">
+        <h2 className="text-2xl font-bold text-primary-50 text-center">
           Prihlásenie
         </h2>
 
@@ -46,7 +46,7 @@ export default function LoginForm() {
           />
         </div>
 
-        <div className="flex items-center justify-between">
+        {/* <div className="flex items-center justify-between">
           <label className="flex items-center text-sm text-gray-600">
             <input
               type="checkbox"
@@ -57,20 +57,20 @@ export default function LoginForm() {
           <a href="#" className="text-sm text-primary-600 hover:underline">
             Zabudli ste heslo?
           </a>
-        </div>
+        </div> */}
 
         <ToastContainer />
 
         <LoginButton />
         <GoogleLoginButton />
 
-        <p className="text-sm text-center text-gray-600">
+        <p className="text-sm text-center text-primary-50">
           Nemáte účet?{" "}
           <Link
             href="/registration"
-            className="text-primary-600 hover:underline"
+            className="text-primary-50 hover:underline"
           >
-            Zaregistrujte sa
+            Zaregistrujte sa tu &rarr;
           </Link>
         </p>
         {/* <div className="w-full h-full"></div> */}
