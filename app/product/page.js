@@ -16,7 +16,7 @@ export default async function Page() {
   ]
 
   return (
-    <div className="flex flex-col items-center bg-secondary-100 min-h-screen">
+    <div className="flex flex-col items-center bg-primary-50 min-h-screen">
       {/* HEADER */}
       <header className="text-center mx-auto gap-5 my-20 px-5 sm:px-12">
         <h1 className="text-4xl sm:text-5xl font-bold text-gray-800">
@@ -39,7 +39,7 @@ export default async function Page() {
       {/* TLAČIDLO */}
       <div className="flex justify-center my-10">
         <Link href="/reservation">
-          <button className="bg-primary-200 text-primary-900 text-lg font-semibold px-6 py-3 rounded-md hover:bg-primary-300 transition focus:outline-none focus:ring-2 focus:ring-primary-500">
+          <button className="bg-primary-800 text-primary-50 text-lg font-semibold px-6 py-3 rounded-md hover:bg-primary-600 transition focus:outline-none focus:ring-2 focus:ring-primary-500">
             Rezervovať
           </button>
         </Link>
@@ -51,13 +51,13 @@ export default async function Page() {
 /* KOMPONENT KARTA */
 function Card({ title, image }) {
   return (
-    <div className="flex flex-col items-center text-center gap-6">
-      <div className="w-full aspect-[4/3] relative rounded-lg shadow-md overflow-hidden">
+    <div className="flex flex-col items-center text-center gap-6 bg-primary-800 rounded-lg pb-6">
+      <div className="w-full aspect-[4/3] relative rounded-t-lg shadow-md overflow-hidden">
         {image && (
           <Image src={image} alt={title} layout="fill" objectFit="cover" />
         )}
       </div>
-      <p className="text-xl font-bold text-gray-800">{title}</p>
+      <p className="text-xl font-bold text-primary-50 italic">{title}</p>
     </div>
   )
 }

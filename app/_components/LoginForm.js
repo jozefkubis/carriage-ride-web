@@ -15,10 +15,10 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50 gap-10">
+    <div className="flex items-center justify-center min-h-screen bg-primary-50 gap-10">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white rounded-lg shadow-md p-8 space-y-6"
+        className="w-full max-w-md bg-white rounded-lg shadow-2xl p-8 space-y-6"
       >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Prihlásenie

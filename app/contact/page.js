@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <div className="flex flex-col items-center bg-gray-50 min-h-screen">
+    <div className="flex flex-col items-center bg-primary-50 min-h-screen">
       {/* HEADER */}
       <header className="flex flex-col gap-5 my-10 px-5 sm:px-16 w-full max-w-3xl text-center">
         <h1 className="text-4xl sm:text-5xl font-bold text-gray-800">

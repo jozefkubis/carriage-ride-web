@@ -216,7 +216,9 @@ export async function deleteGuest(guestId) {
   // Revalidácia cache v Next.js (iba ak používaš App Router)
   if (typeof revalidatePath === "function") {
     revalidatePath("/")
+    revalidatePath("/account")
   }
+
 
   return { success: true }
 }

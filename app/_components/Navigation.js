@@ -31,7 +31,7 @@ export default async function Navigation() {
             <li key={link.name} className="active:scale-105">
               <Link
                 href={link.href}
-                className="hover:text-primary-600 transition-colors px-4 py-2"
+                className="hover:text-secondary-200 transition-colors px-4 py-2"
               >
                 {link.name}
               </Link>
@@ -51,31 +51,31 @@ export default async function Navigation() {
                   <Image
                     src={guest?.image || session.user.image || avatarSrc}
                     alt={session.user.name || "Avatar"}
-                    className="rounded-full border border-primary-600"
+                    className="rounded-full border border-primary-600 bg-primary-50"
                     referrerPolicy="no-referrer"
                     fill
                     style={{ objectFit: "cover" }}
                   />
                 </div>
 
-                <span className="whitespace-nowrap active:scale-105">
+                <span className="whitespace-nowrap active:scale-105 hover:text-secondary-200">
                   {session.user.name}
                 </span>
               </Link>
-              <SignOutButton />
+              {/* <SignOutButton /> */}
             </div>
           ) : (
             <div className="flex gap-4">
               <Link
                 href="/login"
-                className="hover:text-primary-600 transition-colors active:scale-105"
+                className="hover:text-secondary-200 transition-colors active:scale-105"
               >
                 Prihlásiť sa
               </Link>
               <span>/</span>
               <Link
                 href="/registration"
-                className="hover:text-primary-600 transition-colors active:scale-105"
+                className="hover:text-secondary-200 transition-colors active:scale-105"
               >
                 Registrovať
               </Link>

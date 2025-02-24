@@ -32,10 +32,10 @@ export default function ReservationForm({ guest, crides }) {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50 py-10">
+    <div className="flex justify-center items-center min-h-screen bg-primary-50 py-10">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-2xl bg-white shadow-md rounded-md p-8"
+        className="w-full max-w-2xl bg-white shadow-2xl rounded-lg p-8"
       >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Rezervačný formulár

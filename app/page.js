@@ -6,8 +6,8 @@ export default function Page() {
     "https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/productPics//titlepic.png"
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-secondary-100">
-      <div className="grid grid-cols-1 md:grid-cols-2 w-full max-w-screen-xl h-auto md:h-[80vh] px-6 sm:px-12 md:px-16 lg:px-32 py-10 gap-10">
+    <div className="min-h-screen flex items-center justify-center bg-primary-50">
+      <div className="grid grid-cols-1 md:grid-cols-2 w-full max-w-screen-xxl h-auto md:h-[80vh] px-6 sm:px-12 md:px-16 lg:px-44 pb-10 gap-10">
         {/* TEXTOVÁ ČASŤ */}
         <div className="flex flex-col justify-center gap-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-800 leading-tight">
@@ -18,7 +18,7 @@ export default function Page() {
             kočiari s koňmi. Užite si nezabudnuteľné chvíle s vašimi blízkymi.
           </p>
           <Link href="/product">
-            <button className="mt-4 w-fit px-6 py-3 bg-primary-200 text-primary-900 font-semibold rounded-md hover:bg-primary-300 transition focus:outline-none focus:ring-2 focus:ring-primary-500">
+            <button className="mt-4 w-fit px-6 py-3 bg-primary-800 text-primary-50 font-semibold rounded-md hover:bg-primary-600 transition focus:outline-none focus:ring-2 focus:ring-primary-500">
               Viac informácií
             </button>
           </Link>

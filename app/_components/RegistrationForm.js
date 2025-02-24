@@ -33,13 +33,8 @@ export default function RegistrationForm() {
   })
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="flex bg-white rounded-lg shadow-lg p-8 space-x-8 max-w-4xl w-full">
-        {/* 🖼 Nahrávanie obrázka vedľa formulára */}
-        <div className="w-1/3 flex items-center justify-center">
-          <ImageUploader onImageSelect={setImage} />
-        </div>
-
+    <div className="flex items-center justify-center min-h-screen bg-primary-50">
+      <div className="flex bg-white rounded-lg shadow-2xl p-8 space-x-8 max-w-4xl w-full">
         {/* 📜 Formulár */}
         <form onSubmit={handleSubmit} className="w-2/3 space-y-6">
           <h2 className="text-2xl font-bold text-gray-800 text-center">
@@ -116,6 +111,10 @@ export default function RegistrationForm() {
           <RegFormButton />
           <GoogleLoginButton />
         </form>
+
+        <div className="w-1/3 flex items-center justify-center">
+          <ImageUploader onImageSelect={setImage} />
+        </div>
       </div>
     </div>
   )
