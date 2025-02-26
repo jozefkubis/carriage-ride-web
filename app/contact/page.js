@@ -1,15 +1,15 @@
-import Link from "next/link";
-import { BsEnvelope } from "react-icons/bs";
-import { LuPhone } from "react-icons/lu";
-import { FiMapPin } from "react-icons/fi";
-import MapWrapper from "../_components/MapWrapper";
+import Link from "next/link"
+import { BsEnvelope } from "react-icons/bs"
+import { LuPhone } from "react-icons/lu"
+import { FiMapPin } from "react-icons/fi"
+import MapWrapper from "../_components/MapWrapper"
 
 export const metadata = {
   title: "Kontakt",
-};
+}
 
 export default function Page() {
-  const officeAddress = "Tajovskeho 8540, Zilina 010 01, Slovakia";
+  const officeAddress = "Tajovskeho 8540, Zilina 010 01, Slovakia"
 
   return (
     <div className="flex flex-col items-center bg-creamy-100 min-h-screen">
@@ -18,13 +18,15 @@ export default function Page() {
         <h1 className="text-4xl sm:text-5xl font-bold text-gray-800">
           Kontaktujte nás
         </h1>
-        <p className="text-lg text-gray-600">Sme tu pre vás, neváhajte nás osloviť.</p>
+        <p className="text-lg text-gray-600">
+          Sme tu pre vás, neváhajte nás osloviť.
+        </p>
       </header>
 
       {/* MAIN SECTION */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full px-5 sm:px-16 pb-20 pt-6 max-w-screen-xl">
+      <div className="flex justify-between gap-10 w-full px-32 sm:px-28 pb-20 pt-6 max-w-screen-xl">
         {/* KONTAKTNÉ ÚDAJE */}
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-1 flex-col gap-10 justify-center">
           <ContactItem
             icon={<BsEnvelope />}
             title="Email"
@@ -49,14 +51,13 @@ export default function Page() {
         </div>
 
         {/* Google Mapa */}
-        <div className="bg-primary-200 rounded-lg shadow-md flex items-center justify-center w-full h-[400px]">
+        <div className="flex-1 rounded-lg flex items-center justify-center w-full h-[400px] shadow-2xl">
           <MapWrapper address={officeAddress} />
         </div>
       </div>
     </div>
-  );
+  )
 }
-
 
 /* KOMPONENT KONTAKTNÝCH ÚDAJOV */
 function ContactItem({ icon, title, description, detail, href }) {
