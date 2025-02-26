@@ -5,7 +5,7 @@ import { FiMapPin } from "react-icons/fi"
 import MapWrapper from "../_components/MapWrapper"
 
 export default function Contacts() {
-  const officeAddress = "Tajovskeho 8540, Zilina 010 01, Slovakia"
+  const officeAddress = "Tajovskeho 8540/3f, Zilina 010 01, Slovakia"
 
   return (
     <div className="flex justify-between gap-10 w-full px-32 sm:px-28 pb-20 pt-6 max-w-screen-xl">
@@ -30,9 +30,7 @@ export default function Contacts() {
           title="Kancelária"
           description={officeAddress}
           detail="Trasa  &rarr;"
-          href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-            officeAddress
-          )}`}
+          href={`https://www.google.com/maps/dir/?api=1&origin=my_location&destination=${encodeURIComponent(officeAddress)}`}
         />
       </div>
 

@@ -1,4 +1,4 @@
-"use client" // Musí byť client-side komponent
+"use client"
 
 import { useEffect, useState } from "react"
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api"
