@@ -1,8 +1,7 @@
-import Link from "next/link"
-import CridesList from "../_components/CridesList"
 import { Suspense } from "react"
-import Spinner from "../_components/Spinner"
+import CridesList from "../_components/CridesList"
 import ProductResButton from "../_components/ProductResButton"
+import Spinner from "../_components/Spinner"
 
 export const metadata = {
   title: "Naše jazdy",

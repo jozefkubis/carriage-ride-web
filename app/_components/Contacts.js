@@ -29,8 +29,10 @@ export default function Contacts() {
           icon={<FiMapPin />}
           title="Kancelária"
           description={officeAddress}
-          detail="Trasa &rarr;"
-          href="#"
+          detail="Trasa  &rarr;"
+          href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+            officeAddress
+          )}`}
         />
       </div>
 
