@@ -47,7 +47,7 @@ export default async function Navigation() {
                 href="/account"
                 className="flex items-center gap-3 min-w-[100px]"
               >
-                <div className="relative h-11 w-11">
+                <div className="relative h-[60px] w-[60px]">
                   <Image
                     src={guest?.image || session.user.image || avatarSrc}
                     alt={session.user.name || "Avatar"}
