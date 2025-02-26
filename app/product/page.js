@@ -3,6 +3,8 @@ import CridesList from "../_components/CridesList"
 import ProductResButton from "../_components/ProductResButton"
 import Spinner from "../_components/Spinner"
 
+export const revalidate = 86400
+
 export const metadata = {
   title: "Naše jazdy",
 }

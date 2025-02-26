@@ -1,6 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 
+export const revalidate = 86400
+
 export default function Page() {
   const titlepic =
     "https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/productPics//titlepic.png"
