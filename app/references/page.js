@@ -1,4 +1,17 @@
+"use client"
+
+import { useState } from "react";
+import AddReferenceForm from "../_components/AddReferenceForm";
+import Modal from "../_components/Modal";
+
 export default function Page() {
+
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
+  const handleSubmit = () => {
+    setIsOpenModal((prev) => !prev)
+  }
+
   const references = [
     {
       name: "Jozef K.",
@@ -36,7 +49,7 @@ export default function Page() {
           <div key={index} className="bg-white shadow-lg rounded-lg p-5 text-center">
             {/* HVIEZDIČKOVÉ HODNOTENIE */}
             <p className="text-yellow-500 text-xl">{"⭐".repeat(ref.rating)}</p>
-            <p className="text-gray-700 italic mt-2">"{ref.text}"</p>
+            <p className="text-gray-700 italic mt-2">{ref.text}</p>
             <p className="text-sm text-gray-500 mt-2">
               - {ref.name}, {ref.date}
             </p>
@@ -45,9 +58,15 @@ export default function Page() {
       </div>
 
       {/* TLAČIDLO NA PRIDANIE RECENZIE (VOLITEĽNÉ) */}
-      <button className="mt-10 bg-primary-800 text-white px-6 py-3 rounded-md hover:bg-primary-600 transition">
+      <button onClick={handleSubmit} className="mt-10 bg-primary-800 text-white px-6 py-3 rounded-md hover:bg-primary-600 transition">
         Pridať referenciu
       </button>
+
+      {isOpenModal && (
+        <Modal onClose={() => setIsOpenModal(false)}>
+          <AddReferenceForm onClose={() => setIsOpenModal(false)} />
+        </Modal>
+      )}
     </div>
   );
 }
