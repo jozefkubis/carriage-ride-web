@@ -9,6 +9,7 @@ const navLinks = [
   { name: "Naše jazdy", href: "/product" },
   { name: "Rezervovať jazdu", href: "/reservation" },
   { name: "Kontaktujte nás", href: "/contact" },
+  { name: "Referencie", href: "/references" },
 ]
 
 export default async function Navigation() {
