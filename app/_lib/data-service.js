@@ -72,3 +72,17 @@ export async function getCrides() {
 
   return data
 }
+
+export async function getReferences() {
+  const { data, error } = await supabase
+    .from("references")
+    .select("*")
+    .order("id", { ascending: true })
+
+  if (error) {
+    console.error(error)
+    throw new Error("Referencie nie je možné načítať")
+  }
+
+  return data
+}

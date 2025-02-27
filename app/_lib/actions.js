@@ -271,3 +271,25 @@ export async function updateBooking(formData) {
 
   revalidatePath("/account/reservations")
 }
+
+// MARK: CreateReference................................................
+export async function createReference(formData) {
+  const name = formData.get("name");
+  const text = formData.get("text");
+  const rating = Number(formData.get("rating"));
+
+  // ✅ Ručne vytvoríme `created_at`
+  const created_at = new Date().toISOString();
+
+  const referencesData = { created_at, name, text, rating };
+
+  console.log(referencesData); // Overenie pred uložením
+
+  const { error } = await supabase.from("references").insert([referencesData]);
+
+  if (error) return { error: "Referenciu sa nepodarilo vytvoriť." };
+
+  revalidatePath("/references");
+
+  return { success: true };
+}
