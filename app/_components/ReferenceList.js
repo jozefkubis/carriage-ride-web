@@ -25,19 +25,20 @@ function ReferenceList({ references }) {
       </header>
 
       {/* GRID S REFERENCIAMI */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-screen-lg">
+      <div className="flex flex-col gap-6 w-1/3 max-w-screen-lg">
         {references.map((ref, index) => (
           <div
             key={index}
-            className="bg-white shadow-lg rounded-lg p-5 text-center"
+            className="border border-b-primary-500 p-6 text-left"
           >
             {/* HVIEZDIČKOVÉ HODNOTENIE */}
-            <p className="text-yellow-500 text-xl">{"⭐".repeat(ref.rating)}</p>
+            <p className="text-xl text-gray-800 mt-2 font-bold">{ref.name},</p>
+            <p className="text-yellow-500 text-xl">
+              {"⭐".repeat(ref.rating)}{" "}
+              {format(parseISO(ref.created_at), "dd.MM.yyyy")}
+            </p>
             <p className="text-gray-700 italic mt-2 overflow-auto">
               {ref.text}
-            </p>
-            <p className="text-sm text-gray-500 mt-2">
-              - {ref.name}, {format(parseISO(ref.created_at), "dd.MM.yyyy")}
             </p>
           </div>
         ))}
