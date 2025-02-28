@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { handleSubmitReferences } from "../_lib/functions/handleSubmitReferences"
 import SubmitReferenceButton from "./SubmitReferenceButton"
+import FormInput from "./FormInput"
 
 export default function AddReferenceForm({ onClose }) {
   const [name, setName] = useState("")
@@ -17,13 +18,16 @@ export default function AddReferenceForm({ onClose }) {
   }
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+    <div className="bg-primary-800 p-6 rounded-lg max-w-md w-full">
+      <h2 className="text-2xl font-semibold text-primary-50 mb-4">
         Pridaj referenciu
       </h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-4 bg-primary-800 w-full"
+      >
         {/* Meno */}
-        <input
+        <FormInput
           type="text"
           placeholder="Tvoje meno"
           value={name}
@@ -38,7 +42,7 @@ export default function AddReferenceForm({ onClose }) {
           value={rating}
           name="rating"
           onChange={(e) => setRating(Number(e.target.value))}
-          className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-primary-500"
+          className="mt-1 px-4 py-2 border rounded-md w-full bg-creamy-100 hover:cursor-pointer"
         >
           {[1, 2, 3, 4, 5].map((num) => (
             <option key={num} value={num}>
@@ -53,7 +57,7 @@ export default function AddReferenceForm({ onClose }) {
           value={text}
           name="text"
           onChange={(e) => setText(e.target.value)}
-          className="border border-gray-300 rounded-md p-2 w-full h-24 resize-none focus:outline-none focus:ring-2 focus:ring-primary-500"
+          className="mt-1 px-4 py-2 border rounded-md resize-none hover:cursor-pointer bg-creamy-100"
           required
         />
 

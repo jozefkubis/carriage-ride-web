@@ -30,12 +30,11 @@ export default function UpdateBookingForm({ booking, crides, onClose }) {
       onSubmit={handleSubmitUpdBookingForm}
       className="w-full border border-primary-100 rounded-md p-8 shadow-2xl bg-primary-800"
     >
-
       {/* GRID LAYOUT */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <input type="hidden" name="guestId" value={booking.guestId} readOnly />
         <input type="hidden" name="bookingId" value={booking.id} readOnly />
-
+        {/* 
         <FormInput
           label="Meno"
           id="fullName"
@@ -55,7 +54,7 @@ export default function UpdateBookingForm({ booking, crides, onClose }) {
           placeholder={email}
           disabled
           readOnly
-        />
+        /> */}
 
         <FormInput
           label="Dátum"

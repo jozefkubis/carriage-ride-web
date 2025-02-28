@@ -16,7 +16,7 @@ export default function BookingUpdateButton({ onClose }) {
         onClick={handleClick}
         type="submit"
         disabled={pending}
-        className="disable:bg-creamy-300 bg-secondary-400 text-primary-800 font-semibold py-3 rounded-md hover:bg-secondary-700 transition my-4 w-1/3"
+        className="disable:bg-creamy-300 bg-secondary-400 text-primary-800 font-semibold py-3 rounded-md hover:bg-secondary-700 transition w-full"
       >
         {pending ? <SpinnerMini /> : "Aktualizovať"}
       </button>
