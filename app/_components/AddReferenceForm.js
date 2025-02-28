@@ -53,13 +53,23 @@ export default function AddReferenceForm({ onClose }) {
 
         {/* Recenzia */}
         <textarea
-          placeholder="Napíš svoju recenziu..."
+          placeholder="Napíš svoju recenziu... (max. 100 slov)"
           value={text}
           name="text"
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => {
+            const inputText = e.target.value
+            const words = inputText.trim().split(/\s+/)
+
+            if (words.length <= 100) {
+              setText(inputText)
+            }
+          }}
           className="mt-1 px-4 py-2 border rounded-md resize-none hover:cursor-pointer bg-creamy-100"
           required
         />
+        <p className="text-sm text-gray-600 mt-1">
+          {text.trim().split(/\s+/).length}/100 slov
+        </p>
 
         {/* Tlačidlo Odoslať */}
         <SubmitReferenceButton />
