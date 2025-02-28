@@ -18,7 +18,7 @@ export default function AddReferenceForm({ onClose }) {
   }
 
   return (
-    <div className="bg-primary-800 p-6 rounded-lg max-w-md w-full">
+    <div className="bg-primary-800 p-6 rounded-lg w-full">
       <h2 className="text-2xl font-semibold text-primary-50 mb-4">
         Pridaj referenciu
       </h2>
