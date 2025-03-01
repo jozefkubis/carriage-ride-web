@@ -5,7 +5,7 @@ export const revalidate = 86400
 
 export default function Page() {
   const titlepic =
-    "https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/productPics//titlepic.png"
+    "https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/productPics//titlepic%20(1).png"
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-creamy-100">
