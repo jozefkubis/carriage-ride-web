@@ -67,7 +67,7 @@ export default function AddReferenceForm({ onClose }) {
           className="mt-1 px-4 py-2 border rounded-md resize-none hover:cursor-pointer bg-creamy-100"
           required
         />
-        <p className="text-sm text-gray-600 mt-1">
+        <p className="text-sm text-primary-50 mt-1">
           {text.trim().split(/\s+/).length}/100 slov
         </p>
 
