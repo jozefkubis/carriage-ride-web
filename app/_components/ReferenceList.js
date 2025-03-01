@@ -4,6 +4,7 @@ import { useState } from "react"
 import AddReferenceForm from "../_components/AddReferenceForm"
 import Modal from "../_components/Modal"
 import { format, parseISO } from "date-fns"
+import ReferencesMessage from "./ReferencesMessage"
 
 function ReferenceList({ references }) {
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -25,26 +26,32 @@ function ReferenceList({ references }) {
       </header>
 
       {/* GRID S REFERENCIAMI */}
-      <div className="flex flex-col w-1/2 xl:w-1/3 max-w-screen-lg">
-        {references.map((ref, index) => (
-          <div
-            key={index}
-            className="border border-b-primary-500 p-6 text-left"
-          >
-            {/* HVIEZDIČKOVÉ HODNOTENIE */}
-            <p className="text-xl text-gray-800 mb-2 font-bold">{ref.name},</p>
-            <p className="text-yellow-500 text-xl">
-              {"⭐".repeat(ref.rating)}{" "}
-              <span className="text-gray-600 text-sm">
-                {format(parseISO(ref.created_at), "dd.MM.yyyy")}
-              </span>
-            </p>
-            <p className="text-gray-700 italic mt-2 overflow-auto">
-              {ref.text}
-            </p>
-          </div>
-        ))}
-      </div>
+      {references.length > 0 ? (
+        <div className="flex flex-col w-1/2 xl:w-1/3 max-w-screen-lg">
+          {references.map((ref, index) => (
+            <div
+              key={index}
+              className="border border-b-primary-500 p-6 text-left"
+            >
+              {/* HVIEZDIČKOVÉ HODNOTENIE */}
+              <p className="text-xl text-gray-800 mb-2 font-bold">
+                {ref.name},
+              </p>
+              <p className="text-yellow-500 text-xl">
+                {"⭐".repeat(ref.rating)}{" "}
+                <span className="text-gray-600 text-sm">
+                  {format(parseISO(ref.created_at), "dd.MM.yyyy")}
+                </span>
+              </p>
+              <p className="text-gray-700 italic mt-2 overflow-auto">
+                {ref.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <ReferencesMessage />
+      )}
 
       {/* TLAČIDLO NA PRIDANIE RECENZIE (VOLITEĽNÉ) */}
       <button
