@@ -10,6 +10,7 @@ npm install date-fns
 npm install styled-components
 npm install --save react-dropzone
 npm install @react-google-maps/api
+npm install -D prettier prettier-plugin-tailwindcss
 
 
 
