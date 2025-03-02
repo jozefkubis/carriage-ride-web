@@ -23,7 +23,7 @@ export default CridesList
 
 function Card({ title, image }) {
   return (
-    <div className="flex flex-col items-center text-center gap-6 bg-primary-800 rounded-lg pb-6 shadow-xl">
+    <div className="flex flex-col items-center text-center gap-6 bg-primary-800 rounded-lg pb-6 shadow-xl hover:scale-110 transition-transform duration-300">
       <div className="w-full aspect-[4/3] relative rounded-t-lg shadow-md overflow-hidden">
         {image && (
           <Image src={image} alt={title} layout="fill" objectFit="cover" />
