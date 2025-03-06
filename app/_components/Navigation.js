@@ -1,7 +1,6 @@
+import Image from "next/image"
 import Link from "next/link"
 import { auth } from "../_lib/auth"
-import SignOutButton from "./SignOutButton"
-import Image from "next/image"
 import { getGuest } from "../_lib/data-service"
 
 const navLinks = [
