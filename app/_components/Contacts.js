@@ -1,12 +1,13 @@
-import Link from "next/link"
 import { BsEnvelope } from "react-icons/bs"
-import { LuPhone } from "react-icons/lu"
 import { FiMapPin } from "react-icons/fi"
+import { LuPhone } from "react-icons/lu"
 import MapWrapper from "../_components/MapWrapper"
 import ContactItem from "./ConstactItem"
+import { getSettings } from "../_lib/data-service"
 
-export default function Contacts() {
-  const officeAddress = "Tajovskeho 8540/3f, Zilina 010 01, Slovakia"
+export default async function Contacts() {
+
+  const { address, email, phone, } = await getSettings()
 
   return (
     <div className="flex justify-between gap-10 w-full px-32 sm:px-28 pb-20 pt-6 max-w-screen-xl">
@@ -16,28 +17,28 @@ export default function Contacts() {
           icon={<BsEnvelope />}
           title="Email"
           description="Napíšte nám na"
-          detail="info@romantickejazdy.sk"
-          href="mailto:info@romantickejazdy.sk"
+          detail={`${email}`}
+          href={`mailto:${email}`}
         />
         <ContactItem
           icon={<LuPhone />}
           title="Telefón"
           description="Zavolajte nám na"
-          detail="+421 907 123 456"
-          href="tel:+421907123456"
+          detail={`+421 ${phone}`}
+          href={`tel:+421${phone}`}
         />
         <ContactItem
           icon={<FiMapPin />}
           title="Kancelária"
-          description={officeAddress}
+          description={address}
           detail="Trasa  &rarr;"
-          href={`https://www.google.com/maps/dir/?api=1&origin=my_location&destination=${encodeURIComponent(officeAddress)}`}
+          href={`https://www.google.com/maps/dir/?api=1&origin=my_location&destination=${encodeURIComponent(address)}`}
         />
       </div>
 
       {/* Google Mapa */}
       <div className="flex-1 rounded-lg flex items-center justify-center w-full h-[400px] shadow-2xl">
-        <MapWrapper address={officeAddress} />
+        <MapWrapper address={address} />
       </div>
     </div>
   )
