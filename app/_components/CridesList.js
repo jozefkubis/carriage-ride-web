@@ -4,15 +4,11 @@ import { getCrides } from "../_lib/data-service"
 async function CridesList() {
   const crides = await getCrides()
 
-  const titles = [
-    "Jazdy pre páry na romantické chvíle",
-    "Rodinné jazdy pre všetkých členov rodiny",
-    "Špeciálne udalosti a oslavy v kočiari",
-  ]
+  const descriptions = crides.map((cride) => cride.description)
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 w-full px-6 sm:px-20 lg:px-36 mb-16">
-      {titles.map((title, index) => (
+      {descriptions.map((title, index) => (
         <Card key={index} title={title} image={crides[index]?.image} />
       ))}
     </div>
