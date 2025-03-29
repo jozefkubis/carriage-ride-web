@@ -25,7 +25,6 @@ function ReferenceList({ references }) {
         </p>
       </header>
 
-      {/* GRID S REFERENCIAMI */}
       {references.length > 0 ? (
         <div className="flex flex-col w-1/2 2xl:w-1/3 xl:w-1/2 max-w-screen-lg">
           {references.map((ref, index) => (
