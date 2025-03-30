@@ -73,6 +73,20 @@ export async function getCrides() {
   return data
 }
 
+export async function getLandingPageData() {
+  const { data, error } = await supabase
+    .from("landingPage")
+    .select("*")
+    .single()
+
+  if (error) {
+    console.error(error)
+    throw new Error("Nastavenia nie je možné načítať")
+  }
+
+  return data
+  }
+
 export async function getReferences() {
   const { data, error } = await supabase
     .from("references")

@@ -1,11 +1,17 @@
 import Image from "next/image"
 import Link from "next/link"
+import { getLandingPageData } from "./_lib/data-service"
 
 export const revalidate = 86400
 
-export default function Page() {
-  const titlepic =
-    "https://jlfekazftgytoziyfzfn.supabase.co/storage/v1/object/public/productPics//titlepic%20(1).png"
+export default async function Page() {
+
+const landingPage = await getLandingPageData()
+
+const {header, text, image} = landingPage
+
+  const titlepic = image
+    
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-creamy-100">
@@ -13,11 +19,10 @@ export default function Page() {
         {/* TEXTOVÁ ČASŤ */}
         <div className="flex flex-col justify-center gap-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-primary-800 leading-tight">
-            Carriage Ride
+            {header}
           </h1>
           <p className="text-base sm:text-lg text-primary-600">
-            Vitajte na našej stránke, kde ponúkame romantické jazdy mestom v
-            kočiari s koňmi. Užite si nezabudnuteľné chvíle s vašimi blízkymi.
+            {text}
           </p>
           <Link href="/product">
             <button className="mt-4 w-fit px-6 py-3 bg-primary-800 text-primary-50 font-semibold rounded-md hover:bg-primary-600 transition focus:outline-none focus:ring-2 focus:ring-primary-500">
